@@ -15,6 +15,7 @@
 	<packaging>war</packaging>
 	<name>iiif</name>
 	<description>API REST IIIF</description>
+	
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -41,9 +42,20 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+		
 	</dependencies>
 
 	<build>
+    	<resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>${project.build.outputDirectory}</targetPath>
+                <includes>
+                    <include>application.properties</include>
+                </includes>
+            </resource>
+        </resources>
+        
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
