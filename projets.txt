@@ -1,0 +1,9 @@
+server IIIF
+Visualiseur IIIF (entierement ou integration)
+OCR
+OMR
+player video
+player pdf
+IIIF video
+
+
