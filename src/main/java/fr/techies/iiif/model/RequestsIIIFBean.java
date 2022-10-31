@@ -14,7 +14,7 @@ public class RequestsIIIFBean {
 	
 //	private boolean mirroring;
 	
-	private Double rotation;
+	private String rotation;
 	
 	private String quality;
 	
@@ -23,7 +23,7 @@ public class RequestsIIIFBean {
 	public RequestsIIIFBean() {
 	}
 
-	public RequestsIIIFBean(String id, String region, String size, Double rotation, String quality,
+	public RequestsIIIFBean(String id, String region, String size, String rotation, String quality,
 			ExtensionEnum format) {
 		this.id = id;
 		this.region = region;
@@ -57,11 +57,11 @@ public class RequestsIIIFBean {
 		this.size = size;
 	}
 
-	public Double getRotation() {
+	public String getRotation() {
 		return rotation;
 	}
 
-	public void setRotation(Double rotation) {
+	public void setRotation(String rotation) {
 		this.rotation = rotation;
 	}
 

@@ -85,7 +85,7 @@ public class ImageMagickService {
 //		String region = iiifRequests.getRegion();
 //		String size = iiifRequests.getSize();
 //		boolean mirroring = isMirroring();
-		Double rotation = iiifRequests.getRotation();
+		Double rotation = Double.valueOf(iiifRequests.getRotation());
 //		String quality = iiifRequests.getQuality();
 		ExtensionEnum extension = iiifRequests.getFormat();
 		
