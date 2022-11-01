@@ -1,4 +1,4 @@
-package fr.techies.iiif;
+package fr.techies.iiif.utilies;
 
 import java.io.IOException;
 
