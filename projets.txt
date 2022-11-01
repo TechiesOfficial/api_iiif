@@ -1,4 +1,5 @@
 server IIIF
+Ajouter la possiblité de passer d'une image à l'autre en suivant des liens.
 Visualiseur IIIF (entierement ou integration)
 OCR
 OMR

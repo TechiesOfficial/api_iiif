@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import fr.techies.iiif.IIIFRequestParametersValidator;
+import fr.techies.iiif.InfoBean;
 import fr.techies.iiif.common.enums.ExtensionEnum;
 import fr.techies.iiif.common.mappers.MediaTypeMapper;
 import fr.techies.iiif.model.RequestsIIIFBean;
@@ -25,6 +26,14 @@ public class IiifController {
 
 	@Autowired
 	private ImageMagickService imageMagickService;
+
+	@GetMapping("/{id}/info.json")
+	public ResponseEntity<?> info(@PathVariable String id) {
+
+		
+		
+		return new ResponseEntity<InfoBean>(new InfoBean(), HttpStatus.OK);
+	}
 
 	/**
 	 * Point d'entrée des requêtes IIIF.
@@ -53,19 +62,18 @@ public class IiifController {
 		byte[] image = null;
 
 		errors = this.iiifRequestParametersValidator.validateParameters(id, region, size, rotation, quality, format);
-		if(!errors.isEmpty()) {
-			
+		if (!errors.isEmpty()) {
+
 			StringBuilder sb = new StringBuilder("<html><body>");
 			for (String error : errors) {
-				
+
 				sb.append("<ul>" + error + "</ul>");
 			}
-			
+
 			response = new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
 			return response;
 		}
-			
-		
+
 		// Construction du Bean représentant les critères IIIF
 		iiifRequests = new RequestsIIIFBean(id, region, size, rotation, quality, ExtensionEnum.valueOf(format));
 
