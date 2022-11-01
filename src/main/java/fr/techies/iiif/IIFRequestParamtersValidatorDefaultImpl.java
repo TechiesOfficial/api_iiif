@@ -1,5 +1,6 @@
 package fr.techies.iiif;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -8,8 +9,8 @@ import org.springframework.stereotype.Service;
 public class IIFRequestParamtersValidatorDefaultImpl extends IIIFRequestParametersValidator{
 
 	@Override
-	protected List<String> validateIDandPage() {
+	protected List<String> validateID() {
 		
-		return null;
+		return new ArrayList<String>();
 	}
 }

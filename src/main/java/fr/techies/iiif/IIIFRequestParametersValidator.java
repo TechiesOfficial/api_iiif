@@ -6,12 +6,12 @@ import java.util.regex.Pattern;
 
 public abstract class IIIFRequestParametersValidator {
 
-	public List<String> validateParameters(String id, String page, String region, String size, String rotation,
+	public List<String> validateParameters(String id, String region, String size, String rotation,
 			String quality, String format) {
 
 		List<String> errors = new ArrayList<>();
 
-		errors.addAll(this.validateIDandPage());
+		errors.addAll(this.validateID());
 		errors.addAll(this.validateRegion(region));
 		errors.addAll(this.validateSize(size));
 		errors.addAll(this.validateRotation(rotation));
@@ -20,7 +20,7 @@ public abstract class IIIFRequestParametersValidator {
 		return errors;
 	}
 
-	protected abstract List<String> validateIDandPage();
+	protected abstract List<String> validateID();
 
 	private List<String> validateQuality(String quality) {
 		List<String> errors = new ArrayList<>();

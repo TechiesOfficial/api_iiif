@@ -42,21 +42,14 @@ public class IiifController {
 	 * 
 	 * @return {@link ResponseEntity} de type byte (données brut image).
 	 */
-	@GetMapping("/{id}/{page}/{region}/{size}/{rotation}/{quality}.{format}")
+	@GetMapping("/{id}/{region}/{size}/{rotation}/{quality}.{format}")
 	public ResponseEntity<byte[]> displayIIIF(
 			@PathVariable String id,
-			@PathVariable String page,
 			@PathVariable String region,
 			@PathVariable String size,
 			@PathVariable String rotation,
 			@PathVariable String quality,
 			@PathVariable String format) {
-		
-		/*
-		 * TODO : pour l'instant, seul l'id, la rotation et l'extension sont pris en compte !!
-		 * Page non pris en compte !
-		 * Pour le reste, il faut mettre des valeurs de base (full etc ..)
-		 */
 		
 		ResponseEntity<byte[]> response = null;
 		RequestsIIIFBean iiifRequests = null;
@@ -64,7 +57,7 @@ public class IiifController {
 		MediaType mediaType = null;
 		byte[] image = null;
 		
-		this.iiifRequestParametersValidator.validateParameters(id, page, region, size, rotation, quality, format);
+		this.iiifRequestParametersValidator.validateParameters(id, region, size, rotation, quality, format);
 		
 		// Construction du Bean représentant les critères IIIF
 		iiifRequests = new RequestsIIIFBean(id, region, size, rotation, quality, ExtensionEnum.valueOf(format));

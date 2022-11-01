@@ -62,6 +62,7 @@ public class ImageFileUtil {
 		
 		try {
 			Path path = Paths.get(dirTmpPath);
+			if(!path.toFile().exists())
 			Files.createDirectory(path);
 			
 		} catch (IOException e) {

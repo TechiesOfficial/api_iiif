@@ -3,23 +3,21 @@ package fr.techies.iiif.model;
 import fr.techies.iiif.common.enums.ExtensionEnum;
 
 public class RequestsIIIFBean {
-	
+
 	private String id;
-	
-//	private int page;
-	
+
 	private String region;
-	
+
 	private String size;
-	
-//	private boolean mirroring;
-	
+
+	private boolean mirroring;
+
 	private String rotation;
-	
+
 	private String quality;
-	
+
 	private ExtensionEnum format;
-	
+
 	public RequestsIIIFBean() {
 	}
 
@@ -80,5 +78,13 @@ public class RequestsIIIFBean {
 	public void setFormat(ExtensionEnum format) {
 		this.format = format;
 	}
-	
+
+	public boolean isMirroring() {
+		return mirroring;
+	}
+
+	public void setMirroring(boolean mirroring) {
+		this.mirroring = mirroring;
+	}
+
 }
