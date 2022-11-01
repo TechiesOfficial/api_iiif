@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class IIFRequestParamtersValidatorDefaultImpl extends IIIFRequestParametersValidator{
+public class IIFRequestParamtersValidatorDefaultImpl extends IIIFRequestParametersValidator {
 
 	@Override
 	protected List<String> validateID() {
-		
+
 		return new ArrayList<String>();
 	}
 }

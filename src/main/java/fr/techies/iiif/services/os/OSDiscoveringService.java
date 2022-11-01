@@ -10,27 +10,26 @@ import org.springframework.stereotype.Service;
 public class OSDiscoveringService {
 
 	private Logger logger = LoggerFactory.getLogger(OSDiscoveringService.class);
-	
+
 	private boolean isWindows = true;
-	
+
 	@PostConstruct
 	private void init() {
-		
+
 		String osName = System.getProperty("os.name").toLowerCase();
-		
+
 		logger.info("Le système d'exploitation retourné par le système est : " + osName);
-		
-		if(osName.contains("windows".toLowerCase())) {
+
+		if (osName.contains("windows".toLowerCase())) {
 			this.isWindows = true;
-		}
-		else {
-			
-			//TODO: implémenter linux ou autre.
+		} else {
+
+			// TODO: implémenter linux ou autre.
 		}
 	}
-	
+
 	public boolean isWindows() {
-		
+
 		return this.isWindows;
 	}
 }
