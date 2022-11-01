@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 
 public abstract class IIIFRequestParametersValidator {
 
-	public List<String> validateParameters(String id, String region, String size, String rotation,
-			String quality, String format) {
+	public List<String> validateParameters(String id, String region, String size, String rotation, String quality,
+			String format) {
 
 		List<String> errors = new ArrayList<>();
 
@@ -20,6 +20,11 @@ public abstract class IIIFRequestParametersValidator {
 		return errors;
 	}
 
+	/**
+	 * La validation de l'id
+	 * 
+	 * @return
+	 */
 	protected abstract List<String> validateID();
 
 	private List<String> validateQuality(String quality) {

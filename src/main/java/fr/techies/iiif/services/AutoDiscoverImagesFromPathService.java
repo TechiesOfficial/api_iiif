@@ -1,6 +1,5 @@
 package fr.techies.iiif.services;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
@@ -9,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
@@ -23,30 +21,21 @@ import fr.techies.iiif.services.os.OSDiscoveringService;
 /**
  * Implémentation basique d'un scanner de fichier pour les images.
  * 
- * Le format attendu du repertoire des images est :
- * -racine (variable path.dir actuellement)
- * 		|-id1 (peu importe)
- * 			|-page1
- * 			|-page2
- * 			|-...
- * 		|-id2
- * 			|-page1
- * 			|-page2
- * 			|-...
- * 		|-...
+ * Mets en cache dans une hashmap tous les fichiers.
  * 
- * 
- * TODO: ajouter la possibilité de spécifier plusieurs racines.
+ * TODO: ajouter la possibilité de spécifier plusieurs racines. TODO: une fois
+ * la liste des types d'images officiellement gérée définie, ne prendre en
+ * compte que ces fichiers.
  *
  */
 @Service
 public class AutoDiscoverImagesFromPathService {
 
 	private Logger logger = LoggerFactory.getLogger(OSDiscoveringService.class);
-	
+
 	@Value("${iiif.dir.path}")
 	private String dirPath;
-	
+
 	private Map<String, Path> fileFromId = new HashMap<String, Path>();
 
 	@PostConstruct
@@ -55,7 +44,7 @@ public class AutoDiscoverImagesFromPathService {
 		try {
 			FileVisitorImpl fileVisitorImpl = new FileVisitorImpl(this.fileFromId);
 			Path path = Path.of(dirPath);
-			
+
 			Files.walkFileTree(path, fileVisitorImpl);
 
 		} catch (IOException e) {
@@ -63,16 +52,16 @@ public class AutoDiscoverImagesFromPathService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String getFile(String idAndPage) {
-		
+
 		return this.fileFromId.get(idAndPage).toString();
 	}
 
 	private class FileVisitorImpl implements FileVisitor<Path> {
 
 		private Map<String, Path> fileFromId;
-		
+
 		public FileVisitorImpl(Map<String, Path> fileFromId) {
 			this.fileFromId = fileFromId;
 		}
@@ -86,7 +75,7 @@ public class AutoDiscoverImagesFromPathService {
 		@Override
 		public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 			logger.debug("visitFile " + file);
-			
+
 			this.fileFromId.put(file.getFileName().toString(), file);
 			return FileVisitResult.CONTINUE;
 		}

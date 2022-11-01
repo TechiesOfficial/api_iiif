@@ -3,8 +3,6 @@ package fr.techies.iiif.services;
 import java.io.File;
 import java.io.IOException;
 
-import javax.annotation.PostConstruct;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +29,7 @@ public class ImageMagickService {
 
 	@Autowired
 	private AutoDiscoverImagesFromPathService autoDiscoverImagesFromPathService;
-	
+
 	@Value("${iiif.dir.path}")
 	private String dirPath;
 
@@ -99,7 +97,7 @@ public class ImageMagickService {
 	 * 
 	 * @param iiifRequests
 	 * @return
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	private String buildImageMagickCmd(RequestsIIIFBean iiifRequests) throws IOException {
 
@@ -125,7 +123,7 @@ public class ImageMagickService {
 		}
 
 		// Ecriture du path total vers le tmp de sortie
-		this.pathTmp = dirPath +"/" + "tmp/" + imgName + "." + extension;
+		this.pathTmp = dirPath + "/" + "tmp/" + imgName + "." + extension;
 		cmd.append(" " + this.pathTmp);
 
 		return cmd.toString();
