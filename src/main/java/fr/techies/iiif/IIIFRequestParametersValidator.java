@@ -21,17 +21,30 @@ public abstract class IIIFRequestParametersValidator {
 	}
 
 	/**
-	 * La validation de l'id
+	 * La validation de l'id. Concrètement, le but est de trouver l'image
+	 * correspondante.
 	 * 
-	 * @return
+	 * @return une {@link List} d'erreurs
 	 */
 	protected abstract List<String> validateID();
 
 	private List<String> validateQuality(String quality) {
 		List<String> errors = new ArrayList<>();
-		String pixelPattern = new String();
-		String pctPatterN = new String();
 
+		switch (quality) {
+		case "color":
+			break;
+		case "gray":
+			break;
+		case "bitonal":
+			break;
+		case "default":
+			break;
+		default:
+			errors.add("Impossible de parser le champ quality, la valeur: " + quality + " n'est pas reconnue");
+			break;
+		}
+		
 		return errors;
 	}
 
@@ -40,22 +53,43 @@ public abstract class IIIFRequestParametersValidator {
 		String pattern = new String("!?\\b([0-9]|[1-9][0-9]|[12][0-9]{2}|3[0-5][0-9]|360)\\b");
 		List<String> errors = new ArrayList<>();
 
+		if(!Pattern.matches(pattern, rotation)) {
+		
+			errors.add("Impossible de parser le champ rotation, la valeur: " + rotation + " n'est pas reconnue");
+		}
+		
 		return errors;
 	}
 
 	private List<String> validateSize(String size) {
 
-		String pattern = new String("!?\\b([0-9]|[1-9][0-9]|[12][0-9]{2}|3[0-5][0-9]|360)\\b");
+		//TODO: Revoir l'expression régulière car il est possible de ne mettre qu'une virgule toute seule sans chiffres. Pas très grave, c'est un cas très tordu.
+		String pixelPattern = new String("^\\^?!?\\d*,\\d*$");
+		String pctPattern = new String("^\\^?pct:\\d+$");
 		List<String> errors = new ArrayList<>();
 
+		switch (size) {
+		case "max":
+			break;
+		case "^max":
+			break;
+		default:
+			if (!Pattern.matches(pixelPattern, size) && !Pattern.matches(pctPattern, size))  {
+				errors.add("Impossible de parser le champ size, la valeur: " + size + " n'est pas reconnue");
+			}
+
+			break;
+		}
+		
 		return errors;
 	}
 
 	private List<String> validateRegion(String region) {
 
 		List<String> errors = new ArrayList<>();
-		String pixelPattern = new String();
-		String pctPattern = new String();
+		// TODO: gerer le fait que 0 ne soit probablement pas une bonne valeur
+		String pixelPattern = new String("\\d+,\\d+,\\d+,\\d+");
+		String pctPattern = new String("pct:\\d+,\\d+,\\d+,\\d+");
 
 		switch (region) {
 		case "full":
@@ -63,13 +97,11 @@ public abstract class IIIFRequestParametersValidator {
 		case "square":
 			break;
 		default:
-			if (!Pattern.matches(pixelPattern, pctPattern) && !Pattern.matches(region, pctPattern)) {
-				errors.add("Impossible de parser le champ region, la valeur: " + region + "n'est pas reconnue");
+			if (!Pattern.matches(pixelPattern, region) && !Pattern.matches(pctPattern, region)) {
+				errors.add("Impossible de parser le champ region, la valeur: " + region + " n'est pas reconnue");
 			}
-
 			break;
 		}
-
 		return errors;
 	}
 }
