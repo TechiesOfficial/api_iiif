@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import fr.techies.iiif.common.cmd.GenericCommandLineExecutor;
+
 public class MagickCmdLineExecutor {
 
 	@Autowired
