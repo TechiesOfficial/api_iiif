@@ -1,4 +1,4 @@
-package fr.techies.iiif;
+package fr.techies.iiif.services.image.register;
 
 import java.nio.file.Path;
 

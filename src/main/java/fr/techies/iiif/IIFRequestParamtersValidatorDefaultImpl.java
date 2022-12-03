@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import fr.techies.iiif.controller.validation.IIIFRequestParametersValidator;
+
 @Service
 public class IIFRequestParamtersValidatorDefaultImpl extends IIIFRequestParametersValidator {
 

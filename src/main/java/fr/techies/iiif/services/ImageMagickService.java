@@ -15,6 +15,7 @@ import fr.techies.iiif.common.enums.ExtensionEnum;
 import fr.techies.iiif.common.utils.ImageFileUtil;
 import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.model.RequestsIIIFBean;
+import fr.techies.iiif.services.command.ImageMagickExecutableFinder;
 import fr.techies.iiif.services.image.register.AutoDiscoverImagesFromPathService;
 import fr.techies.iiif.services.os.OSDiscoveringService;
 
@@ -24,8 +25,8 @@ public class ImageMagickService {
 	private Logger logger = LoggerFactory.getLogger(ImageMagickService.class);
 
 	@Autowired
-	private ResourceLoader resourceLoader;
-
+	private ImageMagickExecutableFinder imageMagickExecutableFinder;
+	
 	@Autowired
 	private OSDiscoveringService osDiscoveringService;
 
@@ -35,29 +36,7 @@ public class ImageMagickService {
 	@Value("${iiif.dir.path}")
 	private String dirPath;
 
-	private String pathImage;
-
 	private String pathTmp;
-
-	public String getMagickExecutable() throws IOException {
-
-		Resource resource = resourceLoader.getResource("classpath:magick/win/magick.exe");
-		String exePath = null;
-
-		try {
-			if (!resource.exists()) {
-				logger.error("Impossible de trouver le chemin vers l'exécutable magick.exe");
-			} else {
-				exePath = resource.getFile().getAbsolutePath();
-				logger.info("Le path vers l'exécutable magick.exe est : " + exePath);
-			}
-		} catch (IOException e) {
-			// Une erreur non prévue. On rethrow pour tout arrêter
-			throw e;
-		}
-
-		return exePath;
-	}
 
 	/**
 	 * Gestion de l'image par ImageMagick.
@@ -103,7 +82,7 @@ public class ImageMagickService {
 	 */
 	private String buildImageMagickCmd(RequestsIIIFBean iiifRequests) throws IOException {
 
-		StringBuilder cmd = new StringBuilder(this.getMagickExecutable());
+		StringBuilder cmd = new StringBuilder(this.imageMagickExecutableFinder.getMagickExecutable());
 
 		String imgName = iiifRequests.getId();
 //		int page = iiifRequests.getPage();
@@ -133,6 +112,8 @@ public class ImageMagickService {
 		this.pathTmp = dirPath + "/" + "tmp/" + imgName + "." + extension;
 		cmd.append(" " + this.pathTmp);
 
+		this.logger.info(cmd.toString());
+		
 		return cmd.toString();
 	}
 

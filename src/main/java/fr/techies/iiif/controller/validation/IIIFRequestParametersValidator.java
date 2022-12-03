@@ -1,4 +1,4 @@
-package fr.techies.iiif;
+package fr.techies.iiif.controller.validation;
 
 import java.util.ArrayList;
 import java.util.List;

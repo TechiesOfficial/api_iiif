@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import fr.techies.iiif.ImageRegister;
 import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.services.os.OSDiscoveringService;
 

@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.techies.iiif.IIIFRequestParametersValidator;
 import fr.techies.iiif.common.enums.ExtensionEnum;
 import fr.techies.iiif.controller.ImageAPIController;
+import fr.techies.iiif.controller.validation.IIIFRequestParametersValidator;
 import fr.techies.iiif.exception.ImageAPIRequestFormatException;
 import fr.techies.iiif.model.RequestsIIIFBean;
 
