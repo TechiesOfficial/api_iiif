@@ -1,4 +1,4 @@
-package fr.techies.iiif.services;
+package fr.techies.iiif.services.image.register;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;

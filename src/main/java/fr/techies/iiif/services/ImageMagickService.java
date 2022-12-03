@@ -15,6 +15,7 @@ import fr.techies.iiif.common.enums.ExtensionEnum;
 import fr.techies.iiif.common.utils.ImageFileUtil;
 import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.model.RequestsIIIFBean;
+import fr.techies.iiif.services.image.register.AutoDiscoverImagesFromPathService;
 import fr.techies.iiif.services.os.OSDiscoveringService;
 
 @Service
