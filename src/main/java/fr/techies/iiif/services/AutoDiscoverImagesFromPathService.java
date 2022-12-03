@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import fr.techies.iiif.ImageRegister;
+import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.services.os.OSDiscoveringService;
 
 /**
@@ -29,7 +31,7 @@ import fr.techies.iiif.services.os.OSDiscoveringService;
  *
  */
 @Service
-public class AutoDiscoverImagesFromPathService {
+public class AutoDiscoverImagesFromPathService implements ImageRegister{
 
 	private Logger logger = LoggerFactory.getLogger(OSDiscoveringService.class);
 
@@ -53,9 +55,13 @@ public class AutoDiscoverImagesFromPathService {
 		}
 	}
 
-	public String getFile(String idAndPage) {
-
-		return this.fileFromId.get(idAndPage).toString();
+	@Override
+	public Path getPath(String imageId) throws ImageNotFoundException {
+		
+		if(this.fileFromId.get(imageId)!=null)
+			return this.fileFromId.get(imageId);
+		
+		throw new ImageNotFoundException();
 	}
 
 	private class FileVisitorImpl implements FileVisitor<Path> {

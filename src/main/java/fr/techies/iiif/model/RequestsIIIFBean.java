@@ -29,6 +29,8 @@ public class RequestsIIIFBean {
 		this.rotation = rotation;
 		this.quality = quality;
 		this.format = format;
+		if(rotation.contains("!"))
+			this.mirroring=true;
 	}
 
 	public String getId() {

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.common.enums.ExtensionEnum;
 import fr.techies.iiif.common.utils.ImageFileUtil;
+import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.model.RequestsIIIFBean;
 import fr.techies.iiif.services.os.OSDiscoveringService;
 
@@ -115,7 +116,12 @@ public class ImageMagickService {
 		// Ecriture du path total vers l'image en entrée
 		// FIXME : '.*' trouver une meilleure solution
 		cmd.append(" ");
-		cmd.append(this.autoDiscoverImagesFromPathService.getFile(iiifRequests.getId()));
+		try {
+			cmd.append(this.autoDiscoverImagesFromPathService.getPath(iiifRequests.getId()));
+		} catch (ImageNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// ROTATION
 		if (rotation != null && rotation > 0) {
