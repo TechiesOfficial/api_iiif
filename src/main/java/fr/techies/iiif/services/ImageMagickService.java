@@ -117,32 +117,4 @@ public class ImageMagickService {
 		return cmd.toString();
 	}
 
-	/**
-	 * Exécute la commande ImageMagick.
-	 * 
-	 * @param cmd - commande à lancer
-	 */
-	private void exec(String cmd) {
-
-		ProcessBuilder builder = new ProcessBuilder();
-
-		try {
-			if (osDiscoveringService.isWindows()) {
-				builder.command("cmd.exe", "/c", cmd);
-			} else {
-				builder.command("sh", "-c", cmd);
-			}
-
-			builder.directory(new File(dirPath));
-			Process process = builder.start();
-
-			// Attendre fin du process
-			process.waitFor();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
 }

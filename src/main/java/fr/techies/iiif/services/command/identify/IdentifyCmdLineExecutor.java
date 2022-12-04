@@ -1,4 +1,4 @@
-package fr.techies.iiif.services.command;
+package fr.techies.iiif.services.command.identify;
 
 import java.io.IOException;
 
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.common.cmd.GenericCommandLineExecutor;
+import fr.techies.iiif.services.command.ImageMagickExecutableFinder;
 
 @Service
 public class IdentifyCmdLineExecutor {

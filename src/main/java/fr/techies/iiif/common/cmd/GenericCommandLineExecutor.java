@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import fr.techies.iiif.services.os.OSDiscoveringService;
 @Service
 public class GenericCommandLineExecutor {
 
+	private Logger logger = LoggerFactory.getLogger(GenericCommandLineExecutor.class);
+	
 	@Value("${iiif.dir.path}")
 	private String dirPath;
 	
@@ -39,6 +43,8 @@ public class GenericCommandLineExecutor {
 			} else {
 				builder.command("sh", "-c", cmd);
 			}
+			
+			this.logger.info(builder.command().toString());
 
 			builder.directory(new File(dirPath));
 			Process process = builder.start();

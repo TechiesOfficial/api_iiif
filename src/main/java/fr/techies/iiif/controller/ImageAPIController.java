@@ -13,6 +13,7 @@ import fr.techies.iiif.InfoBean;
 import fr.techies.iiif.common.enums.ExtensionEnum;
 import fr.techies.iiif.common.mappers.MediaTypeMapper;
 import fr.techies.iiif.exception.ImageAPIRequestFormatException;
+import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.services.ImageAPIService;
 
 /**
@@ -61,21 +62,19 @@ public class ImageAPIController {
 		try {
 			image = this.getResultingImage(id, view, region, size, rotation, quality, format);
 
-			if (image != null) {
-				// Construction du header et don son mediaType
-				mediaType = MediaTypeMapper.mediaTypeMapper(ExtensionEnum.valueOf(format));
-				httpHeaders.setContentType(mediaType);
+			// Construction du header et don son mediaType
+			mediaType = MediaTypeMapper.mediaTypeMapper(ExtensionEnum.valueOf(format));
+			httpHeaders.setContentType(mediaType);
 
-				// Réponse à retourner
-				responseEntity = new ResponseEntity<byte[]>(image, httpHeaders, HttpStatus.OK);
-			} else {
-				responseEntity = new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
-			}
+			// Réponse à retourner
+			responseEntity = new ResponseEntity<byte[]>(image, httpHeaders, HttpStatus.OK);
 
 		} catch (ImageAPIRequestFormatException e) {
 			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		} catch (ImageNotFoundException e) {
+			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
-		
+
 		return responseEntity;
 	}
 
@@ -106,26 +105,24 @@ public class ImageAPIController {
 		try {
 			image = this.getResultingImage(id, null, region, size, rotation, quality, format);
 
-			if (image != null) {
-				// Construction du header et don son mediaType
-				mediaType = MediaTypeMapper.mediaTypeMapper(ExtensionEnum.valueOf(format));
-				httpHeaders.setContentType(mediaType);
+			// Construction du header et de son mediaType
+			mediaType = MediaTypeMapper.mediaTypeMapper(ExtensionEnum.valueOf(format));
+			httpHeaders.setContentType(mediaType);
 
-				// Réponse à retourner
-				responseEntity = new ResponseEntity<byte[]>(image, httpHeaders, HttpStatus.OK);
-			} else {
-				responseEntity = new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
-			}
+			// Réponse à retourner
+			responseEntity = new ResponseEntity<byte[]>(image, httpHeaders, HttpStatus.OK);
 
 		} catch (ImageAPIRequestFormatException e) {
 			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		} catch (ImageNotFoundException e) {
+			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 
 		return responseEntity;
 	}
 
 	private byte[] getResultingImage(String id, String view, String region, String size, String rotation,
-			String quality, String format) throws ImageAPIRequestFormatException {
+			String quality, String format) throws ImageAPIRequestFormatException, ImageNotFoundException {
 		return this.imageAPIService.getResultingImage(id, view, region, size, rotation, quality, format);
 	}
 }

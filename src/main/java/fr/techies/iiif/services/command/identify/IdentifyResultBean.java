@@ -1,4 +1,4 @@
-package fr.techies.iiif.services.command;
+package fr.techies.iiif.services.command.identify;
 
 public class IdentifyResultBean {
 	private String filesize;

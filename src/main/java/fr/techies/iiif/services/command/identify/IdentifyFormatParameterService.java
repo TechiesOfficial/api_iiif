@@ -1,4 +1,4 @@
-package fr.techies.iiif.services.command;
+package fr.techies.iiif.services.command.identify;
 
 import org.springframework.stereotype.Service;
 
@@ -27,6 +27,4 @@ public class IdentifyFormatParameterService {
 		
 		return sb.toString();
 	}
-	
-	
 }

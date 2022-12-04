@@ -40,7 +40,7 @@ public class AutoDiscoverImagesFromPathService implements ImageRegister{
 	private Map<String, Path> fileFromId = new HashMap<String, Path>();
 
 	@PostConstruct
-	public void discoverImages() {
+	private void discoverImages() {
 
 		try {
 			FileVisitorImpl fileVisitorImpl = new FileVisitorImpl(this.fileFromId);
@@ -60,7 +60,7 @@ public class AutoDiscoverImagesFromPathService implements ImageRegister{
 		if(this.fileFromId.get(imageId)!=null)
 			return this.fileFromId.get(imageId);
 		
-		throw new ImageNotFoundException();
+		throw new ImageNotFoundException("L'image " + imageId + " n'a pas été trouvée");
 	}
 
 	private class FileVisitorImpl implements FileVisitor<Path> {

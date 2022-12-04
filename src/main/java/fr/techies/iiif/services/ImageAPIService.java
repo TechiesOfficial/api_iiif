@@ -1,15 +1,20 @@
 package fr.techies.iiif.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.common.enums.ExtensionEnum;
 import fr.techies.iiif.controller.ImageAPIController;
 import fr.techies.iiif.controller.validation.IIIFRequestParametersValidator;
 import fr.techies.iiif.exception.ImageAPIRequestFormatException;
+import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.model.RequestsIIIFBean;
+import fr.techies.iiif.services.command.magick.MagickCmdLineExecutor;
+import fr.techies.iiif.services.image.register.AutoDiscoverImagesFromPathService;
 
 /**
  * On separe le controller {@link ImageAPIController} de l'implémentation concrète de l'API.
@@ -18,18 +23,24 @@ import fr.techies.iiif.model.RequestsIIIFBean;
 @Service
 public class ImageAPIService {
 
+	@Value("${iiif.dir.path}")
+	private String dirPath;
+	
 	@Autowired
 	private IIIFRequestParametersValidator iiifRequestParametersValidator;
 
 	@Autowired
-	private ImageMagickService imageMagickService;
+	private MagickCmdLineExecutor magickCmdLineExecutor;
 	
+	@Autowired
+	private AutoDiscoverImagesFromPathService autoDiscoverImagesFromPathService;
 	
 	public byte[] getResultingImage(String id, String view, String region, String size, String rotation, String quality,
-			String format) throws ImageAPIRequestFormatException {
+			String format) throws ImageAPIRequestFormatException, ImageNotFoundException {
 		
 		List<String> errors = null;
-		RequestsIIIFBean iiifRequests = null;
+		String outFileName = null;	
+		String inFileName = null;
 		byte[] image = null;
 
 		errors = this.iiifRequestParametersValidator.validateParameters(id, region, size, rotation, quality, format);
@@ -43,13 +54,23 @@ public class ImageAPIService {
 
 			throw new ImageAPIRequestFormatException(sb.toString());
 		}
-
-		// Construction du Bean représentant les critères IIIF
-		iiifRequests = new RequestsIIIFBean(id, region, size, rotation, quality, ExtensionEnum.valueOf(format));
-
-		// Appel à ImageMagick
-		image = imageMagickService.handleImage(iiifRequests);
-
+		
+		try {
+			inFileName = this.autoDiscoverImagesFromPathService.getPath(id).toString();
+		} catch (ImageNotFoundException e) {
+			throw e;
+		}
+		
+		outFileName = this.dirPath + "/" + this.autoDiscoverImagesFromPathService.getPath(id).getFileName() + "." + format;
+		
+		try {
+			image = this.magickCmdLineExecutor.magick(inFileName, outFileName, region, size, rotation, quality,
+					format);
+		} catch (IOException e) {
+			//TODO: améliorer même si cela ne devrait jamais se produire
+			e.printStackTrace();
+		}
+		
 		return image;
 	}
 }
