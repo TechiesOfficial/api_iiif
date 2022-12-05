@@ -89,7 +89,7 @@ public abstract class IIIFRequestParametersValidator {
 		List<String> errors = new ArrayList<>();
 		// TODO: gerer le fait que 0 ne soit probablement pas une bonne valeur
 		String pixelPattern = new String("\\d+,\\d+,\\d+,\\d+");
-		String pctPattern = new String("pct:\\d+,\\d+,\\d+,\\d+");
+		String pctPattern = new String("pct:\\d+.?\\d+,\\d+.?\\d+,\\d+.?\\d+,\\d+.?\\d+");
 
 		switch (region) {
 		case "full":

@@ -17,6 +17,9 @@ public class IdentifyCmdLineExecutor {
 	@Autowired
 	private GenericCommandLineExecutor commandLineExecutor;
 	
+	@Autowired
+	private IdentifyFormatParameterService identifyFormatParameterService;
+	
 	public IdentifyResultBean identify(String fileName) throws IOException {
 
 		StringBuilder sb = new StringBuilder();
@@ -25,7 +28,10 @@ public class IdentifyCmdLineExecutor {
 		
 		sb.append(this.executableFinder.getIdentifyExecutable());
 		sb.append(" ");
+		sb.append(this.identifyFormatParameterService.build());
+		sb.append(" ");
 		sb.append(fileName);
+		
 
 		output = this.commandLineExecutor.exec(sb.toString());
 		
