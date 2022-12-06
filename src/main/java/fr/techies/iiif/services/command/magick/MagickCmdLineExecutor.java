@@ -36,7 +36,7 @@ public class MagickCmdLineExecutor {
 
 		sb.append(this.executableFinder.getMagickExecutable());
 		sb.append(" ");
-		//A priori extract doit se trouver avant le fichier en entrée
+		// A priori extract doit se trouver avant le fichier en entrée
 		sb.append(this.manageRegion(region, identifyResultBean));
 		sb.append(" ");
 		sb.append(inFileName);
@@ -47,7 +47,7 @@ public class MagickCmdLineExecutor {
 		sb.append(" ");
 		sb.append(this.manageQuality(quality));
 		sb.append(" ");
-		sb.append(this.manageFormat(quality));
+		sb.append(this.manageFormat(format));
 		sb.append(" ");
 		sb.append(outFileName);
 
@@ -56,7 +56,7 @@ public class MagickCmdLineExecutor {
 		return ImageFileUtil.getImageAsBytes(outFileName, ExtensionEnum.valueOf(format));
 	}
 
-	private StringBuilder manageFormat(String quality) {
+	private StringBuilder manageFormat(String format) {
 
 		StringBuilder sb = new StringBuilder();
 
@@ -83,15 +83,16 @@ public class MagickCmdLineExecutor {
 			matcher = pattern.matcher(rotation);
 
 			matcher.find();
-			
-			//! est la seule valeure possible, donc si pas null alors mirroring
-			mirroring = matcher.group(1)!= null;
-			
+
+			// ! est la seule valeure possible, donc si pas null alors mirroring
+			if (matcher.group(1) != null)
+				mirroring = true;
+
 			degree = Integer.valueOf(matcher.group(2));
-			
-			if(mirroring)
+
+			if (mirroring)
 				sb.append("-transpose ");
-			
+
 			sb.append("-rotate " + degree);
 		}
 
