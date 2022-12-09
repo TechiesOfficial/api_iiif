@@ -29,8 +29,8 @@ public class ImageAPIController {
 	@Autowired
 	private ImageAPIService imageAPIService;
 
-	@GetMapping("/{id}/info.json")
-	public ResponseEntity<?> info(@PathVariable String id) {
+	@GetMapping("/{identifier}/info.json")
+	public ResponseEntity<?> info(@PathVariable String identifier) {
 
 		return new ResponseEntity<InfoBean>(new InfoBean(), HttpStatus.OK);
 	}
