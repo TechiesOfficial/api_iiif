@@ -134,7 +134,9 @@ public class MagickCmdLineExecutor extends AIIIFRequestManager{
 			if (mirroring)
 				sb.append("-transpose ");
 
-			sb.append("-rotate " + degree);
+			//A priori c'est comme cela que l'on fait de la transparence mais ca met un fond noir!
+			//Testé sur chrome et ie
+			sb.append("-background 'rgba(0,0,0,0)' -rotate " + degree);
 		}
 
 		return sb;
