@@ -1,6 +1,7 @@
 package fr.techies.iiif.common.mappers;
 
 import org.springframework.http.MediaType;
+import org.springframework.util.MimeType;
 
 import fr.techies.iiif.common.enums.FormatEnum;
 
@@ -24,8 +25,20 @@ public class MediaTypeMapper {
 			mediaType = MediaType.IMAGE_GIF;
 			break;
 
+		case pdf:
+			mediaType = MediaType.APPLICATION_PDF;
+			break;
+		case tif:
+		case jp2:
+			mediaType = MediaType.APPLICATION_OCTET_STREAM;
+			break;
+			
+		case webp:
+			mediaType = new MediaType(new MimeType("image" , "webp"));
+			break;
+
 		default:
-			mediaType = MediaType.IMAGE_JPEG;
+			mediaType = MediaType.ALL;
 			break;
 		}
 

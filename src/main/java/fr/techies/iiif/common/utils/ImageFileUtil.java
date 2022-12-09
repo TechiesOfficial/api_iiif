@@ -13,8 +13,11 @@ import javax.imageio.ImageIO;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 
 import fr.techies.iiif.common.enums.FormatEnum;
-import fr.techies.iiif.common.enums.QualityEnum;
 
+/**
+ * ImageIO est-il bien utilie?
+ * Pourquoi ne pas ramener directement le fichier?
+ */
 public class ImageFileUtil {
 
 	private static final String TMP_DIR = "/tmp";
@@ -37,13 +40,30 @@ public class ImageFileUtil {
 			// Récupération de l'image via l'objet File
 			fImg = new File(pathImg);
 
-			// Lecture depuis un BufferedImage
-			bImg = ImageIO.read(fImg);
+			switch (formatEnum) {
+			case gif:
+			case jpg:
+			case png:
+				// Lecture depuis un BufferedImage
+				bImg = ImageIO.read(fImg);
 
-			// Conversion en tableau de bytes
-			ImageIO.write(bImg, formatEnum.toString(), output);
-			image = output.toByteArray();
+				// Conversion en tableau de bytes
+				ImageIO.write(bImg, formatEnum.toString(), output);
+				image = output.toByteArray();
+				break;
 
+				//Image io ne peut pas lire le reste
+			default:
+				
+				output.write(Files.readAllBytes(Path.of(pathImg)));
+				image = output.toByteArray();
+				break;
+			}
+			
+			
+
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
