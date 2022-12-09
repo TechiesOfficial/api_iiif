@@ -1,10 +1,12 @@
 package fr.techies.iiif.controller.validation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import fr.techies.iiif.common.AIIIFRequestManager;
+import fr.techies.iiif.common.enums.FormatEnum;
 
 public abstract class IIIFRequestParametersValidator extends AIIIFRequestManager {
 
@@ -18,7 +20,22 @@ public abstract class IIIFRequestParametersValidator extends AIIIFRequestManager
 		errors.addAll(this.validateSize(size));
 		errors.addAll(this.validateRotation(rotation));
 		errors.addAll(this.validateQuality(quality));
+		errors.addAll(this.validateFormat(format));
+		
+		return errors;
+	}
 
+	private List<String> validateFormat(String format) {
+
+		FormatEnum formatEnum = null;
+		List<String> errors = new ArrayList<>();
+		
+		try {
+			formatEnum = FormatEnum.valueOf(format);
+		} catch (IllegalArgumentException e) {
+			errors.add("Impossible de parser le champ format, la valeur: " + format + " n'est pas reconnue");
+		}
+		
 		return errors;
 	}
 
