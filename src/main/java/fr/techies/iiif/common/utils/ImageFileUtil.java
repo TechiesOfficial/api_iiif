@@ -12,7 +12,8 @@ import javax.imageio.ImageIO;
 
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 
-import fr.techies.iiif.common.enums.ExtensionEnum;
+import fr.techies.iiif.common.enums.FormatEnum;
+import fr.techies.iiif.common.enums.QualityEnum;
 
 public class ImageFileUtil {
 
@@ -22,10 +23,10 @@ public class ImageFileUtil {
 	 * Récupère une image et la retourne en byte[]
 	 * 
 	 * @param pathImg   - path total de l'image
-	 * @param extension - extension demandée
+	 * @param formatEnum - extension demandée
 	 * @return
 	 */
-	public static byte[] getImageAsBytes(String pathImg, ExtensionEnum extension) {
+	public static byte[] getImageAsBytes(String pathImg, FormatEnum formatEnum) {
 
 		byte[] image = null;
 		BufferedImage bImg = null;
@@ -40,7 +41,7 @@ public class ImageFileUtil {
 			bImg = ImageIO.read(fImg);
 
 			// Conversion en tableau de bytes
-			ImageIO.write(bImg, extension.toString(), output);
+			ImageIO.write(bImg, formatEnum.toString(), output);
 			image = output.toByteArray();
 
 		} catch (IOException e) {

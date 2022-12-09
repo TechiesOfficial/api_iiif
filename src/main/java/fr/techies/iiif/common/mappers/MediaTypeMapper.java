@@ -2,18 +2,17 @@ package fr.techies.iiif.common.mappers;
 
 import org.springframework.http.MediaType;
 
-import fr.techies.iiif.common.enums.ExtensionEnum;
+import fr.techies.iiif.common.enums.FormatEnum;
 
 public class MediaTypeMapper {
 
-	public static MediaType mediaTypeMapper(ExtensionEnum format) {
+	public static MediaType mediaTypeMapper(FormatEnum format) {
 
 		MediaType mediaType = null;
 
 		switch (format) {
 
 		case jpg:
-		case jpeg:
 			mediaType = MediaType.IMAGE_JPEG;
 			break;
 

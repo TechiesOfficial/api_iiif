@@ -7,15 +7,17 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.techies.iiif.common.AIIIFRequestManager;
 import fr.techies.iiif.common.cmd.GenericCommandLineExecutor;
-import fr.techies.iiif.common.enums.ExtensionEnum;
+import fr.techies.iiif.common.enums.FormatEnum;
+import fr.techies.iiif.common.enums.QualityEnum;
 import fr.techies.iiif.common.utils.ImageFileUtil;
 import fr.techies.iiif.services.command.ImageMagickExecutableFinder;
 import fr.techies.iiif.services.command.identify.IdentifyCmdLineExecutor;
 import fr.techies.iiif.services.command.identify.IdentifyResultBean;
 
 @Service
-public class MagickCmdLineExecutor {
+public class MagickCmdLineExecutor extends AIIIFRequestManager{
 
 	@Autowired
 	private ImageMagickExecutableFinder executableFinder;
@@ -47,40 +49,73 @@ public class MagickCmdLineExecutor {
 		sb.append(" ");
 		sb.append(this.manageQuality(quality));
 		sb.append(" ");
-		sb.append(this.manageFormat(format));
-		sb.append(" ");
-		sb.append(outFileName);
+		sb.append(this.manageFormat(outFileName, format));
 
 		this.commandLineExecutor.exec(sb.toString());
 
-		return ImageFileUtil.getImageAsBytes(outFileName, ExtensionEnum.valueOf(format));
+		return ImageFileUtil.getImageAsBytes(outFileName+"."+FormatEnum.valueOf(format), FormatEnum.valueOf(format));
 	}
 
-	private StringBuilder manageFormat(String format) {
+	private StringBuilder manageFormat(String outFileName, String format) {
 
 		StringBuilder sb = new StringBuilder();
+		FormatEnum formatEnum = null;		
+		Matcher matcher = null;
+		if (FORMAT_PATTERN.matcher(format).matches()) {
 
+			matcher = FORMAT_PATTERN.matcher(format);
+
+			matcher.find();
+
+			formatEnum = FormatEnum.valueOf(matcher.group(1));
+			
+			sb.append(outFileName).append(".").append(formatEnum.toString());
+		}
+		
 		return sb;
 	}
 
 	private StringBuilder manageQuality(String quality) {
 
 		StringBuilder sb = new StringBuilder();
+		QualityEnum qualityEnum = null;		
+		Matcher matcher = null;
+		if (QUALITY_PATTERN.matcher(quality).matches()) {
 
+			matcher = QUALITY_PATTERN.matcher(quality);
+
+			matcher.find();
+
+			qualityEnum = QualityEnum.valueOf(matcher.group(1));
+
+			switch (qualityEnum) {
+			case bitonal:
+				sb.append("-monochrome ");
+				break;
+			case gray:
+				sb.append("-colorspace ").append("Gray ");
+				break;
+				
+			default:
+				break;
+			}
+			
+			
+		}
+		
 		return sb;
 	}
 
 	private StringBuilder manageRotation(String rotation) {
 
-		Pattern pattern = Pattern.compile("^(!)?([0-9]|[1-9][0-9]|[12][0-9]{2}|3[0-5][0-9]|360)$");
 		StringBuilder sb = new StringBuilder();
 		Matcher matcher = null;
 		int degree = -1;
 		boolean mirroring = false;
 
-		if (pattern.matcher(rotation).matches()) {
+		if (ROTATION_PATTERN.matcher(rotation).matches()) {
 
-			matcher = pattern.matcher(rotation);
+			matcher = ROTATION_PATTERN.matcher(rotation);
 
 			matcher.find();
 
@@ -108,8 +143,6 @@ public class MagickCmdLineExecutor {
 
 	private StringBuilder manageRegion(String region, IdentifyResultBean identifyResultBean) {
 
-		Pattern pixelPattern = Pattern.compile("(\\d+),(\\d+),(\\d+),(\\d+)");
-		Pattern pctPattern = Pattern.compile("pct:(\\d+),(\\d+),(\\d+),(\\d+)");
 		StringBuilder sb = new StringBuilder();
 		Matcher matcher = null;
 		int pixelX = -1;
@@ -129,9 +162,9 @@ public class MagickCmdLineExecutor {
 			// On récupére les dimensions de l'image via identify.exe et on applique
 			break;
 		default:
-			if (pixelPattern.matcher(region).matches()) {
+			if (REGION_PIXEL_PATTERN.matcher(region).matches()) {
 
-				matcher = pixelPattern.matcher(region);
+				matcher = REGION_PIXEL_PATTERN.matcher(region);
 
 				matcher.find();
 
@@ -143,9 +176,9 @@ public class MagickCmdLineExecutor {
 				sb.append("-extract " + pixelW + "x" + pixelH + "+" + pixelX + "+" + pixelY);
 			}
 			// TODO: revoir l'exp reg et finir
-			if (pctPattern.matcher(region).matches()) {
+			if (REGION_PCT_PATTERN.matcher(region).matches()) {
 
-				matcher = pctPattern.matcher(region);
+				matcher = REGION_PCT_PATTERN.matcher(region);
 
 				matcher.find();
 

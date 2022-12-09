@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import fr.techies.iiif.InfoBean;
-import fr.techies.iiif.common.enums.ExtensionEnum;
+import fr.techies.iiif.common.enums.FormatEnum;
+import fr.techies.iiif.common.enums.QualityEnum;
 import fr.techies.iiif.common.mappers.MediaTypeMapper;
 import fr.techies.iiif.exception.ImageAPIRequestFormatException;
 import fr.techies.iiif.exception.ImageNotFoundException;
@@ -63,7 +64,7 @@ public class ImageAPIController {
 			image = this.getResultingImage(id, view, region, size, rotation, quality, format);
 
 			// Construction du header et don son mediaType
-			mediaType = MediaTypeMapper.mediaTypeMapper(ExtensionEnum.valueOf(format));
+			mediaType = MediaTypeMapper.mediaTypeMapper(FormatEnum.valueOf(format));
 			httpHeaders.setContentType(mediaType);
 
 			// Réponse à retourner
@@ -106,7 +107,7 @@ public class ImageAPIController {
 			image = this.getResultingImage(id, null, region, size, rotation, quality, format);
 
 			// Construction du header et de son mediaType
-			mediaType = MediaTypeMapper.mediaTypeMapper(ExtensionEnum.valueOf(format));
+			mediaType = MediaTypeMapper.mediaTypeMapper(FormatEnum.valueOf(format));
 			httpHeaders.setContentType(mediaType);
 
 			// Réponse à retourner

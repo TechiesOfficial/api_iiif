@@ -1,6 +1,6 @@
 package fr.techies.iiif.model;
 
-import fr.techies.iiif.common.enums.ExtensionEnum;
+import fr.techies.iiif.common.enums.QualityEnum;
 
 public class RequestsIIIFBean {
 
@@ -16,13 +16,13 @@ public class RequestsIIIFBean {
 
 	private String quality;
 
-	private ExtensionEnum format;
+	private QualityEnum format;
 
 	public RequestsIIIFBean() {
 	}
 
 	public RequestsIIIFBean(String id, String region, String size, String rotation, String quality,
-			ExtensionEnum format) {
+			QualityEnum format) {
 		this.id = id;
 		this.region = region;
 		this.size = size;
@@ -73,11 +73,11 @@ public class RequestsIIIFBean {
 		this.quality = quality;
 	}
 
-	public ExtensionEnum getFormat() {
+	public QualityEnum getFormat() {
 		return format;
 	}
 
-	public void setFormat(ExtensionEnum format) {
+	public void setFormat(QualityEnum format) {
 		this.format = format;
 	}
 
