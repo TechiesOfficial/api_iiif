@@ -38,7 +38,7 @@ public class ImageAPIService {
 	@Autowired
 	private AutoDiscoverImagesFromPathService autoDiscoverImagesFromPathService;
 
-	public byte[] getResultingImage(String id, String view, String region, String size, String rotation, String quality,
+	public byte[] getResultingImage(String identifier, String view, String region, String size, String rotation, String quality,
 			String format) throws ImageAPIRequestFormatException, ImageNotFoundException {
 
 		List<String> errors = null;
@@ -46,7 +46,7 @@ public class ImageAPIService {
 		String inFileName = null;
 		byte[] image = null;
 
-		errors = this.iiifRequestParametersValidator.validateParameters(id, region, size, rotation, quality, format);
+		errors = this.iiifRequestParametersValidator.validateParameters(identifier, region, size, rotation, quality, format);
 		if (!errors.isEmpty()) {
 
 			StringBuilder sb = new StringBuilder("<html><body>");
@@ -59,13 +59,13 @@ public class ImageAPIService {
 		}
 
 		try {
-			inFileName = this.autoDiscoverImagesFromPathService.getPath(id).toString();
+			inFileName = this.autoDiscoverImagesFromPathService.getPath(identifier).toString();
 		} catch (ImageNotFoundException e) {
 			throw e;
 		}
 
 		outFileName = this.dirPath + "/" + FileUtil
-				.removeFileExtension(this.autoDiscoverImagesFromPathService.getPath(id).getFileName().toString(), true);
+				.removeFileExtension(this.autoDiscoverImagesFromPathService.getPath(identifier).getFileName().toString(), true);
 
 		try {
 			image = this.magickCmdLineExecutor.magick(inFileName, outFileName, region, size, rotation, quality, format);

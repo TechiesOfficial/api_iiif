@@ -8,7 +8,7 @@ import fr.techies.iiif.common.AIIIFRequestManager;
 
 public abstract class IIIFRequestParametersValidator extends AIIIFRequestManager {
 
-	public List<String> validateParameters(String id, String region, String size, String rotation, String quality,
+	public List<String> validateParameters(String identifier, String region, String size, String rotation, String quality,
 			String format) {
 
 		List<String> errors = new ArrayList<>();

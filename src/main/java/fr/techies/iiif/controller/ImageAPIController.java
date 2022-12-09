@@ -50,8 +50,8 @@ public class ImageAPIController {
 	 * 
 	 * @return {@link ResponseEntity} de type byte (données brut image).
 	 */
-	@GetMapping("/{id}/{view}/{region}/{size}/{rotation}/{quality}.{format}")
-	public ResponseEntity<?> imageAPI(@PathVariable String id, @PathVariable String view, @PathVariable String region,
+	@GetMapping("/{identifier}/{view}/{region}/{size}/{rotation}/{quality}.{format}")
+	public ResponseEntity<?> imageAPI(@PathVariable String identifier, @PathVariable String view, @PathVariable String region,
 			@PathVariable String size, @PathVariable String rotation, @PathVariable String quality,
 			@PathVariable String format) {
 
@@ -61,7 +61,7 @@ public class ImageAPIController {
 		byte[] image = null;
 
 		try {
-			image = this.getResultingImage(id, view, region, size, rotation, quality, format);
+			image = this.getResultingImage(identifier, view, region, size, rotation, quality, format);
 
 			// Construction du header et don son mediaType
 			mediaType = MediaTypeMapper.mediaTypeMapper(FormatEnum.valueOf(format));
@@ -122,8 +122,8 @@ public class ImageAPIController {
 		return responseEntity;
 	}
 
-	private byte[] getResultingImage(String id, String view, String region, String size, String rotation,
+	private byte[] getResultingImage(String identifier, String view, String region, String size, String rotation,
 			String quality, String format) throws ImageAPIRequestFormatException, ImageNotFoundException {
-		return this.imageAPIService.getResultingImage(id, view, region, size, rotation, quality, format);
+		return this.imageAPIService.getResultingImage(identifier, view, region, size, rotation, quality, format);
 	}
 }

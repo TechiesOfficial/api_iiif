@@ -55,12 +55,12 @@ public class AutoDiscoverImagesFromPathService implements ImageRegister{
 	}
 
 	@Override
-	public Path getPath(String imageId) throws ImageNotFoundException {
+	public Path getPath(String identifier) throws ImageNotFoundException {
 		
-		if(this.fileFromId.get(imageId)!=null)
-			return this.fileFromId.get(imageId);
+		if(this.fileFromId.get(identifier)!=null)
+			return this.fileFromId.get(identifier);
 		
-		throw new ImageNotFoundException("L'image " + imageId + " n'a pas été trouvée");
+		throw new ImageNotFoundException("L'image " + identifier + " n'a pas été trouvée");
 	}
 
 	private class FileVisitorImpl implements FileVisitor<Path> {
