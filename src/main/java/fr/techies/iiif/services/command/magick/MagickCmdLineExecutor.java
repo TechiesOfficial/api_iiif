@@ -49,7 +49,13 @@ public class MagickCmdLineExecutor extends AIIIFRequestManager{
 		sb.append(" ");
 		sb.append(this.manageQuality(quality));
 		sb.append(" ");
+		//Append repage to avoid error (negative image positions unsupported)
+		//Does not really understant what it does exactly
+		//To reproduce the error just comment repage and use tif format and rotation of 90
+		sb.append("+repage");
+		sb.append(" ");
 		sb.append(this.manageFormat(outFileName, format));
+		
 
 		this.commandLineExecutor.exec(sb.toString());
 
@@ -86,7 +92,7 @@ public class MagickCmdLineExecutor extends AIIIFRequestManager{
 
 			matcher.find();
 
-			qualityEnum = QualityEnum.valueOf(matcher.group(1));
+			qualityEnum = QualityEnum.valueOfQuality(matcher.group(1));
 
 			switch (qualityEnum) {
 			case bitonal:
