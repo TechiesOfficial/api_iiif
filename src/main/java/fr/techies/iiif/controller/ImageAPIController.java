@@ -95,7 +95,7 @@ public class ImageAPIController {
 	 * @return {@link ResponseEntity} de type byte (données brut image).
 	 */
 	@GetMapping("/{id}/{region}/{size}/{rotation}/{quality}.{format}")
-	public ResponseEntity<?> imageAPI(@PathVariable String id, @PathVariable String region, @PathVariable String size,
+	public ResponseEntity<?> imageAPI(@PathVariable String identifier, @PathVariable String region, @PathVariable String size,
 			@PathVariable String rotation, @PathVariable String quality, @PathVariable String format) {
 
 		HttpHeaders httpHeaders = new HttpHeaders();
@@ -104,7 +104,7 @@ public class ImageAPIController {
 		byte[] image = null;
 
 		try {
-			image = this.getResultingImage(id, null, region, size, rotation, quality, format);
+			image = this.getResultingImage(identifier, null, region, size, rotation, quality, format);
 
 			// Construction du header et de son mediaType
 			mediaType = MediaTypeMapper.mediaTypeMapper(FormatEnum.valueOf(format));
