@@ -94,7 +94,7 @@ public class ImageAPIController {
 	 * 
 	 * @return {@link ResponseEntity} de type byte (données brut image).
 	 */
-	@GetMapping("/{id}/{region}/{size}/{rotation}/{quality}.{format}")
+	@GetMapping("/{identifier}/{region}/{size}/{rotation}/{quality}.{format}")
 	public ResponseEntity<?> imageAPI(@PathVariable String identifier, @PathVariable String region, @PathVariable String size,
 			@PathVariable String rotation, @PathVariable String quality, @PathVariable String format) {
 
