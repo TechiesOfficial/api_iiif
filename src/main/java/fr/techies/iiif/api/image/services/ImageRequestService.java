@@ -12,7 +12,7 @@ import fr.techies.iiif.api.image.controller.ImageRequestController;
 import fr.techies.iiif.common.enums.QualityEnum;
 import fr.techies.iiif.common.utils.FileUtil;
 import fr.techies.iiif.controller.validation.ImageRequestParametersValidator;
-import fr.techies.iiif.exception.ImageAPIRequestFormatException;
+import fr.techies.iiif.exception.ImageRequestFormatException;
 import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.model.RequestsIIIFBean;
 import fr.techies.iiif.services.command.magick.MagickCmdLineExecutor;
@@ -24,7 +24,7 @@ import fr.techies.iiif.services.image.register.AutoDiscoverImagesFromPathService
  * dans une dépendance et un autre jar.
  */
 @Service
-public class ImageAPIService {
+public class ImageRequestService {
 
 	@Value("${iiif.dir.path}")
 	private String dirPath;
@@ -39,7 +39,7 @@ public class ImageAPIService {
 	private AutoDiscoverImagesFromPathService autoDiscoverImagesFromPathService;
 
 	public byte[] getResultingImage(String identifier, String view, String region, String size, String rotation, String quality,
-			String format) throws ImageAPIRequestFormatException, ImageNotFoundException {
+			String format) throws ImageRequestFormatException, ImageNotFoundException {
 
 		List<String> errors = null;
 		String outFileName = null;
@@ -55,7 +55,7 @@ public class ImageAPIService {
 				sb.append("<ul>" + error + "</ul>");
 			}
 
-			throw new ImageAPIRequestFormatException(sb.toString());
+			throw new ImageRequestFormatException(sb.toString());
 		}
 
 		try {

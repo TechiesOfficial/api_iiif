@@ -1,10 +1,10 @@
-package fr.techies.iiif;
+package fr.techies.iiif.api.image.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({"@context", "id", "type", "protocol", "profile", "width", "height", "maxWidth", "maxHeight", "maxArea"})
-public class InfoBean {
+public class InformationResponseBean {
 
 	@JsonProperty("@context")
 	private String context = "http://iiif.io/api/image/3/context.json";
@@ -22,7 +22,7 @@ public class InfoBean {
 	private String height;
 
 	private String maxWidth;
-	
+
 	private String maxHeight;
 
 	private String maxArea;

@@ -9,12 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import fr.techies.iiif.InfoBean;
-import fr.techies.iiif.api.image.services.ImageAPIService;
+import fr.techies.iiif.api.image.response.InformationResponseBean;
+import fr.techies.iiif.api.image.services.ImageRequestService;
 import fr.techies.iiif.common.enums.FormatEnum;
 import fr.techies.iiif.common.enums.QualityEnum;
 import fr.techies.iiif.common.mappers.MediaTypeMapper;
-import fr.techies.iiif.exception.ImageAPIRequestFormatException;
+import fr.techies.iiif.exception.ImageRequestFormatException;
 import fr.techies.iiif.exception.ImageNotFoundException;
 
 /**
@@ -27,7 +27,7 @@ import fr.techies.iiif.exception.ImageNotFoundException;
 public class ImageRequestController {
 
 	@Autowired
-	private ImageAPIService imageAPIService;
+	private ImageRequestService imageAPIService;
 
 	/**
 	 * Point d'entrée des requêtes IIIF. Ce point d'entrée comporte une gestion de
@@ -64,7 +64,7 @@ public class ImageRequestController {
 			// Réponse à retourner
 			responseEntity = new ResponseEntity<byte[]>(image, httpHeaders, HttpStatus.OK);
 
-		} catch (ImageAPIRequestFormatException e) {
+		} catch (ImageRequestFormatException e) {
 			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (ImageNotFoundException e) {
 			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -107,7 +107,7 @@ public class ImageRequestController {
 			// Réponse à retourner
 			responseEntity = new ResponseEntity<byte[]>(image, httpHeaders, HttpStatus.OK);
 
-		} catch (ImageAPIRequestFormatException e) {
+		} catch (ImageRequestFormatException e) {
 			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (ImageNotFoundException e) {
 			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -117,7 +117,7 @@ public class ImageRequestController {
 	}
 
 	private byte[] getResultingImage(String identifier, String view, String region, String size, String rotation,
-			String quality, String format) throws ImageAPIRequestFormatException, ImageNotFoundException {
+			String quality, String format) throws ImageRequestFormatException, ImageNotFoundException {
 		return this.imageAPIService.getResultingImage(identifier, view, region, size, rotation, quality, format);
 	}
 }
