@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import fr.techies.iiif.api.image.controller.ImageRequestController;
 import fr.techies.iiif.common.enums.QualityEnum;
 import fr.techies.iiif.common.utils.FileUtil;
-import fr.techies.iiif.controller.ImageRequestController;
 import fr.techies.iiif.controller.validation.ImageRequestParametersValidator;
 import fr.techies.iiif.exception.ImageAPIRequestFormatException;
 import fr.techies.iiif.exception.ImageNotFoundException;
