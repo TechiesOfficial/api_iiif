@@ -24,16 +24,10 @@ import fr.techies.iiif.services.ImageAPIService;
  * Appel au point d'entrée sans vue = vue 0?
  */
 @Controller
-public class ImageAPIController {
+public class ImageRequestController {
 
 	@Autowired
 	private ImageAPIService imageAPIService;
-
-	@GetMapping("/{identifier}/info.json")
-	public ResponseEntity<?> info(@PathVariable String identifier) {
-
-		return new ResponseEntity<InfoBean>(new InfoBean(), HttpStatus.OK);
-	}
 
 	/**
 	 * Point d'entrée des requêtes IIIF. Ce point d'entrée comporte une gestion de

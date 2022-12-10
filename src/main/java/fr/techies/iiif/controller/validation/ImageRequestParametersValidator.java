@@ -5,17 +5,23 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import fr.techies.iiif.common.AIIIFRequestManager;
 import fr.techies.iiif.common.enums.FormatEnum;
+import fr.techies.iiif.exception.ImageNotFoundException;
+import fr.techies.iiif.services.image.register.AutoDiscoverImagesFromPathService;
 
-public abstract class IIIFRequestParametersValidator extends AIIIFRequestManager {
+@Service
+public class ImageRequestParametersValidator extends AIIIFRequestManager {
 
+	
 	public List<String> validateParameters(String identifier, String region, String size, String rotation, String quality,
 			String format) {
 
 		List<String> errors = new ArrayList<>();
 
-		errors.addAll(this.validateID());
 		errors.addAll(this.validateRegion(region));
 		errors.addAll(this.validateSize(size));
 		errors.addAll(this.validateRotation(rotation));
@@ -38,14 +44,6 @@ public abstract class IIIFRequestParametersValidator extends AIIIFRequestManager
 		
 		return errors;
 	}
-
-	/**
-	 * La validation de l'id. Concrètement, le but est de trouver l'image
-	 * correspondante.
-	 * 
-	 * @return une {@link List} d'erreurs
-	 */
-	protected abstract List<String> validateID();
 
 	private List<String> validateQuality(String quality) {
 		List<String> errors = new ArrayList<>();

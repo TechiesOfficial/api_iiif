@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.common.enums.QualityEnum;
 import fr.techies.iiif.common.utils.FileUtil;
-import fr.techies.iiif.controller.ImageAPIController;
-import fr.techies.iiif.controller.validation.IIIFRequestParametersValidator;
+import fr.techies.iiif.controller.ImageRequestController;
+import fr.techies.iiif.controller.validation.ImageRequestParametersValidator;
 import fr.techies.iiif.exception.ImageAPIRequestFormatException;
 import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.model.RequestsIIIFBean;
@@ -19,7 +19,7 @@ import fr.techies.iiif.services.command.magick.MagickCmdLineExecutor;
 import fr.techies.iiif.services.image.register.AutoDiscoverImagesFromPathService;
 
 /**
- * On separe le controller {@link ImageAPIController} de l'implémentation
+ * On separe le controller {@link ImageRequestController} de l'implémentation
  * concrète de l'API. L'objectif est à terme de mettre tout ce qui n'est pas web
  * dans une dépendance et un autre jar.
  */
@@ -30,7 +30,7 @@ public class ImageAPIService {
 	private String dirPath;
 
 	@Autowired
-	private IIIFRequestParametersValidator iiifRequestParametersValidator;
+	private ImageRequestParametersValidator iiifRequestParametersValidator;
 
 	@Autowired
 	private MagickCmdLineExecutor magickCmdLineExecutor;

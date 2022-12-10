@@ -1,12 +1,19 @@
 package fr.techies.iiif;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({"@context", "id", "type", "protocol", "profile", "width", "height", "maxWidth", "maxHeight", "maxArea"})
 public class InfoBean {
 
+	@JsonProperty("@context")
+	private String context = "http://iiif.io/api/image/3/context.json";
+	
 	private String id;
 
 	private String type = "ImageService3";
 
-	private String protocol;
+	private String protocol = "http://iiif.io/api/image";
 
 	private String profile = "level2";
 	
