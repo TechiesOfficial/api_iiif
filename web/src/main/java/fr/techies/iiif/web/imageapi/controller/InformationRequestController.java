@@ -13,8 +13,8 @@ import fr.techies.iiif.api.image.response.InformationResponseBean;
 import fr.techies.iiif.api.image.services.InformationRequestService;
 import fr.techies.iiif.common.enums.FormatEnum;
 import fr.techies.iiif.common.mappers.MediaTypeMapper;
-import fr.techies.iiif.controller.validation.InformationRequestParametersValidator;
 import fr.techies.iiif.exception.ImageRequestFormatException;
+import fr.techies.iiif.web.imageapi.controller.validation.InformationRequestParametersValidator;
 import fr.techies.iiif.exception.ImageNotFoundException;
 
 @Controller

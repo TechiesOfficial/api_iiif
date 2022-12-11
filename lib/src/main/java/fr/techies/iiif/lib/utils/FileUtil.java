@@ -1,4 +1,4 @@
-package fr.techies.iiif.common.utils;
+package fr.techies.iiif.lib.utils;
 
 public class FileUtil {
 

@@ -1,4 +1,4 @@
-package fr.techies.iiif.controller.validation;
+package fr.techies.iiif.web.imageapi.controller.validation;
 
 import java.util.ArrayList;
 import java.util.Collection;

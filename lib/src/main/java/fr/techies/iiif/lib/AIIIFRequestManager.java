@@ -1,4 +1,4 @@
-package fr.techies.iiif.common;
+package fr.techies.iiif.lib;
 
 import java.util.regex.Pattern;
 

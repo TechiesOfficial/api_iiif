@@ -1,4 +1,4 @@
-package fr.techies.iiif.common.enums;
+package fr.techies.iiif.lib.enums;
 
 public enum QualityEnum {
 

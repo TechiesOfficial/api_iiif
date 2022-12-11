@@ -1,4 +1,4 @@
-package fr.techies.iiif.common.cmd;
+package fr.techies.iiif.lib.cmd;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

@@ -1,4 +1,4 @@
-package fr.techies.iiif.common.utils;
+package fr.techies.iiif.lib.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
