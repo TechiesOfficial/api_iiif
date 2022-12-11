@@ -1,4 +1,4 @@
-package fr.techies.iiif.api.image.controller;
+package fr.techies.iiif.web.imageapi.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
