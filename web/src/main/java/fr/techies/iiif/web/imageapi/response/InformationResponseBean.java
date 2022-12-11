@@ -1,4 +1,4 @@
-package fr.techies.iiif.api.image.response;
+package fr.techies.iiif.web.imageapi.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
