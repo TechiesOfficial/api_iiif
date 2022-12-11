@@ -1,14 +1,17 @@
 package fr.techies.iiif.api.image.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({"@context", "id", "type", "protocol", "profile", "width", "height", "maxWidth", "maxHeight", "maxArea"})
+@JsonInclude(Include.NON_NULL)
 public class InformationResponseBean {
 
 	@JsonProperty("@context")
 	private String context = "http://iiif.io/api/image/3/context.json";
-	
+
 	private String id;
 
 	private String type = "ImageService3";

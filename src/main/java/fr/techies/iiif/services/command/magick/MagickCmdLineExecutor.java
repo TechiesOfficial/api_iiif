@@ -49,11 +49,6 @@ public class MagickCmdLineExecutor extends AIIIFRequestManager{
 		sb.append(" ");
 		sb.append(this.manageQuality(quality));
 		sb.append(" ");
-		//Append repage to avoid error (negative image positions unsupported)
-		//Does not really understant what it does exactly
-		//To reproduce the error just comment repage and use tif format and rotation of 90
-		sb.append("+repage");
-		sb.append(" ");
 		sb.append(this.manageFormat(outFileName, format));
 		
 
@@ -136,7 +131,8 @@ public class MagickCmdLineExecutor extends AIIIFRequestManager{
 
 			//A priori c'est comme cela que l'on fait de la transparence mais ca met un fond noir!
 			//Testé sur chrome et ie
-			sb.append("-background 'rgba(0,0,0,0)' -rotate " + degree);
+			if(degree != 0)
+				sb.append("-background 'rgba(0,0,0,0)' -rotate " + degree + " +repage");
 		}
 
 		return sb;
