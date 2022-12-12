@@ -9,6 +9,8 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.services.os.OSDiscoveringService;
-import jakarta.annotation.PostConstruct;
 
 /**
  * Implémentation basique d'un scanner de fichier pour les images.

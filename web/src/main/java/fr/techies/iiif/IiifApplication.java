@@ -1,4 +1,4 @@
-package fr.techies.iiif.web;
+package fr.techies.iiif;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

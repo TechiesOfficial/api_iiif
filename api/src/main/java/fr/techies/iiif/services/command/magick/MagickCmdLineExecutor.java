@@ -126,7 +126,7 @@ public class MagickCmdLineExecutor extends AIIIFRequestManager{
 			degree = Integer.valueOf(matcher.group(2));
 
 			if (mirroring)
-				sb.append("-transpose ");
+				sb.append("-flop ");
 
 			//A priori c'est comme cela que l'on fait de la transparence mais ca met un fond noir!
 			//Testé sur chrome et ie
