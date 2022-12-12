@@ -1,16 +1,13 @@
-package fr.techies.iiif.web.imageapi.controller.validation;
+package fr.techies.iiif;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.techies.iiif.common.AIIIFRequestManager;
-import fr.techies.iiif.common.enums.FormatEnum;
 import fr.techies.iiif.exception.ImageNotFoundException;
+import fr.techies.iiif.lib.AIIIFRequestManager;
 import fr.techies.iiif.services.image.register.AutoDiscoverImagesFromPathService;
 
 @Service

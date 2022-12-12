@@ -1,6 +1,6 @@
 package fr.techies.iiif.model;
 
-import fr.techies.iiif.common.enums.QualityEnum;
+import fr.techies.iiif.lib.enums.QualityEnum;
 
 public class RequestsIIIFBean {
 

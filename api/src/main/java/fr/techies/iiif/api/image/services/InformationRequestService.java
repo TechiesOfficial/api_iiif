@@ -1,25 +1,15 @@
 package fr.techies.iiif.api.image.services;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import fr.techies.iiif.api.image.controller.ImageRequestController;
-import fr.techies.iiif.api.image.response.InformationResponseBean;
-import fr.techies.iiif.common.enums.QualityEnum;
-import fr.techies.iiif.common.utils.FileUtil;
-import fr.techies.iiif.controller.validation.ImageRequestParametersValidator;
-import fr.techies.iiif.controller.validation.InformationRequestParametersValidator;
-import fr.techies.iiif.exception.ImageRequestFormatException;
+import fr.techies.iiif.InformationResponseBean;
 import fr.techies.iiif.exception.ImageNotFoundException;
-import fr.techies.iiif.model.RequestsIIIFBean;
 import fr.techies.iiif.services.command.identify.IdentifyCmdLineExecutor;
 import fr.techies.iiif.services.command.identify.IdentifyResultBean;
-import fr.techies.iiif.services.command.magick.MagickCmdLineExecutor;
 import fr.techies.iiif.services.image.register.AutoDiscoverImagesFromPathService;
 
 /**

@@ -10,9 +10,8 @@ import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 
-import fr.techies.iiif.common.enums.FormatEnum;
+import fr.techies.iiif.lib.enums.FormatEnum;
 
 /**
  * ImageIO est-il bien utilie?
@@ -89,26 +88,6 @@ public class ImageFileUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new IOException("Erreur à la création du dir : " + dirTmpPath);
-		}
-	}
-
-	/**
-	 * Permet de supprimer le dossier /tmp
-	 * 
-	 * @param dirPath - dossier dans lequel se trouve le dossier /tmp
-	 * @throws IOException
-	 */
-	public static void removeTmpDir(String dirPath) throws IOException {
-
-		String dirTmpPath = dirPath + TMP_DIR;
-
-		try {
-			File tmpDir = new File(dirTmpPath);
-			FileUtils.deleteDirectory(tmpDir);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new IOException("Erreur à la suppression du dir : " + dirTmpPath);
 		}
 	}
 }

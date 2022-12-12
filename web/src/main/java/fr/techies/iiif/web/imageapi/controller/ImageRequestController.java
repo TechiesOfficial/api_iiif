@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import fr.techies.iiif.api.image.services.ImageRequestService;
-import fr.techies.iiif.common.enums.FormatEnum;
-import fr.techies.iiif.common.enums.QualityEnum;
-import fr.techies.iiif.common.mappers.MediaTypeMapper;
-import fr.techies.iiif.exception.ImageRequestFormatException;
-import fr.techies.iiif.web.imageapi.response.InformationResponseBean;
 import fr.techies.iiif.exception.ImageNotFoundException;
+import fr.techies.iiif.exception.ImageRequestFormatException;
+import fr.techies.iiif.lib.enums.FormatEnum;
+import fr.techies.iiif.lib.mappers.MediaTypeMapper;
 
 /**
  * On met ici la gestion de vue aussi mais il faudra créér un autre contoller

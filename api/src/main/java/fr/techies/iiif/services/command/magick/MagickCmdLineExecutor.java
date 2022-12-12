@@ -2,16 +2,15 @@ package fr.techies.iiif.services.command.magick;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.techies.iiif.common.AIIIFRequestManager;
-import fr.techies.iiif.common.cmd.GenericCommandLineExecutor;
-import fr.techies.iiif.common.enums.FormatEnum;
-import fr.techies.iiif.common.enums.QualityEnum;
-import fr.techies.iiif.common.utils.ImageFileUtil;
+import fr.techies.iiif.lib.AIIIFRequestManager;
+import fr.techies.iiif.lib.cmd.GenericCommandLineExecutor;
+import fr.techies.iiif.lib.enums.FormatEnum;
+import fr.techies.iiif.lib.enums.QualityEnum;
+import fr.techies.iiif.lib.utils.ImageFileUtil;
 import fr.techies.iiif.services.command.ImageMagickExecutableFinder;
 import fr.techies.iiif.services.command.identify.IdentifyCmdLineExecutor;
 import fr.techies.iiif.services.command.identify.IdentifyResultBean;

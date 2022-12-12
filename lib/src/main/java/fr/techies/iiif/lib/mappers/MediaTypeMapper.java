@@ -3,7 +3,7 @@ package fr.techies.iiif.lib.mappers;
 import org.springframework.http.MediaType;
 import org.springframework.util.MimeType;
 
-import fr.techies.iiif.common.enums.FormatEnum;
+import fr.techies.iiif.lib.enums.FormatEnum;
 
 public class MediaTypeMapper {
 

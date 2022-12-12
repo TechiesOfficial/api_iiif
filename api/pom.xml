@@ -5,24 +5,21 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.4</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<groupId>fr.techies.iiif</groupId>
+		<artifactId>master</artifactId>
+		<version>${revision}</version>
 	</parent>
 
-	<groupId>fr.techies.iiif</groupId>
 	<artifactId>api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>iiif</name>
 	<description>API REST IIIF</description>
 
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-
 	<dependencies>
+		<dependency>
+			<groupId>fr.techies.iiif</groupId>
+			<artifactId>lib</artifactId>
+		</dependency>
 
 	</dependencies>
 
@@ -31,7 +28,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
