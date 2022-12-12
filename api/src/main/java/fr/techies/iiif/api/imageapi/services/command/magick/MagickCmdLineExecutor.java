@@ -1,4 +1,4 @@
-package fr.techies.iiif.services.command.magick;
+package fr.techies.iiif.api.imageapi.services.command.magick;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -6,17 +6,17 @@ import java.util.regex.Matcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.techies.iiif.api.imageapi.services.command.ImageMagickExecutableFinder;
+import fr.techies.iiif.api.imageapi.services.command.identify.IdentifyCmdLineExecutor;
+import fr.techies.iiif.api.imageapi.services.command.identify.IdentifyResultBean;
 import fr.techies.iiif.lib.AIIIFRequestManager;
 import fr.techies.iiif.lib.cmd.GenericCommandLineExecutor;
 import fr.techies.iiif.lib.enums.FormatEnum;
 import fr.techies.iiif.lib.enums.QualityEnum;
 import fr.techies.iiif.lib.utils.ImageFileUtil;
-import fr.techies.iiif.services.command.ImageMagickExecutableFinder;
-import fr.techies.iiif.services.command.identify.IdentifyCmdLineExecutor;
-import fr.techies.iiif.services.command.identify.IdentifyResultBean;
 
 @Service
-public class MagickCmdLineExecutor extends AIIIFRequestManager{
+public class MagickCmdLineExecutor extends AIIIFRequestManager {
 
 	@Autowired
 	private ImageMagickExecutableFinder executableFinder;
@@ -49,17 +49,17 @@ public class MagickCmdLineExecutor extends AIIIFRequestManager{
 		sb.append(this.manageQuality(quality));
 		sb.append(" ");
 		sb.append(this.manageFormat(outFileName, format));
-		
 
 		this.commandLineExecutor.exec(sb.toString());
 
-		return ImageFileUtil.getImageAsBytes(outFileName+"."+FormatEnum.valueOf(format), FormatEnum.valueOf(format));
+		return ImageFileUtil.getImageAsBytes(outFileName + "." + FormatEnum.valueOf(format),
+				FormatEnum.valueOf(format));
 	}
 
 	private StringBuilder manageFormat(String outFileName, String format) {
 
 		StringBuilder sb = new StringBuilder();
-		FormatEnum formatEnum = null;		
+		FormatEnum formatEnum = null;
 		Matcher matcher = null;
 		if (FORMAT_PATTERN.matcher(format).matches()) {
 
@@ -68,17 +68,17 @@ public class MagickCmdLineExecutor extends AIIIFRequestManager{
 			matcher.find();
 
 			formatEnum = FormatEnum.valueOf(matcher.group(1));
-			
+
 			sb.append(outFileName).append(".").append(formatEnum.toString());
 		}
-		
+
 		return sb;
 	}
 
 	private StringBuilder manageQuality(String quality) {
 
 		StringBuilder sb = new StringBuilder();
-		QualityEnum qualityEnum = null;		
+		QualityEnum qualityEnum = null;
 		Matcher matcher = null;
 		if (QUALITY_PATTERN.matcher(quality).matches()) {
 
@@ -95,14 +95,12 @@ public class MagickCmdLineExecutor extends AIIIFRequestManager{
 			case gray:
 				sb.append("-colorspace ").append("Gray ");
 				break;
-				
+
 			default:
 				break;
 			}
-			
-			
 		}
-		
+
 		return sb;
 	}
 
@@ -128,9 +126,10 @@ public class MagickCmdLineExecutor extends AIIIFRequestManager{
 			if (mirroring)
 				sb.append("-flop ");
 
-			//A priori c'est comme cela que l'on fait de la transparence mais ca met un fond noir!
-			//Testé sur chrome et ie
-			if(degree != 0)
+			// A priori c'est comme cela que l'on fait de la transparence mais ca met un
+			// fond noir!
+			// Testé sur chrome et ie
+			if (degree != 0)
 				sb.append("-background 'rgba(0,0,0,0)' -rotate " + degree + " +repage");
 		}
 

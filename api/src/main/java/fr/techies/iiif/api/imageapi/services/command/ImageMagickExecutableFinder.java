@@ -1,4 +1,4 @@
-package fr.techies.iiif.services.command;
+package fr.techies.iiif.api.imageapi.services.command;
 
 import java.io.IOException;
 

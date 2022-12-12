@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import fr.techies.iiif.api.image.services.ImageRequestService;
+import fr.techies.iiif.api.imageapi.services.ImageRequestService;
 import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.exception.ImageRequestFormatException;
 import fr.techies.iiif.lib.enums.FormatEnum;

@@ -1,4 +1,4 @@
-package fr.techies.iiif.api.image.services;
+package fr.techies.iiif.api.imageapi.services;
 
 import java.io.IOException;
 import java.util.List;
@@ -6,11 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.techies.iiif.InformationResponseBean;
+import fr.techies.iiif.api.imageapi.services.command.identify.IdentifyCmdLineExecutor;
+import fr.techies.iiif.api.imageapi.services.command.identify.IdentifyResultBean;
+import fr.techies.iiif.api.imageapi.services.image.register.AutoDiscoverImagesFromPathService;
 import fr.techies.iiif.exception.ImageNotFoundException;
-import fr.techies.iiif.services.command.identify.IdentifyCmdLineExecutor;
-import fr.techies.iiif.services.command.identify.IdentifyResultBean;
-import fr.techies.iiif.services.image.register.AutoDiscoverImagesFromPathService;
 
 /**
  * On separe le controller {@link ImageRequestController} de l'implémentation

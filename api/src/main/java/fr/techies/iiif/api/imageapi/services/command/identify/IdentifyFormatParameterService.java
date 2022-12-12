@@ -1,4 +1,4 @@
-package fr.techies.iiif.services.command.identify;
+package fr.techies.iiif.api.imageapi.services.command.identify;
 
 import org.springframework.stereotype.Service;
 

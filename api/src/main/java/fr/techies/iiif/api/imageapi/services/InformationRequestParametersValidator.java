@@ -1,4 +1,4 @@
-package fr.techies.iiif;
+package fr.techies.iiif.api.imageapi.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.techies.iiif.api.imageapi.services.image.register.AutoDiscoverImagesFromPathService;
 import fr.techies.iiif.exception.ImageNotFoundException;
 import fr.techies.iiif.lib.AIIIFRequestManager;
-import fr.techies.iiif.services.image.register.AutoDiscoverImagesFromPathService;
 
 @Service
 public class InformationRequestParametersValidator extends AIIIFRequestManager {

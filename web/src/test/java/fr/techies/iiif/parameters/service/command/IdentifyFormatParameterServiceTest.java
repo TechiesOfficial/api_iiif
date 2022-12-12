@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import fr.techies.iiif.services.command.identify.IdentifyFormatParameterService;
+import fr.techies.iiif.api.imageapi.services.command.identify.IdentifyFormatParameterService;
 
 @SpringBootTest
 public class IdentifyFormatParameterServiceTest {
