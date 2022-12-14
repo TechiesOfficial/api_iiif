@@ -10,7 +10,6 @@
 		<version>${revision}</version>
 	</parent>
 
-	<groupId>fr.techies.iiif</groupId>
 	<artifactId>magick-wrapper</artifactId>
 	<packaging>jar</packaging>
 	<name>Magick wrapper</name>
@@ -20,6 +19,18 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>${project.build.outputDirectory}</targetPath>
+				<includes>
+					<include>application.properties</include>
+					<include>magick/win/*</include>
+					<include>templates/*</include>
+				</includes>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
