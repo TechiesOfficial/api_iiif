@@ -9,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
+import fr.techies.iiif.api.imageapi.imagerequest.model.enums.FormatEnum;
+import fr.techies.iiif.api.imageapi.imagerequest.validator.ImageRequestParametersValidator;
+import fr.techies.iiif.api.imageapi.imagerequest.validator.InvalidImageRequestException;
 import fr.techies.iiif.api.imageapi.services.ImageRequestService;
-import fr.techies.iiif.exception.ImageNotFoundException;
-import fr.techies.iiif.exception.ImageRequestFormatException;
-import fr.techies.iiif.lib.enums.FormatEnum;
-import fr.techies.iiif.lib.mappers.MediaTypeMapper;
+import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
+import fr.techies.iiif.web.MediaTypeMapper;
 
 /**
  * On met ici la gestion de vue aussi mais il faudra créér un autre contoller
@@ -26,6 +28,9 @@ public class ImageRequestController {
 
 	@Autowired
 	private ImageRequestService imageAPIService;
+	
+	@Autowired
+	private ImageRequestParametersValidator imageRequestParametersValidator;
 
 	/**
 	 * Point d'entrée des requêtes IIIF. Ce point d'entrée comporte une gestion de
@@ -49,12 +54,15 @@ public class ImageRequestController {
 
 		HttpHeaders httpHeaders = new HttpHeaders();
 		ResponseEntity<?> responseEntity = null;
+		ImageRequest imageRequest = null;
 		MediaType mediaType = null;
 		byte[] image = null;
 
 		try {
-			image = this.getResultingImage(identifier, view, region, size, rotation, quality, format);
+			imageRequest = this.imageRequestParametersValidator.validateParameters(identifier, region, size, rotation, quality, format);
 
+			image = this.getResultingImage(imageRequest);
+			
 			// Construction du header et don son mediaType
 			mediaType = MediaTypeMapper.mediaTypeMapper(FormatEnum.valueOf(format));
 			httpHeaders.setContentType(mediaType);
@@ -62,10 +70,10 @@ public class ImageRequestController {
 			// Réponse à retourner
 			responseEntity = new ResponseEntity<byte[]>(image, httpHeaders, HttpStatus.OK);
 
-		} catch (ImageRequestFormatException e) {
-			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (ImageNotFoundException e) {
 			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (InvalidImageRequestException e) {
+			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 		return responseEntity;
@@ -92,11 +100,14 @@ public class ImageRequestController {
 
 		HttpHeaders httpHeaders = new HttpHeaders();
 		ResponseEntity<?> responseEntity = null;
+		ImageRequest imageRequest = null;
 		MediaType mediaType = null;
 		byte[] image = null;
 
 		try {
-			image = this.getResultingImage(identifier, null, region, size, rotation, quality, format);
+			imageRequest = this.imageRequestParametersValidator.validateParameters(identifier, region, size, rotation, quality, format);
+
+			image = this.getResultingImage(imageRequest);
 
 			// Construction du header et de son mediaType
 			mediaType = MediaTypeMapper.mediaTypeMapper(FormatEnum.valueOf(format));
@@ -105,17 +116,16 @@ public class ImageRequestController {
 			// Réponse à retourner
 			responseEntity = new ResponseEntity<byte[]>(image, httpHeaders, HttpStatus.OK);
 
-		} catch (ImageRequestFormatException e) {
-			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (ImageNotFoundException e) {
 			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (InvalidImageRequestException e) {
+			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 		return responseEntity;
 	}
 
-	private byte[] getResultingImage(String identifier, String view, String region, String size, String rotation,
-			String quality, String format) throws ImageRequestFormatException, ImageNotFoundException {
-		return this.imageAPIService.getResultingImage(identifier, view, region, size, rotation, quality, format);
+	private byte[] getResultingImage(ImageRequest imageRequest) throws ImageNotFoundException  {
+		return this.imageAPIService.getResultingImage(imageRequest);
 	}
 }

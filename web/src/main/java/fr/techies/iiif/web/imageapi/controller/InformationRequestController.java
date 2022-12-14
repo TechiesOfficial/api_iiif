@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import fr.techies.iiif.api.imageapi.services.InformationRequestParametersValidator;
+import fr.techies.iiif.api.imageapi.informationrequest.validator.InformationRequestParametersValidator;
 import fr.techies.iiif.api.imageapi.services.InformationRequestService;
 import fr.techies.iiif.api.imageapi.services.InformationResponseBean;
-import fr.techies.iiif.exception.ImageNotFoundException;
+import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 
 @Controller
 public class InformationRequestController {

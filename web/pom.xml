@@ -22,7 +22,13 @@
 	<dependencies>
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
-			<artifactId>api</artifactId>
+			<artifactId>imageapi-request-validator</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.techies.iiif</groupId>
+			<artifactId>imageapi-spring-services</artifactId>
+			<version>${revision}</version>
 		</dependency>
 	</dependencies>
 
