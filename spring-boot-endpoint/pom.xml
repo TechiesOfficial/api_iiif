@@ -10,7 +10,7 @@
 		<version>${revision}</version>
 	</parent>
 
-	<artifactId>web</artifactId>
+	<artifactId>spring-boot-endpoint</artifactId>
 	<packaging>war</packaging>
 	<name>iiif</name>
 	<description>API REST IIIF</description>
