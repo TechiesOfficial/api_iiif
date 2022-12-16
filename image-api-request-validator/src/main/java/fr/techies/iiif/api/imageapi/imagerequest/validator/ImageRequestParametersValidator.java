@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.api.imageapi.common.AIIIFRequestManager;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Format;
+import fr.techies.iiif.api.imageapi.imagerequest.model.Identifier;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Quality;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Region;
@@ -39,6 +40,7 @@ public class ImageRequestParametersValidator {
 
 		ImageRequest imageRequest = new ImageRequest();
 
+		imageRequest.setIdentifier(new Identifier(identifier));
 		imageRequest.setRegion(this.validateRegion(region));
 		imageRequest.setSize(this.validateSize(size));
 		imageRequest.setRotation(this.validateRotation(rotation));

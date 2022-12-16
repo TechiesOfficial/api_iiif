@@ -1,6 +1,7 @@
 package fr.techies.iiif.api.imageapi.services;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,10 @@ public class InformationRequestService {
 
 		InformationResponseBean informationResponseBean = new InformationResponseBean();
 		IdentifyResultBean image = null;
-		List<String> errors = null;
-		String outFileName = null;
-		String inFileName = null;
+		Path inFileName = null;
 
 		try {
-			inFileName = this.autoDiscoverImagesFromPathService.getPath(identifier).toString();
+			inFileName = this.autoDiscoverImagesFromPathService.getPath(identifier);
 
 			image = this.identifyCmdLineExecutor.identify(inFileName);
 

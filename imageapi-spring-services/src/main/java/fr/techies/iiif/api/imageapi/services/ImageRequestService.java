@@ -1,49 +1,46 @@
 package fr.techies.iiif.api.imageapi.services;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import ch.qos.logback.core.util.FileUtil;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.services.command.magick.MagickCmdLineExecutor;
-import fr.techies.iiif.api.imageapi.services.image.register.AutoDiscoverImagesFromPathService;
+import fr.techies.iiif.api.imageapi.services.image.register.ImageRegister;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 
-/**
- * On separe le controller {@link ImageRequestController} de l'implémentation
- * concrète de l'API. L'objectif est à terme de mettre tout ce qui n'est pas web
- * dans une dépendance et un autre jar.
- */
 @Service
 public class ImageRequestService {
-
-	@Value("${iiif.dir.path}")
-	private String dirPath;
 
 	@Autowired
 	private MagickCmdLineExecutor magickCmdLineExecutor;
 
 	@Autowired
-	private AutoDiscoverImagesFromPathService autoDiscoverImagesFromPathService;
+	private OutputFileNameStrategy outputFileNameStrategy;
+	
+	/**
+	 * Permet de récupérer l'ensemble des registres d'images dans le classpath.
+	 */
+	@Autowired
+	private List<ImageRegister> imageRegisters;
 
 	public byte[] getResultingImage(ImageRequest imageRequest) throws ImageNotFoundException {
 
-		String outFileName = null;
-		String inFileName = null;
+		Path outFileName = null;
+		Path inFileName = null;
 		byte[] image = null;
 
 		try {
-			inFileName = this.autoDiscoverImagesFromPathService.getPath(imageRequest.getIdentifier().getIdentifier())
-					.toString();
+			inFileName = this.getImagePath(imageRequest.getIdentifier().getIdentifier());
 		} catch (ImageNotFoundException e) {
 			throw e;
 		}
 
-		outFileName = this.dirPath + "/" + this.autoDiscoverImagesFromPathService
-				.getPath(imageRequest.getIdentifier().getIdentifier()).getFileName().toString();
+		outFileName = this.outputFileNameStrategy.getOutputFileName(inFileName);
 
 		try {
 			image = this.magickCmdLineExecutor.magick(inFileName, outFileName, imageRequest);
@@ -53,5 +50,19 @@ public class ImageRequestService {
 		}
 
 		return image;
+	}
+
+	private Path getImagePath(String identifier) throws ImageNotFoundException {
+
+		for (ImageRegister imageRegister : imageRegisters) {
+			try {
+				return imageRegister.getPath(identifier);
+			} catch (ImageNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		throw new ImageNotFoundException("Aucune image trouvée dans les repository d'images");
 	}
 }

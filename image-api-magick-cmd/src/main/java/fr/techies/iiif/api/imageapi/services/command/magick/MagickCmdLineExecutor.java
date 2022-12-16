@@ -1,6 +1,7 @@
 package fr.techies.iiif.api.imageapi.services.command.magick;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,13 @@ public class MagickCmdLineExecutor {
 	@Autowired
 	private IdentifyCmdLineExecutor identifyCmdLineExecutor;
 
-	public byte[] magick(String inFileName, String outFileName, ImageRequest imageRequest) throws IOException {
+	public byte[] magick(Path inFileName, Path outFileName, ImageRequest imageRequest) throws IOException {
 
 		IdentifyResultBean identifyResultBean = null;
 		StringBuilder sb = new StringBuilder();
 		ExtensionEnum extensionEnum = null;
 
-		identifyResultBean = this.identifyCmdLineExecutor.identify(inFileName);
+		identifyResultBean = this.identifyCmdLineExecutor.identify(inFileName.getFileName());
 
 		sb.append(this.executableFinder.getMagickExecutable());
 		sb.append(" ");
@@ -48,6 +49,15 @@ public class MagickCmdLineExecutor {
 
 		this.commandLineExecutor.exec(sb.toString());
 		
+		return ImageFileUtil.getImageAsBytes(outFileName + extensionEnum.getExtension(),
+				extensionEnum);
+	}
+
+	private StringBuilder manageFormat(ImageRequest imageRequest) {
+
+		StringBuilder sb = new StringBuilder();
+		ExtensionEnum extensionEnum = null;
+		
 		switch (imageRequest.getFormat().getFormat()) {
 		case gif:
 			extensionEnum = ExtensionEnum.gif;
@@ -61,20 +71,10 @@ public class MagickCmdLineExecutor {
 		case png:
 			extensionEnum=ExtensionEnum.png;
 		case tif:
-			extensionEnum=extensionEnum.tif;
+			extensionEnum=ExtensionEnum.tif;
 		default:
 			break;
 		}
-		
-
-		return ImageFileUtil.getImageAsBytes(outFileName + extensionEnum.getExtension(),
-				extensionEnum);
-	}
-
-	private StringBuilder manageFormat(ImageRequest imageRequest) {
-
-		StringBuilder sb = new StringBuilder();
-
 
 		return sb;
 	}

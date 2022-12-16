@@ -1,6 +1,7 @@
 package fr.techies.iiif.api.imageapi.services.command.magick;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class IdentifyCmdLineExecutor {
 	@Autowired
 	private IdentifyFormatParameterService identifyFormatParameterService;
 	
-	public IdentifyResultBean identify(String fileName) throws IOException {
+	public IdentifyResultBean identify(Path path) throws IOException {
 
 		StringBuilder sb = new StringBuilder();
 		String[] identifyCmdResult = null;
@@ -30,7 +31,7 @@ public class IdentifyCmdLineExecutor {
 		sb.append(" ");
 		sb.append(this.identifyFormatParameterService.build());
 		sb.append(" ");
-		sb.append(fileName);
+		sb.append(path.getFileName());
 		
 
 		output = this.commandLineExecutor.exec(sb.toString());

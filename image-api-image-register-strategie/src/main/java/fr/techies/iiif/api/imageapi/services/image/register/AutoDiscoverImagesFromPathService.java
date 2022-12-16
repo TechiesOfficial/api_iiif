@@ -14,7 +14,6 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 
@@ -28,7 +27,7 @@ import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
  * compte que ces fichiers.
  *
  */
-@Service
+@ImageRepository
 public class AutoDiscoverImagesFromPathService implements ImageRegister{
 
 	private Logger logger = LoggerFactory.getLogger(AutoDiscoverImagesFromPathService.class);
