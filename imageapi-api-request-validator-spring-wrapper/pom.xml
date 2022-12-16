@@ -10,15 +10,15 @@
 		<version>${revision}</version>
 	</parent>
 
-	<artifactId>common-io</artifactId>
+	<artifactId>imageapi-request-validator-spring-wrapper</artifactId>
 	<packaging>jar</packaging>
-	<name>Common IO</name>
-	<description>Contains utilities for io operation</description>
+	<name>Image API request validator</name>
+	<description>Validate image API request : image request and image information</description>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
+			<groupId>fr.techies.iiif</groupId>
+			<artifactId>imageapi-model</artifactId>
 		</dependency>
 	</dependencies>
 

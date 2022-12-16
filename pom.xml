@@ -4,12 +4,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- On ne peut pas passer en spring boot supérieur car on doit passer un jdk >8 -->
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.4</version>
-	</parent>
+	<!-- On ne peut pas passer en spring boot supérieur car on doit passer un 
+		jdk >8 -->
 
 	<groupId>fr.techies.iiif</groupId>
 	<artifactId>master</artifactId>
@@ -21,36 +17,28 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<spring.version>6.0.2</spring.version>
+		<spring-boot.version>2.7.4</spring-boot.version>
 		<revision>1.0.0-SNAPSHOT</revision>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>2.4.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- Logger is used in every module -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -73,6 +61,7 @@
 		<module>image-api-image-register-strategie</module>
 		<module>image-api-magick-cmd</module>
 		<module>image-api-model</module>
+		<module>imageapi-api-request-validator-spring-wrapper</module>
 		<module>image-api-request-validator</module>
 		<module>imageapi-services</module>
 		<module>imageapi-spring-services</module>

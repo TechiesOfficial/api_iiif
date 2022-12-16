@@ -28,6 +28,6 @@ public class SImpleOutputFileNameStrategy implements OutputFileNameStrategy {
 	@Override
 	public Path getOutputFileName(Path originalFileName) {
 
-		return Paths.get(this.dirPath + "/" + originalFileName);
+		return Paths.get(this.dirPath + "/" + originalFileName.getFileName());
 	}
 }

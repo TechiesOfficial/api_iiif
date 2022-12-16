@@ -1,20 +1,17 @@
 package fr.techies.iiif.services.os;
 
-import javax.annotation.PostConstruct;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OSDiscoveringService {
 
-	private Logger logger = LoggerFactory.getLogger(OSDiscoveringService.class);
+	private Logger logger = LogManager.getLogger(OSDiscoveringService.class);
 
 	private boolean isWindows = true;
 
-	@PostConstruct
-	private void init() {
+	public boolean isWindows() {
 
 		String osName = System.getProperty("os.name").toLowerCase();
 
@@ -23,13 +20,9 @@ public class OSDiscoveringService {
 		if (osName.contains("windows".toLowerCase())) {
 			this.isWindows = true;
 		} else {
-
 			// TODO: implémenter linux ou autre.
 		}
-	}
-
-	public boolean isWindows() {
-
+		
 		return this.isWindows;
 	}
 }

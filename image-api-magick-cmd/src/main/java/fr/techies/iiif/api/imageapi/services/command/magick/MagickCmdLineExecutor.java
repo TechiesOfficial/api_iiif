@@ -28,9 +28,8 @@ public class MagickCmdLineExecutor {
 
 		IdentifyResultBean identifyResultBean = null;
 		StringBuilder sb = new StringBuilder();
-		ExtensionEnum extensionEnum = null;
 
-		identifyResultBean = this.identifyCmdLineExecutor.identify(inFileName.getFileName());
+		identifyResultBean = this.identifyCmdLineExecutor.identify(inFileName);
 
 		sb.append(this.executableFinder.getMagickExecutable());
 		sb.append(" ");

@@ -15,7 +15,7 @@ import fr.techies.iiif.api.imageapi.imagerequest.validator.ImageRequestParameter
 import fr.techies.iiif.api.imageapi.imagerequest.validator.InvalidImageRequestException;
 import fr.techies.iiif.api.imageapi.services.ImageRequestService;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
-import fr.techies.iiif.web.MediaTypeMapper;
+import fr.techies.iiif.web.springboot.MediaTypeMapper;
 
 /**
  * On met ici la gestion de vue aussi mais il faudra créér un autre contoller

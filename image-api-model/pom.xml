@@ -10,7 +10,6 @@
 		<version>${revision}</version>
 	</parent>
 
-	<groupId>fr.techies.iiif</groupId>
 	<artifactId>imageapi-model</artifactId>
 	<packaging>jar</packaging>
 	<name>Image API model</name>

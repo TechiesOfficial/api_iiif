@@ -31,7 +31,7 @@ public class IdentifyCmdLineExecutor {
 		sb.append(" ");
 		sb.append(this.identifyFormatParameterService.build());
 		sb.append(" ");
-		sb.append(path.getFileName());
+		sb.append(path.toString());
 		
 
 		output = this.commandLineExecutor.exec(sb.toString());
