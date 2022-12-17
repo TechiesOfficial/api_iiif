@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.api.imageapi.services.command.magick.IdentifyCmdLineExecutor;
 import fr.techies.iiif.api.imageapi.services.command.magick.IdentifyResultBean;
-import fr.techies.iiif.api.imageapi.services.image.register.AutoDiscoverImagesFromPathService;
+import fr.techies.iiif.api.imageapi.services.image.register.AutoDiscoverImagesService;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 
 /**
@@ -24,7 +24,7 @@ public class InformationRequestService {
 	private IdentifyCmdLineExecutor identifyCmdLineExecutor;
 
 	@Autowired
-	private AutoDiscoverImagesFromPathService autoDiscoverImagesFromPathService;
+	private AutoDiscoverImagesService autoDiscoverImagesFromPathService;
 
 	public InformationResponseBean getInformation(String identifier) throws ImageNotFoundException {
 

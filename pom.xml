@@ -57,16 +57,17 @@
 
 	<modules>
 		<module>common-io</module>
-		<module>image-api-exception</module>
-		<module>image-api-image-register-strategie</module>
-		<module>image-api-magick-cmd</module>
-		<module>image-api-model</module>
-		<module>imageapi-api-request-validator-spring-wrapper</module>
-		<module>image-api-request-validator</module>
+		<module>imageapi-exception</module>
+		<module>imageapi-image-register-strategie</module>
+		<module>imageapi-image-register-strategie-spring-wapper</module>
+		<module>imageapi-magick-cmd</module>
+		<module>imageapi-model</module>
+		<module>imageapi-request-validator</module>
+		<module>imageapi-request-validator-spring-wrapper</module>
 		<module>imageapi-services</module>
 		<module>imageapi-spring-services</module>
-		<module>magick-wrapper</module>
-		<module>web</module>
+		<module>magick-executable-wrapper</module>
+		<module>spring-boot-endpoint</module>
 	</modules>
 
 </project>

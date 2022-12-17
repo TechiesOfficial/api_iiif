@@ -10,10 +10,10 @@
 		<version>${revision}</version>
 	</parent>
 
-	<artifactId>imageapi-spring-services</artifactId>
+	<artifactId>imageapi-request-validator-spring-wrapper</artifactId>
 	<packaging>jar</packaging>
-	<name>Image API spring services</name>
-	<description>Allow to perform image request and information request with spring IOC</description>
+	<name>Image API request validator</name>
+	<description>Validate image API request : image request and image information</description>
 
 	<dependencies>
 		<dependency>
@@ -21,23 +21,6 @@
 			<artifactId>imageapi-model</artifactId>
 			<version>${revision}</version>
 		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-exception</artifactId>
-			<version>${revision}</version>
-		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-image-register-strategie</artifactId>
-			<version>${revision}</version>
-		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-magick-cmd</artifactId>
-			<version>${revision}</version>
-		</dependency>
-
-
 	</dependencies>
 
 	<build>

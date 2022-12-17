@@ -10,17 +10,21 @@
 		<version>${revision}</version>
 	</parent>
 
-	<artifactId>imageapi-spring-services</artifactId>
+	<artifactId>imageapi-image-register-strategie-spring-wrapper</artifactId>
 	<packaging>jar</packaging>
-	<name>Image API spring services</name>
-	<description>Allow to perform image request and information request with spring IOC</description>
+	<name>Image API image register strategie srping wrapper</name>
+	<description>Contains strategies classes to find image resources</description>
 
 	<dependencies>
 		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-model</artifactId>
-			<version>${revision}</version>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
 			<artifactId>imageapi-exception</artifactId>
@@ -31,13 +35,6 @@
 			<artifactId>imageapi-image-register-strategie</artifactId>
 			<version>${revision}</version>
 		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-magick-cmd</artifactId>
-			<version>${revision}</version>
-		</dependency>
-
-
 	</dependencies>
 
 	<build>
