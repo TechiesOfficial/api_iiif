@@ -16,6 +16,10 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>fr.techies.iiif</groupId>
 			<artifactId>magick-executable-wrapper</artifactId>
 			<version>${revision}</version>

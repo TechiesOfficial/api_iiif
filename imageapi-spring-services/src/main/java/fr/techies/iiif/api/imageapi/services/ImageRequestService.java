@@ -11,6 +11,7 @@ import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.services.command.magick.MagickCmdLineExecutor;
 import fr.techies.iiif.api.imageapi.services.image.register.ImageRegister;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
+import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
 
 @Service
 public class ImageRequestService {
@@ -39,7 +40,7 @@ public class ImageRequestService {
 			throw e;
 		}
 
-		outFileName = this.outputFileNameStrategy.getOutputFileName(inFileName);
+		outFileName = this.outputFileNameStrategy.getOutputFileName(inFileName, ExtensionEnum.valueOf(imageRequest.getFormat().getFormat().toString()));
 
 		try {
 			image = this.magickCmdLineExecutor.magick(inFileName, outFileName, imageRequest);

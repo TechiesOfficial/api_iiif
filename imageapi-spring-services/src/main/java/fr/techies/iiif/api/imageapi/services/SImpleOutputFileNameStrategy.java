@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Component;
 
+import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
+
 @Component
 @ConditionalOnProperty(value = "imageapi.outputfilename.strategy", havingValue = "SImpleOutputFileNameStrategy", matchIfMissing = true)
 public class SImpleOutputFileNameStrategy implements OutputFileNameStrategy {
@@ -26,8 +28,8 @@ public class SImpleOutputFileNameStrategy implements OutputFileNameStrategy {
 	}
 
 	@Override
-	public Path getOutputFileName(Path originalFileName) {
+	public Path getOutputFileName(Path originalFileName, ExtensionEnum extensionEnum) {
 
-		return Paths.get(this.dirPath + "/" + originalFileName.getFileName());
+		return Paths.get(this.dirPath + "/" + originalFileName.getFileName() + "." +extensionEnum);
 	}
 }

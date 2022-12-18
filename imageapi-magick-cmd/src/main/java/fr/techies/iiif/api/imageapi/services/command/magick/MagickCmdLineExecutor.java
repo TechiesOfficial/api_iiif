@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,8 +20,8 @@ import fr.techies.iiif.services.os.OSEnum;
 @Service
 public class MagickCmdLineExecutor {
 
-	@Value("iiif.dir.path")
-	private File unpackedTargertPath;
+	@Value("${iiif.dir.path}")
+	private String unpackedTargetPath;
 	
 	@Autowired
 	private GenericCommandLineExecutor commandLineExecutor;
@@ -29,11 +31,11 @@ public class MagickCmdLineExecutor {
 
 	private IMExecutableUnpacker imExecutableUnpacker;
 	
-	public MagickCmdLineExecutor() {
-
-		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Windows, this.unpackedTargertPath);
+	@PostConstruct
+	private void postConstruct() {
+		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Windows, new File(this.unpackedTargetPath));
 	}
-
+	
 	public byte[] magick(Path inFileName, Path outFileName, ImageRequest imageRequest) throws IOException {
 
 		IdentifyResultBean identifyResultBean = null;

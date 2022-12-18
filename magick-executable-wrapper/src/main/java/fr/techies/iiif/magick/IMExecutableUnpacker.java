@@ -30,13 +30,13 @@ public class IMExecutableUnpacker {
 				this.getClass().getClassLoader().getResourceAsStream("magick/win/magick.exe").transferTo(fileOutputStream);
 				
 				fileOutputStream.flush();
-				this.IMMagickExecutablePath = new File(unpackedTargertPath, "magick.exe");
+				this.IMMagickExecutablePath = new File(unpackedTargertPath, "magick.exe").getAbsoluteFile();
 				
 				fileOutputStream = new FileOutputStream(new File(unpackedTargertPath, "identify.exe"));
 				this.getClass().getClassLoader().getResourceAsStream("magick/win/identify.exe").transferTo(fileOutputStream);
 				
 				fileOutputStream.flush();
-				this.IMIdentifyExecutablePath = new File(unpackedTargertPath, "identify.exe");
+				this.IMIdentifyExecutablePath = new File(unpackedTargertPath, "identify.exe").getAbsoluteFile();
 				
 				break;
 
