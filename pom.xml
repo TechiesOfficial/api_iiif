@@ -59,7 +59,7 @@
 		<profile>
 			<id>java-endpoint</id>
 			<modules>
-				<module>common-io</module>
+				<module>common</module>
 				<module>imageapi-exception</module>
 				<module>imageapi-image-register-strategie</module>
 				<module>imageapi-magick-cmd</module>
@@ -67,12 +67,13 @@
 				<module>imageapi-request-validator</module>
 				<module>imageapi-services</module>
 				<module>magick-executable-wrapper</module>
+				<module>java-endpoint</module>
 			</modules>
 		</profile>
 		<profile>
 			<id>springboot-endpoint</id>
 			<modules>
-				<module>common-io</module>
+				<module>common</module>
 				<module>imageapi-exception</module>
 				<module>imageapi-image-register-strategie</module>
 				<module>imageapi-image-register-strategie-spring-wapper</module>

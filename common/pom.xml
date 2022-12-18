@@ -10,10 +10,10 @@
 		<version>${revision}</version>
 	</parent>
 
-	<artifactId>common-io</artifactId>
+	<artifactId>common</artifactId>
 	<packaging>jar</packaging>
-	<name>Common IO</name>
-	<description>Contains utilities for io operation</description>
+	<name>Common</name>
+	<description>Contains utilities and some enum</description>
 
 	<dependencies>
 		<dependency>
