@@ -58,10 +58,6 @@ public class ImageFileUtil {
 				break;
 			}
 			
-			
-
-			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
