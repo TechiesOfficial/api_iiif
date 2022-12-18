@@ -1,9 +1,11 @@
 package fr.techies.iiif.api.imageapi.services.command.magick;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
@@ -11,18 +13,26 @@ import fr.techies.iiif.lib.cmd.GenericCommandLineExecutor;
 import fr.techies.iiif.lib.utils.ImageFileUtil;
 import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
 import fr.techies.iiif.magick.IMExecutableUnpacker;
+import fr.techies.iiif.services.os.OSEnum;
 
 @Service
 public class MagickCmdLineExecutor {
 
-	@Autowired
-	private IMExecutableUnpacker executableFinder;
-
+	@Value("iiif.dir.path")
+	private File unpackedTargertPath;
+	
 	@Autowired
 	private GenericCommandLineExecutor commandLineExecutor;
 
 	@Autowired
 	private IdentifyCmdLineExecutor identifyCmdLineExecutor;
+
+	private IMExecutableUnpacker imExecutableUnpacker;
+	
+	public MagickCmdLineExecutor() {
+
+		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Windows, this.unpackedTargertPath);
+	}
 
 	public byte[] magick(Path inFileName, Path outFileName, ImageRequest imageRequest) throws IOException {
 
@@ -31,7 +41,7 @@ public class MagickCmdLineExecutor {
 
 		identifyResultBean = this.identifyCmdLineExecutor.identify(inFileName);
 
-		sb.append(this.executableFinder.getMagickExecutable());
+		sb.append(this.imExecutableUnpacker.getMagickExecutable());
 		sb.append(" ");
 		// A priori extract doit se trouver avant le fichier en entrée
 		sb.append(this.manageRegion(imageRequest, identifyResultBean));

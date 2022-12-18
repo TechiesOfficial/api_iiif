@@ -2,14 +2,13 @@ package fr.techies.iiif.api.imageapi.services;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.api.imageapi.services.command.magick.IdentifyCmdLineExecutor;
 import fr.techies.iiif.api.imageapi.services.command.magick.IdentifyResultBean;
-import fr.techies.iiif.api.imageapi.services.image.register.AutoDiscoverImagesService;
+import fr.techies.iiif.api.imageapi.services.image.register.AutoDiscoverImagesFromPathRepo;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 
 /**
@@ -24,7 +23,7 @@ public class InformationRequestService {
 	private IdentifyCmdLineExecutor identifyCmdLineExecutor;
 
 	@Autowired
-	private AutoDiscoverImagesService autoDiscoverImagesFromPathService;
+	private AutoDiscoverImagesFromPathRepo autoDiscoverImagesFromPathRepo;
 
 	public InformationResponseBean getInformation(String identifier) throws ImageNotFoundException {
 
@@ -33,7 +32,7 @@ public class InformationRequestService {
 		Path inFileName = null;
 
 		try {
-			inFileName = this.autoDiscoverImagesFromPathService.getPath(identifier);
+			inFileName = this.autoDiscoverImagesFromPathRepo.getPath(identifier);
 
 			image = this.identifyCmdLineExecutor.identify(inFileName);
 

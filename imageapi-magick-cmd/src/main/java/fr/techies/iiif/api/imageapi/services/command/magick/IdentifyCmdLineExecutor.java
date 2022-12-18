@@ -1,25 +1,34 @@
 package fr.techies.iiif.api.imageapi.services.command.magick;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.lib.cmd.GenericCommandLineExecutor;
 import fr.techies.iiif.magick.IMExecutableUnpacker;
+import fr.techies.iiif.services.os.OSEnum;
 
 @Service
 public class IdentifyCmdLineExecutor {
 
-	@Autowired
-	private IMExecutableUnpacker executableFinder;
-
+	@Value("iiif.dir.path")
+	private File unpackedTargertPath;
+	
+	private IMExecutableUnpacker imExecutableUnpacker;
+	
 	@Autowired
 	private GenericCommandLineExecutor commandLineExecutor;
 	
 	@Autowired
 	private IdentifyFormatParameterService identifyFormatParameterService;
+	
+	public IdentifyCmdLineExecutor() {
+		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Windows, this.unpackedTargertPath);		
+	}
 	
 	public IdentifyResultBean identify(Path path) throws IOException {
 
@@ -27,7 +36,7 @@ public class IdentifyCmdLineExecutor {
 		String[] identifyCmdResult = null;
 		String output = null;
 		
-		sb.append(this.executableFinder.getIdentifyExecutable());
+		sb.append(this.imExecutableUnpacker.getIdentifyExecutable());
 		sb.append(" ");
 		sb.append(this.identifyFormatParameterService.build());
 		sb.append(" ");
