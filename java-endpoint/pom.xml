@@ -26,7 +26,7 @@
 		</dependency>
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-spring-services</artifactId>
+			<artifactId>imageapi-services</artifactId>
 			<version>${revision}</version>
 		</dependency>
 	</dependencies>

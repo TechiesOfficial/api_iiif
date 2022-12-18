@@ -26,7 +26,21 @@
 			<artifactId>imageapi-exception</artifactId>
 			<version>${revision}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>fr.techies.iiif</groupId>
+			<artifactId>imageapi-image-register-strategie</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.techies.iiif</groupId>
+			<artifactId>imageapi-magick-cmd</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.techies.iiif</groupId>
+			<artifactId>common-io</artifactId>
+			<version>${revision}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

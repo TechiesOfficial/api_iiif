@@ -4,29 +4,28 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.services.command.magick.MagickCmdLineExecutor;
+import fr.techies.iiif.api.imageapi.services.contract.AOutputFileNameStrategy;
 import fr.techies.iiif.api.imageapi.services.image.register.ImageRegister;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
 
-@Service
-public class ImageRequestService {
+public class ImageRequestProcessor {
 
-	@Autowired
 	private MagickCmdLineExecutor magickCmdLineExecutor;
 
-	@Autowired
-	private OutputFileNameStrategy outputFileNameStrategy;
-	
-	/**
-	 * Permet de récupérer l'ensemble des registres d'images dans le classpath.
-	 */
-	@Autowired
+	private AOutputFileNameStrategy outputFileNameStrategy;
+
 	private List<ImageRegister> imageRegisters;
+
+	public ImageRequestProcessor(AOutputFileNameStrategy outputFileNameStrategy, List<ImageRegister> imageRegisters) {
+
+
+		this.imageRegisters = imageRegisters;
+		this.magickCmdLineExecutor = new MagickCmdLineExecutor();
+		this.outputFileNameStrategy = outputFileNameStrategy;
+	}
 
 	public byte[] getResultingImage(ImageRequest imageRequest) throws ImageNotFoundException {
 
@@ -40,7 +39,8 @@ public class ImageRequestService {
 			throw e;
 		}
 
-		outFileName = this.outputFileNameStrategy.getOutputFileName(inFileName, ExtensionEnum.valueOf(imageRequest.getFormat().getFormat().toString()));
+		outFileName = this.outputFileNameStrategy.getOutputFileName(inFileName,
+				ExtensionEnum.valueOf(imageRequest.getFormat().getFormat().toString()));
 
 		try {
 			image = this.magickCmdLineExecutor.magick(inFileName, outFileName, imageRequest);
@@ -62,7 +62,7 @@ public class ImageRequestService {
 				e.printStackTrace();
 			}
 		}
-		
+
 		throw new ImageNotFoundException("Aucune image trouvée dans les repository d'images");
 	}
 }

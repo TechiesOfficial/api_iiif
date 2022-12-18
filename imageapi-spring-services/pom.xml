@@ -15,12 +15,12 @@
 	<name>Image API spring services</name>
 	<description>Allow to perform image request and information request with spring IOC</description>
 
-	<dependencies>
+	<dependencies> 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
+ 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
 			<artifactId>imageapi-model</artifactId>
 			<version>${revision}</version>
@@ -32,21 +32,14 @@
 		</dependency>
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-image-register-strategie</artifactId>
-			<version>${revision}</version>
-		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-magick-cmd</artifactId>
-			<version>${revision}</version>
-		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
 			<artifactId>imageapi-image-register-strategie-spring-wrapper</artifactId>
 			<version>${revision}</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>fr.techies.iiif</groupId>
+			<artifactId>imageapi-services</artifactId>
+			<version>${revision}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

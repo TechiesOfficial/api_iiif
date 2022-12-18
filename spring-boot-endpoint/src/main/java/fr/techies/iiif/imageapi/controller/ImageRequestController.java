@@ -14,7 +14,7 @@ import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.FormatEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.validator.ImageRequestParametersValidator;
 import fr.techies.iiif.api.imageapi.imagerequest.validator.InvalidImageRequestException;
-import fr.techies.iiif.api.imageapi.services.ImageRequestService;
+import fr.techies.iiif.api.imageapi.spring.services.ImageRequestService;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 
 /**

@@ -1,4 +1,4 @@
-package fr.techies.iiif.api.imageapi.services;
+package fr.techies.iiif.api.imageapi.spring.services;
 
 import java.io.IOException;
 import java.nio.file.Path;
