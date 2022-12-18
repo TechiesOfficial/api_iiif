@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;

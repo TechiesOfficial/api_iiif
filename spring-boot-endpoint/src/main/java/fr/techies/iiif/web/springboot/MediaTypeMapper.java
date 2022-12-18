@@ -1,7 +1,5 @@
 package fr.techies.iiif.web.springboot;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.http.MediaType;
 import org.springframework.util.MimeType;
 
@@ -11,7 +9,6 @@ public class MediaTypeMapper {
 
 	public static MediaType mediaTypeMapper(FormatEnum format) {
 
-		@PostConstruct
 		MediaType mediaType = null;
 
 		switch (format) {

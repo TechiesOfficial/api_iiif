@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.lib.cmd.GenericCommandLineExecutor;
-import fr.techies.iiif.magick.ImageMagickExecutableFinder;
+import fr.techies.iiif.magick.IMExecutableUnpacker;
 
 @Service
 public class IdentifyCmdLineExecutor {
 
 	@Autowired
-	private ImageMagickExecutableFinder executableFinder;
+	private IMExecutableUnpacker executableFinder;
 
 	@Autowired
 	private GenericCommandLineExecutor commandLineExecutor;

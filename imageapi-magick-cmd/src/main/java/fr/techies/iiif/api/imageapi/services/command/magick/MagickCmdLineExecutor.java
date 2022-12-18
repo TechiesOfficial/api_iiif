@@ -10,13 +10,13 @@ import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.lib.cmd.GenericCommandLineExecutor;
 import fr.techies.iiif.lib.utils.ImageFileUtil;
 import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
-import fr.techies.iiif.magick.ImageMagickExecutableFinder;
+import fr.techies.iiif.magick.IMExecutableUnpacker;
 
 @Service
 public class MagickCmdLineExecutor {
 
 	@Autowired
-	private ImageMagickExecutableFinder executableFinder;
+	private IMExecutableUnpacker executableFinder;
 
 	@Autowired
 	private GenericCommandLineExecutor commandLineExecutor;
@@ -43,16 +43,19 @@ public class MagickCmdLineExecutor {
 		sb.append(this.manageRotation(imageRequest));
 		sb.append(" ");
 		sb.append(this.manageQuality(imageRequest));
+		
+		ExtensionEnum extensionEnum = this.manageFormat(imageRequest);
+		
 		sb.append(" ");
-		sb.append(this.manageFormat(imageRequest));
+		sb.append(outFileName);
 
 		this.commandLineExecutor.exec(sb.toString());
 		
-		return ImageFileUtil.getImageAsBytes(outFileName + extensionEnum.getExtension(),
+		return ImageFileUtil.getImageAsBytes(outFileName.toString(),
 				extensionEnum);
 	}
 
-	private StringBuilder manageFormat(ImageRequest imageRequest) {
+	private ExtensionEnum manageFormat(ImageRequest imageRequest) {
 
 		StringBuilder sb = new StringBuilder();
 		ExtensionEnum extensionEnum = null;
@@ -75,7 +78,7 @@ public class MagickCmdLineExecutor {
 			break;
 		}
 
-		return sb;
+		return extensionEnum;
 	}
 
 	private StringBuilder manageQuality(ImageRequest imageRequest) {

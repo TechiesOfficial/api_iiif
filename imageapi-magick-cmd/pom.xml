@@ -17,7 +17,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
-			<artifactId>magick-wrapper</artifactId>
+			<artifactId>magick-executable-wrapper</artifactId>
 			<version>${revision}</version>
 		</dependency>
 		<dependency>

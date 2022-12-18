@@ -67,6 +67,7 @@
 		<module>imageapi-services</module>
 		<module>imageapi-spring-services</module>
 		<module>magick-executable-wrapper</module>
+		<module>magick-executable-wrapper-spring-wrapper</module>
 		<module>spring-boot-endpoint</module>
 	</modules>
 
