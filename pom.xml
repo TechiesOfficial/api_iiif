@@ -22,26 +22,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>2.4.0</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
-	<dependencies>
-		<!-- Logger is used in every module -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-		</dependency>
-	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -55,20 +35,55 @@
 		</plugins>
 	</build>
 
-	<modules>
-		<module>common-io</module>
-		<module>imageapi-exception</module>
-		<module>imageapi-image-register-strategie</module>
-		<module>imageapi-image-register-strategie-spring-wapper</module>
-		<module>imageapi-magick-cmd</module>
-		<module>imageapi-model</module>
-		<module>imageapi-request-validator</module>
-		<module>imageapi-request-validator-spring-wrapper</module>
-		<module>imageapi-services</module>
-		<module>imageapi-spring-services</module>
-		<module>magick-executable-wrapper</module>
-		<module>magick-executable-wrapper-spring-wrapper</module>
-		<module>spring-boot-endpoint</module>
-	</modules>
-
+	<profiles>
+		<profile>
+			<id>java-endpoint</id>
+			<modules>
+				<module>common-io</module>
+				<module>imageapi-exception</module>
+				<module>imageapi-image-register-strategie</module>
+				<module>imageapi-magick-cmd</module>
+				<module>imageapi-model</module>
+				<module>imageapi-request-validator</module>
+				<module>imageapi-services</module>
+				<module>magick-executable-wrapper</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>springboot-endpoint</id>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-dependencies</artifactId>
+						<version>2.4.0</version>
+						<type>pom</type>
+						<scope>import</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+			<dependencies>
+				<!-- Logger is used in every module -->
+				<dependency>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-api</artifactId>
+				</dependency>
+			</dependencies>
+			<modules>
+				<module>common-io</module>
+				<module>imageapi-exception</module>
+				<module>imageapi-image-register-strategie</module>
+				<module>imageapi-image-register-strategie-spring-wapper</module>
+				<module>imageapi-magick-cmd</module>
+				<module>imageapi-model</module>
+				<module>imageapi-request-validator</module>
+				<module>imageapi-request-validator-spring-wrapper</module>
+				<module>imageapi-services</module>
+				<module>imageapi-spring-services</module>
+				<module>magick-executable-wrapper</module>
+				<module>magick-executable-wrapper-spring-wrapper</module>
+				<module>spring-boot-endpoint</module>
+			</modules>
+		</profile>
+	</profiles>
 </project>
