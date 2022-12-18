@@ -1,4 +1,4 @@
-package fr.techies.iiif.web.imageapi.controller;
+package fr.techies.iiif.imageapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -9,13 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import fr.techies.iiif.MediaTypeMapper;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.FormatEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.validator.ImageRequestParametersValidator;
 import fr.techies.iiif.api.imageapi.imagerequest.validator.InvalidImageRequestException;
 import fr.techies.iiif.api.imageapi.services.ImageRequestService;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
-import fr.techies.iiif.web.springboot.MediaTypeMapper;
 
 /**
  * On met ici la gestion de vue aussi mais il faudra créér un autre contoller

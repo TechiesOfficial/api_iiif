@@ -1,4 +1,4 @@
-package fr.techies.iiif.web.springboot;
+package fr.techies.iiif;
 
 import org.springframework.http.MediaType;
 import org.springframework.util.MimeType;
