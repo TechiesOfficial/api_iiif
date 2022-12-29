@@ -38,7 +38,7 @@
 		</dependency>
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
-			<artifactId>common-io</artifactId>
+			<artifactId>common</artifactId>
 			<version>${revision}</version>
 		</dependency>
 	</dependencies>
