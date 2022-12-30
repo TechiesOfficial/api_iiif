@@ -23,7 +23,6 @@ public class MagickCmdLineExecutor {
 	@Value("${iiif.dir.path}")
 	private String unpackedTargetPath;
 	
-	@Autowired
 	private GenericCommandLineExecutor commandLineExecutor;
 
 	@Autowired
@@ -33,7 +32,8 @@ public class MagickCmdLineExecutor {
 	
 	@PostConstruct
 	private void postConstruct() {
-		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Windows, new File(this.unpackedTargetPath));
+		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Linux, new File(this.unpackedTargetPath));
+		this.commandLineExecutor = new GenericCommandLineExecutor();
 	}
 	
 	public byte[] magick(Path inFileName, Path outFileName, ImageRequest imageRequest) throws IOException {
@@ -61,7 +61,7 @@ public class MagickCmdLineExecutor {
 		sb.append(" ");
 		sb.append(outFileName);
 
-		this.commandLineExecutor.exec(sb.toString());
+		this.commandLineExecutor.exec(sb.toString(), this.unpackedTargetPath, OSEnum.Linux);
 		
 		return ImageFileUtil.getImageAsBytes(outFileName.toString(),
 				extensionEnum);
@@ -69,7 +69,6 @@ public class MagickCmdLineExecutor {
 
 	private ExtensionEnum manageFormat(ImageRequest imageRequest) {
 
-		StringBuilder sb = new StringBuilder();
 		ExtensionEnum extensionEnum = null;
 		
 		switch (imageRequest.getFormat().getFormat()) {

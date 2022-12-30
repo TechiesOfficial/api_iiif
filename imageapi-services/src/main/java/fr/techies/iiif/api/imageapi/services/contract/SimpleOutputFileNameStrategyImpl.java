@@ -5,9 +5,9 @@ import java.nio.file.Paths;
 
 import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
 
-public class SImpleOutputFileNameStrategyImpl extends AOutputFileNameStrategy {
+public class SimpleOutputFileNameStrategyImpl extends AOutputFileNameStrategy {
 	
-	public SImpleOutputFileNameStrategyImpl(String outputDirectory) {
+	public SimpleOutputFileNameStrategyImpl(String outputDirectory) {
 		super(outputDirectory);
 	}
 

@@ -15,7 +15,7 @@ import fr.techies.iiif.api.imageapi.imagerequest.model.enums.FormatEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.QualityEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.RegionEnum;
 import fr.techies.iiif.api.imageapi.services.ImageRequestProcessor;
-import fr.techies.iiif.api.imageapi.services.contract.SImpleOutputFileNameStrategyImpl;
+import fr.techies.iiif.api.imageapi.services.contract.SimpleOutputFileNameStrategyImpl;
 import fr.techies.iiif.api.imageapi.services.image.register.AutoDiscoverImagesFromPath;
 import fr.techies.iiif.api.imageapi.services.image.register.ImageRegister;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
@@ -37,7 +37,7 @@ public class Main {
 		imageRegisters.add(new AutoDiscoverImagesFromPath(Paths.get("C:\\Users\\BNFTT\\Desktop\\techies\\images")));
 		
 		ImageRequestProcessor imageRequestProcessor = new ImageRequestProcessor(
-				new SImpleOutputFileNameStrategyImpl("C:\\Users\\BNFTT\\Desktop\\techies\\images"), imageRegisters);
+				new SimpleOutputFileNameStrategyImpl("C:\\Users\\BNFTT\\Desktop\\techies\\images"), imageRegisters);
 
 		try {
 			byte[] image = imageRequestProcessor.getResultingImage(imageRequest);

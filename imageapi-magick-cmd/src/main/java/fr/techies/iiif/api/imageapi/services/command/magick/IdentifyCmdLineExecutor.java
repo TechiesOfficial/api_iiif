@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,19 +17,20 @@ import fr.techies.iiif.services.os.OSEnum;
 @Service
 public class IdentifyCmdLineExecutor {
 
-	@Value("iiif.dir.path")
-	private File unpackedTargertPath;
+	@Value("${iiif.dir.path}")
+	private String unpackedTargetPath;
 	
-	private IMExecutableUnpacker imExecutableUnpacker;
-	
-	@Autowired
 	private GenericCommandLineExecutor commandLineExecutor;
 	
 	@Autowired
 	private IdentifyFormatParameterService identifyFormatParameterService;
 	
-	public IdentifyCmdLineExecutor() {
-		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Windows, this.unpackedTargertPath);		
+	private IMExecutableUnpacker imExecutableUnpacker;
+	
+	@PostConstruct
+	private void postConstruct() {
+		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Linux, new File(this.unpackedTargetPath));
+		this.commandLineExecutor = new GenericCommandLineExecutor();
 	}
 	
 	public IdentifyResultBean identify(Path path) throws IOException {
@@ -43,7 +46,7 @@ public class IdentifyCmdLineExecutor {
 		sb.append(path.toString());
 		
 
-		output = this.commandLineExecutor.exec(sb.toString());
+		output = this.commandLineExecutor.exec(sb.toString(), this.unpackedTargetPath, OSEnum.Linux);
 		
 		identifyCmdResult = output.split(",");
 		
