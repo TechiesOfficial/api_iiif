@@ -37,7 +37,7 @@ public class Main {
 		imageRegisters.add(new AutoDiscoverImagesFromPath(Paths.get("C:\\Users\\BNFTT\\Desktop\\techies\\images")));
 		
 		ImageRequestProcessor imageRequestProcessor = new ImageRequestProcessor(
-				new SimpleOutputFileNameStrategyImpl("C:\\Users\\BNFTT\\Desktop\\techies\\images"), imageRegisters);
+				new SimpleOutputFileNameStrategyImpl("C:\\Users\\BNFTT\\Desktop\\techies\\images"), imageRegisters, "/home/romain/Images/exe");
 
 		try {
 			byte[] image = imageRequestProcessor.getResultingImage(imageRequest);

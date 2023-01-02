@@ -16,8 +16,6 @@ public class IMExecutableUnpacker {
 
 	private File IMMagickExecutablePath;
 
-	private File IMIdentifyExecutablePath;
-
 	public IMExecutableUnpacker(OSEnum os, File unpackedTargertPath) {
 
 		FileOutputStream fileOutputStream = null;
@@ -32,11 +30,17 @@ public class IMExecutableUnpacker {
 				fileOutputStream.flush();
 				this.IMMagickExecutablePath = new File(unpackedTargertPath, "magick.exe").getAbsoluteFile();
 				
-				fileOutputStream = new FileOutputStream(new File(unpackedTargertPath, "identify.exe"));
-				this.getClass().getClassLoader().getResourceAsStream("magick/win/identify.exe").transferTo(fileOutputStream);
+				break;
+				
+			case Linux:
+				
+				fileOutputStream = new FileOutputStream(new File(unpackedTargertPath, "magick"));
+				this.getClass().getClassLoader().getResourceAsStream("magick/linux/magick").transferTo(fileOutputStream);
 				
 				fileOutputStream.flush();
-				this.IMIdentifyExecutablePath = new File(unpackedTargertPath, "identify.exe").getAbsoluteFile();
+				this.IMMagickExecutablePath = new File(unpackedTargertPath, "magick").getAbsoluteFile();
+				
+				this.IMMagickExecutablePath.setExecutable(true);
 				
 				break;
 
@@ -58,8 +62,4 @@ public class IMExecutableUnpacker {
 		return this.IMMagickExecutablePath;
 	}
 
-	public File getIdentifyExecutable() throws IOException {
-
-		return this.IMIdentifyExecutablePath;
-	}
 }

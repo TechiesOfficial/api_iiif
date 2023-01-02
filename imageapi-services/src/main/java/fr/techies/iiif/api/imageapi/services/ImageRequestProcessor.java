@@ -12,17 +12,17 @@ import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
 
 public class ImageRequestProcessor {
-
+	
 	private MagickCmdLineExecutor magickCmdLineExecutor;
 
 	private AOutputFileNameStrategy outputFileNameStrategy;
 
 	private List<ImageRegister> imageRegisters;
 
-	public ImageRequestProcessor(AOutputFileNameStrategy outputFileNameStrategy, List<ImageRegister> imageRegisters) {
-		this.imageRegisters = imageRegisters;
-		this.magickCmdLineExecutor = new MagickCmdLineExecutor();
+	public ImageRequestProcessor(AOutputFileNameStrategy outputFileNameStrategy, List<ImageRegister> imageRegisters, String unpackedTargetPath) {
+		this.magickCmdLineExecutor = new MagickCmdLineExecutor(unpackedTargetPath);
 		this.outputFileNameStrategy = outputFileNameStrategy;
+		this.imageRegisters = imageRegisters;
 	}
 
 	public byte[] getResultingImage(ImageRequest imageRequest) throws ImageNotFoundException {
@@ -33,18 +33,16 @@ public class ImageRequestProcessor {
 
 		try {
 			inFileName = this.getImagePath(imageRequest.getIdentifier().getIdentifier());
-		} catch (ImageNotFoundException e) {
-			throw e;
-		}
 
-		outFileName = this.outputFileNameStrategy.getOutputFileName(inFileName,
+			outFileName = this.outputFileNameStrategy.getOutputFileName(inFileName,
 				ExtensionEnum.valueOf(imageRequest.getFormat().getFormat().toString()));
 
-		try {
 			image = this.magickCmdLineExecutor.magick(inFileName, outFileName, imageRequest);
 		} catch (IOException e) {
 			// TODO: améliorer même si cela ne devrait jamais se produire
 			e.printStackTrace();
+		} catch (ImageNotFoundException e) {
+			throw e;
 		}
 
 		return image;

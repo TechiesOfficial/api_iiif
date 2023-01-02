@@ -1,8 +1,5 @@
 package fr.techies.iiif.api.imageapi.services.command.magick;
 
-import org.springframework.stereotype.Service;
-
-@Service
 public class IdentifyFormatParameterService {
 
 	/**

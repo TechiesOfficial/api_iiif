@@ -13,9 +13,9 @@ import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.FormatEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.validator.ImageRequestParametersValidator;
 import fr.techies.iiif.api.imageapi.imagerequest.validator.InvalidImageRequestException;
-import fr.techies.iiif.api.imageapi.spring.services.ImageRequestService;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 import fr.techies.iiif.rest.mappers.MediaTypeMapper;
+import fr.techies.iiif.rest.services.ImageRequestService;
 
 /**
  * On met ici la gestion de vue aussi mais il faudra créér un autre contoller
@@ -27,7 +27,7 @@ import fr.techies.iiif.rest.mappers.MediaTypeMapper;
 public class ImageRequestController {
 
 	@Autowired
-	private ImageRequestService imageAPIService;
+	private ImageRequestService imageRequestService;
 	
 	private ImageRequestParametersValidator imageRequestParametersValidator;
 	
@@ -129,6 +129,6 @@ public class ImageRequestController {
 	}
 
 	private byte[] getResultingImage(ImageRequest imageRequest) throws ImageNotFoundException  {
-		return this.imageAPIService.getResultingImage(imageRequest);
+		return this.imageRequestService.getResultingImage(imageRequest);
 	}
 }

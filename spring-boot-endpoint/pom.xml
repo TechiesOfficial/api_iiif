@@ -25,25 +25,41 @@
 			<artifactId>imageapi-request-validator</artifactId>
 			<version>${revision}</version>
 		</dependency>
+		
 		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-spring-services</artifactId>
-			<version>${revision}</version>
-		</dependency>
+            <groupId>fr.techies.iiif</groupId>
+            <artifactId>imageapi-image-register-strategie</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>fr.techies.iiif</groupId>
+            <artifactId>imageapi-magick-cmd</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>fr.techies.iiif</groupId>
+            <artifactId>imageapi-services</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

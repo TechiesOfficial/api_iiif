@@ -2,11 +2,9 @@ package fr.techies.iiif.services.os;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Service;
 
-@Service
 public class OSDiscoveringService {
-
+	
 	private Logger logger = LogManager.getLogger(OSDiscoveringService.class);
 
 	private boolean isWindows = true;

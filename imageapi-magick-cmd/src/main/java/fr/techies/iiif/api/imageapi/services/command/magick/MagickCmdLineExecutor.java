@@ -4,12 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.lib.cmd.GenericCommandLineExecutor;
 import fr.techies.iiif.lib.utils.ImageFileUtil;
@@ -17,23 +11,21 @@ import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
 import fr.techies.iiif.magick.IMExecutableUnpacker;
 import fr.techies.iiif.services.os.OSEnum;
 
-@Service
 public class MagickCmdLineExecutor {
 
-	@Value("${iiif.dir.path}")
 	private String unpackedTargetPath;
 	
 	private GenericCommandLineExecutor commandLineExecutor;
 
-	@Autowired
 	private IdentifyCmdLineExecutor identifyCmdLineExecutor;
 
 	private IMExecutableUnpacker imExecutableUnpacker;
 	
-	@PostConstruct
-	private void postConstruct() {
+	public MagickCmdLineExecutor(String unpackedTargetPath) {
+		this.unpackedTargetPath = unpackedTargetPath;
 		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Linux, new File(this.unpackedTargetPath));
 		this.commandLineExecutor = new GenericCommandLineExecutor();
+		this.identifyCmdLineExecutor = new IdentifyCmdLineExecutor(this.unpackedTargetPath);
 	}
 	
 	public byte[] magick(Path inFileName, Path outFileName, ImageRequest imageRequest) throws IOException {

@@ -4,33 +4,25 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import fr.techies.iiif.lib.cmd.GenericCommandLineExecutor;
 import fr.techies.iiif.magick.IMExecutableUnpacker;
 import fr.techies.iiif.services.os.OSEnum;
 
-@Service
 public class IdentifyCmdLineExecutor {
 
-	@Value("${iiif.dir.path}")
 	private String unpackedTargetPath;
 	
 	private GenericCommandLineExecutor commandLineExecutor;
 	
-	@Autowired
 	private IdentifyFormatParameterService identifyFormatParameterService;
 	
 	private IMExecutableUnpacker imExecutableUnpacker;
 	
-	@PostConstruct
-	private void postConstruct() {
+	public IdentifyCmdLineExecutor(String unpackedTargetPath) {
+		this.unpackedTargetPath = unpackedTargetPath;
 		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Linux, new File(this.unpackedTargetPath));
 		this.commandLineExecutor = new GenericCommandLineExecutor();
+		this.identifyFormatParameterService = new IdentifyFormatParameterService();
 	}
 	
 	public IdentifyResultBean identify(Path path) throws IOException {
@@ -39,13 +31,14 @@ public class IdentifyCmdLineExecutor {
 		String[] identifyCmdResult = null;
 		String output = null;
 		
-		sb.append(this.imExecutableUnpacker.getIdentifyExecutable());
+		sb.append(this.imExecutableUnpacker.getMagickExecutable());
+		sb.append(" ");
+		sb.append("identify");
 		sb.append(" ");
 		sb.append(this.identifyFormatParameterService.build());
 		sb.append(" ");
 		sb.append(path.toString());
 		
-
 		output = this.commandLineExecutor.exec(sb.toString(), this.unpackedTargetPath, OSEnum.Linux);
 		
 		identifyCmdResult = output.split(",");

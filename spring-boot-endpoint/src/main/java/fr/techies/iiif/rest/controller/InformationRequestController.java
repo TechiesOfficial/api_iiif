@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import fr.techies.iiif.api.imageapi.informationrequest.validator.InformationRequestParametersValidator;
-import fr.techies.iiif.api.imageapi.spring.services.InformationRequestService;
-import fr.techies.iiif.api.imageapi.spring.services.InformationResponseBean;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
+import fr.techies.iiif.rest.services.InformationRequestService;
+import fr.techies.iiif.rest.services.InformationResponseBean;
 
 @Controller
 public class InformationRequestController {
