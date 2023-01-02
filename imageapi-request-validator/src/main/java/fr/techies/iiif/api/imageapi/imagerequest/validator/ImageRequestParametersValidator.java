@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
-import fr.techies.iiif.api.imageapi.common.AIIIFRequestManager;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Format;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Identifier;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;

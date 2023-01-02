@@ -1,7 +1,6 @@
 package fr.techies.iiif.api.imageapi.spring.services;
 
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Path;
 
 import javax.annotation.PostConstruct;
 
@@ -11,8 +10,6 @@ import org.springframework.boot.context.properties.source.InvalidConfigurationPr
 import org.springframework.stereotype.Component;
 
 import fr.techies.iiif.api.imageapi.services.contract.AOutputFileNameStrategy;
-import fr.techies.iiif.api.imageapi.services.contract.SimpleOutputFileNameStrategyImpl;
-import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
 
 @Component
 @ConditionalOnProperty(value = "imageapi.outputfilename.strategy", matchIfMissing = true)

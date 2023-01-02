@@ -20,8 +20,6 @@ public class ImageRequestProcessor {
 	private List<ImageRegister> imageRegisters;
 
 	public ImageRequestProcessor(AOutputFileNameStrategy outputFileNameStrategy, List<ImageRegister> imageRegisters) {
-
-
 		this.imageRegisters = imageRegisters;
 		this.magickCmdLineExecutor = new MagickCmdLineExecutor();
 		this.outputFileNameStrategy = outputFileNameStrategy;

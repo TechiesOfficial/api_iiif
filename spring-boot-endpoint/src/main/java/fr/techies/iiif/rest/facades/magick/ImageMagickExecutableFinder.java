@@ -1,4 +1,4 @@
-package fr.techies.iiif.magick;
+package fr.techies.iiif.rest.facades.magick;
 
 
 import java.io.File;
@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import fr.techies.iiif.magick.IMExecutableUnpacker;
 import fr.techies.iiif.services.os.OSEnum;
 
 @Service
@@ -19,7 +20,7 @@ public class ImageMagickExecutableFinder {
 	@Value("imageMagickExecutableFinder.path")
 	private String imExecutableTargetPath;
 
-	private IMExecutableUnpacker imExecutableUnpacker; 
+	private IMExecutableUnpacker imExecutableUnpacker;
 	
 	public ImageMagickExecutableFinder() {
 

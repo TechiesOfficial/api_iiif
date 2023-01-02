@@ -7,10 +7,8 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import fr.techies.iiif.api.imageapi.services.image.register.annotation.ImageRepository;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 
-@ImageRepository
 public class AutoDiscoverImagesFromPathRepo implements ImageRegister{
 
 	@Value("${autoDiscoverImagesFromPathRepo.path}")

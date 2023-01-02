@@ -1,4 +1,4 @@
-package fr.techies.iiif;
+package fr.techies.iiif.rest.mappers;
 
 import org.springframework.http.MediaType;
 import org.springframework.util.MimeType;

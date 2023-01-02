@@ -1,4 +1,4 @@
-package fr.techies.iiif.imageapi.controller;
+package fr.techies.iiif.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

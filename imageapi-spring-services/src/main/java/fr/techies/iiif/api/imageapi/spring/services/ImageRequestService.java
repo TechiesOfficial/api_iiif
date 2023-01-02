@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.services.ImageRequestProcessor;
-import fr.techies.iiif.api.imageapi.services.command.magick.MagickCmdLineExecutor;
 import fr.techies.iiif.api.imageapi.services.image.register.ImageRegister;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 

@@ -32,11 +32,6 @@
 		</dependency>
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-image-register-strategie-spring-wrapper</artifactId>
-			<version>${revision}</version>
-		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
 			<artifactId>imageapi-services</artifactId>
 			<version>${revision}</version>
 		</dependency>
