@@ -20,8 +20,11 @@ public class InformationRequestController {
 	@Autowired
 	private InformationRequestService informationRequestService;
 	
-	@Autowired
 	private InformationRequestParametersValidator informationRequestParametersValidator;
+	
+	public InformationRequestController() {
+		this.informationRequestParametersValidator = new InformationRequestParametersValidator();
+	}
 	
 	@GetMapping("/{identifier}/info.json")
 	public ResponseEntity<?> info(@PathVariable String identifier) {

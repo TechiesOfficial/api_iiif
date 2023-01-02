@@ -29,8 +29,11 @@ public class ImageRequestController {
 	@Autowired
 	private ImageRequestService imageAPIService;
 	
-	@Autowired
 	private ImageRequestParametersValidator imageRequestParametersValidator;
+	
+	public ImageRequestController() {
+		this.imageRequestParametersValidator = new ImageRequestParametersValidator();
+	}
 
 	/**
 	 * Point d'entrée des requêtes IIIF. Ce point d'entrée comporte une gestion de

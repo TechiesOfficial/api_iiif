@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.stereotype.Service;
-
 import fr.techies.iiif.api.imageapi.imagerequest.model.Format;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Identifier;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
@@ -20,7 +18,6 @@ import fr.techies.iiif.api.imageapi.imagerequest.model.enums.FormatEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.QualityEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.RegionEnum;
 
-@Service
 public class ImageRequestParametersValidator {
 
 	protected final static Pattern ROTATION_PATTERN = Pattern

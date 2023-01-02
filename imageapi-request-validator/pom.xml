@@ -17,11 +17,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>fr.techies.iiif</groupId>
 			<artifactId>imageapi-model</artifactId>
 			<version>${revision}</version>
