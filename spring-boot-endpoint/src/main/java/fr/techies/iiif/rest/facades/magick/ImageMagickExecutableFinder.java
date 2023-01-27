@@ -30,7 +30,7 @@ public class ImageMagickExecutableFinder {
 	@PostConstruct
 	public void init() {
 
-		IMExecutableUnpacker imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Windows, new File(this.imExecutableTargetPath));
+		IMExecutableUnpacker imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Linux, new File(this.imExecutableTargetPath));
 
 		this.imExecutableUnpacker = imExecutableUnpacker;
 	}
