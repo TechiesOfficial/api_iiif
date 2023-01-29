@@ -107,16 +107,17 @@ public class MagickCmdLineExecutor {
 	private StringBuilder manageRotation(ImageRequest imageRequest) {
 
 		StringBuilder sb = new StringBuilder();
-		int degree = -1;
+		boolean mirroring = imageRequest.getRotation().isMirroring();
+		int degree = imageRequest.getRotation().getDegree();
 
-		if (imageRequest.getRotation().isMirroring()) {
+		if (mirroring) {
 			sb.append("-flop ");
 		}
 
 		// A priori c'est comme cela que l'on fait de la transparence mais ca met un
 		// fond noir!
 		// Testé sur chrome et ie
-		if (imageRequest.getRotation().getDegree() != 0)
+		if (degree != 0)
 			sb.append("-background 'rgba(0,0,0,0)' -rotate " + degree + " +repage");
 
 		return sb;
