@@ -1,7 +1,5 @@
 package fr.techies.iiif.api.imageapi.imagerequest.validator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -108,22 +106,24 @@ public class ImageRequestParametersValidator {
 		return new Rotation(mirroring, degree);
 	}
 
-	private Size validateSize(String size) {
+	private Size validateSize(String size) throws InvalidSizeException {
 
-		// TODO: Revoir l'expression régulière car il est possible de ne mettre qu'une
-		// virgule toute seule sans chiffres. Pas très grave, c'est un cas très tordu.
-		String pixelPattern = new String("^\\^?!?\\d*,\\d*$");
-		String pctPattern = new String("^\\^?pct:\\d+$");
-		List<String> errors = new ArrayList<>();
+		String pixelPattern = new String("^\\^?!?\\d*,\\d*$"); // toutes les formes de size par pixel
+		String pctPattern = new String("^\\^?pct:\\b([0-9]|[1-9][0-9]|100)\\b$"); // pct entre 0 et 100
+		// List<String> errors = new ArrayList<>();
+		// FIXME : Pourquoi une liste d'erreurs ?
 
 		switch (size) {
+		case "full":
+			break;
 		case "max":
 			break;
 		case "^max":
 			break;
 		default:
 			if (!Pattern.matches(pixelPattern, size) && !Pattern.matches(pctPattern, size)) {
-				errors.add("Impossible de parser le champ size, la valeur: " + size + " n'est pas reconnue");
+//				errors.add("Impossible de parser le champ size, la valeur: " + size + " n'est pas reconnue");
+				throw new InvalidSizeException("Impossible de parser le champ size, la valeur: " + size + " n'est pas reconnue");
 			}
 
 			break;
