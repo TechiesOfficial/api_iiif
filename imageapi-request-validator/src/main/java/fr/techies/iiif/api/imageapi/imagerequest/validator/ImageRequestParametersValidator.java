@@ -13,6 +13,7 @@ import fr.techies.iiif.api.imageapi.imagerequest.model.RegionPixel;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Rotation;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Size;
 import fr.techies.iiif.api.imageapi.imagerequest.model.SizePCT;
+import fr.techies.iiif.api.imageapi.imagerequest.model.SizePixel;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.FormatEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.QualityEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.RegionEnum;
@@ -187,12 +188,19 @@ public class ImageRequestParametersValidator {
 				isAllowUpscaling = true;
 			}
 			
-			if (matcherPx.matches()) { // TODO: revoir la regex pour séparer toutes les possibilités
-				sizeBean = null;
+			if (matcherPx.matches()) {
+				String stringW = matcherPx.group(1);
+				String stringH = matcherPx.group(2);
+				
+				if(!stringW.isBlank())
+					pixelW = Integer.parseInt(matcherPx.group(1));
+				
+				if(!stringH.isBlank())
+					pixelH = Integer.parseInt(matcherPx.group(2));
+				
+				sizeBean = new Size(SizeEnum.pct, new SizePixel(pixelW, pixelH), null, isAllowUpscaling);
 			}
 			else if(matcherPct.matches()) {
-				matcherPct.find();
-
 				pct = Double.parseDouble(matcherPct.group(1));
 				
 				sizeBean = new Size(SizeEnum.pct, null, new SizePCT(pct), isAllowUpscaling);
