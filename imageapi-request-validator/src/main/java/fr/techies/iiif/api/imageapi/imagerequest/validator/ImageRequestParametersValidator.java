@@ -12,9 +12,11 @@ import fr.techies.iiif.api.imageapi.imagerequest.model.RegionPCT;
 import fr.techies.iiif.api.imageapi.imagerequest.model.RegionPixel;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Rotation;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Size;
+import fr.techies.iiif.api.imageapi.imagerequest.model.SizePCT;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.FormatEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.QualityEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.RegionEnum;
+import fr.techies.iiif.api.imageapi.imagerequest.model.enums.SizeEnum;
 
 public class ImageRequestParametersValidator {
 
@@ -24,6 +26,10 @@ public class ImageRequestParametersValidator {
 	protected final static Pattern REGION_PIXEL_PATTERN = Pattern.compile("(\\d+),(\\d+),(\\d+),(\\d+)");
 
 	protected final static Pattern REGION_PCT_PATTERN = Pattern.compile("pct:(\\d+),(\\d+),(\\d+),(\\d+)");
+	
+	protected final static Pattern SIZE_PIXEL_PATTERN = Pattern.compile("^\\^?!?(\\d*),(\\d*)$");
+
+	protected final static Pattern SIZE_PCT_PATTERN = Pattern.compile("^\\^?pct:(\\d*)$");
 
 	protected final static Pattern QUALITY_PATTERN = Pattern.compile("^(color|gray|bitonal|default)$");
 
@@ -106,32 +112,6 @@ public class ImageRequestParametersValidator {
 		return new Rotation(mirroring, degree);
 	}
 
-	private Size validateSize(String size) throws InvalidSizeException {
-
-		String pixelPattern = new String("^\\^?!?\\d*,\\d*$"); // toutes les formes de size par pixel
-		String pctPattern = new String("^\\^?pct:\\b([0-9]|[1-9][0-9]|100)\\b$"); // pct entre 0 et 100
-		// List<String> errors = new ArrayList<>();
-		// FIXME : Pourquoi une liste d'erreurs ?
-
-		switch (size) {
-		case "full":
-			break;
-		case "max":
-			break;
-		case "^max":
-			break;
-		default:
-			if (!Pattern.matches(pixelPattern, size) && !Pattern.matches(pctPattern, size)) {
-//				errors.add("Impossible de parser le champ size, la valeur: " + size + " n'est pas reconnue");
-				throw new InvalidSizeException("Impossible de parser le champ size, la valeur: " + size + " n'est pas reconnue");
-			}
-
-			break;
-		}
-
-		return null;
-	}
-
 	private Region validateRegion(String region) throws InvalidRegionException {
 
 		Matcher matcher = null;
@@ -180,5 +160,49 @@ public class ImageRequestParametersValidator {
 				throw new InvalidRegionException("Impossible de parser le champ region, la valeur: " + region + " n'est pas reconnue");
 
 		}
+	}
+	
+	private Size validateSize(String size) throws InvalidSizeException {
+
+		Size sizeBean = null;
+		int pixelW = -1;
+		int pixelH = -1;
+		double pct = -1;
+		boolean isAllowUpscaling = false;
+		Matcher matcherPx = SIZE_PIXEL_PATTERN.matcher(size);
+		Matcher matcherPct = SIZE_PCT_PATTERN.matcher(size);
+		
+		switch (size) {
+		case "full":
+			sizeBean = new Size(SizeEnum.full, false);
+			break;
+		case "max":
+			sizeBean = new Size(SizeEnum.max, false);
+			break;
+		case "^max":
+			sizeBean = new Size(SizeEnum.max, true);
+			break;
+		default:
+			if(size.charAt(0) == '^') {
+				isAllowUpscaling = true;
+			}
+			
+			if (matcherPx.matches()) { // TODO: revoir la regex pour séparer toutes les possibilités
+				sizeBean = null;
+			}
+			else if(matcherPct.matches()) {
+				matcherPct.find();
+
+				pct = Double.parseDouble(matcherPct.group(1));
+				
+				sizeBean = new Size(SizeEnum.pct, null, new SizePCT(pct), isAllowUpscaling);
+			}
+			else {
+				throw new InvalidSizeException("Impossible de parser le champ size, la valeur: " + size + " n'est pas reconnue");
+			}
+			break;
+		} // end switch
+		
+		return sizeBean;
 	}
 }

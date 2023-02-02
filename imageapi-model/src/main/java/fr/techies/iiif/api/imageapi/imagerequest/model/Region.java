@@ -24,7 +24,7 @@ public class Region {
 			break;
 		case pct:
 			this.regionPCT = regionPCT;
-
+			break;
 		default:
 			break;
 		}
