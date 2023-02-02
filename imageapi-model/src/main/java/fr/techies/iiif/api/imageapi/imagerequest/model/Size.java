@@ -12,14 +12,17 @@ public class Size {
 	
 	boolean allowUpscaling;
 	
-	public Size(SizeEnum sizeEnum, boolean allowUpscaling) {
-		this(sizeEnum, null, null, allowUpscaling);
+	boolean keepRatio;
+	
+	public Size(SizeEnum sizeEnum, boolean allowUpscaling, boolean keepRatio) {
+		this(sizeEnum, null, null, allowUpscaling, keepRatio);
 	}
 	
-	public Size(SizeEnum sizeEnum, SizePixel sizePixel, SizePCT sizePCT, boolean allowUpscaling) {
+	public Size(SizeEnum sizeEnum, SizePixel sizePixel, SizePCT sizePCT, boolean allowUpscaling, boolean keepRatio) {
 
 		this.sizeEnum = sizeEnum;
 		this.allowUpscaling = allowUpscaling;
+		this.keepRatio = keepRatio;
 
 		switch (sizeEnum) {
 		case pixel:
@@ -47,5 +50,9 @@ public class Size {
 
 	public boolean isAllowUpscaling() {
 		return allowUpscaling;
+	}
+	
+	public boolean isKeepRatio() {
+		return keepRatio;
 	}
 }

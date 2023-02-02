@@ -28,7 +28,9 @@ public class ImageRequestParametersValidator {
 
 	protected final static Pattern REGION_PCT_PATTERN = Pattern.compile("pct:(\\d+),(\\d+),(\\d+),(\\d+)");
 	
-	protected final static Pattern SIZE_PIXEL_PATTERN = Pattern.compile("^\\^?!?(\\d*),(\\d*)$");
+	protected final static Pattern SIZE_PIXEL_PATTERN = Pattern.compile("^\\^?(\\d*),(\\d*)$");
+	
+	protected final static Pattern SIZE_PIXEL_RATIO_PATTERN = Pattern.compile("^\\^?!?(\\d+),(\\d+)$");
 
 	protected final static Pattern SIZE_PCT_PATTERN = Pattern.compile("^\\^?pct:(\\d*)$");
 
@@ -169,23 +171,26 @@ public class ImageRequestParametersValidator {
 		int pixelW = -1;
 		int pixelH = -1;
 		double pct = -1;
-		boolean isAllowUpscaling = false;
+		boolean allowUpscaling = false;
+		boolean keepRatio = false;
 		Matcher matcherPx = SIZE_PIXEL_PATTERN.matcher(size);
+		Matcher matcherPxRatio = SIZE_PIXEL_RATIO_PATTERN.matcher(size);
 		Matcher matcherPct = SIZE_PCT_PATTERN.matcher(size);
 		
 		switch (size) {
 		case "full":
-			sizeBean = new Size(SizeEnum.full, false);
+			sizeBean = new Size(SizeEnum.full, false, false);
 			break;
 		case "max":
-			sizeBean = new Size(SizeEnum.max, false);
+			sizeBean = new Size(SizeEnum.max, false, false);
 			break;
 		case "^max":
-			sizeBean = new Size(SizeEnum.max, true);
+			sizeBean = new Size(SizeEnum.max, true, false);
 			break;
 		default:
+			// On vérifie si ça commence par '^'
 			if(size.charAt(0) == '^') {
-				isAllowUpscaling = true;
+				allowUpscaling = true;
 			}
 			
 			if (matcherPx.matches()) {
@@ -193,21 +198,34 @@ public class ImageRequestParametersValidator {
 				String stringH = matcherPx.group(2);
 				
 				if(!stringW.isBlank())
-					pixelW = Integer.parseInt(matcherPx.group(1));
+					pixelW = Integer.parseInt(stringW);
 				
 				if(!stringH.isBlank())
-					pixelH = Integer.parseInt(matcherPx.group(2));
+					pixelH = Integer.parseInt(stringH);
 				
-				sizeBean = new Size(SizeEnum.pct, new SizePixel(pixelW, pixelH), null, isAllowUpscaling);
+				sizeBean = new Size(SizeEnum.pixel, new SizePixel(pixelW, pixelH), null, allowUpscaling, false);
+			}
+			else if(matcherPxRatio.matches()) {
+				// le '!' ne peut être seulement dans les 2 cas suivants : "!w,h" et "^!w,h"
+				// (il faut forcément les deux valeurs w et h)
+				if(size.contains("!")) {
+					keepRatio = true;
+				}
+				
+				pixelW = Integer.parseInt(matcherPx.group(1));
+				pixelH = Integer.parseInt(matcherPx.group(2));
+				
+				sizeBean = new Size(SizeEnum.pixel, new SizePixel(pixelW, pixelH), null, allowUpscaling, keepRatio);
 			}
 			else if(matcherPct.matches()) {
 				pct = Double.parseDouble(matcherPct.group(1));
 				
-				sizeBean = new Size(SizeEnum.pct, null, new SizePCT(pct), isAllowUpscaling);
+				sizeBean = new Size(SizeEnum.pct, null, new SizePCT(pct), allowUpscaling, false);
 			}
 			else {
 				throw new InvalidSizeException("Impossible de parser le champ size, la valeur: " + size + " n'est pas reconnue");
 			}
+			
 			break;
 		} // end switch
 		
