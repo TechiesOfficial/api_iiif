@@ -212,8 +212,8 @@ public class ImageRequestParametersValidator {
 					keepRatio = true;
 				}
 				
-				pixelW = Integer.parseInt(matcherPx.group(1));
-				pixelH = Integer.parseInt(matcherPx.group(2));
+				pixelW = Integer.parseInt(matcherPxRatio.group(1));
+				pixelH = Integer.parseInt(matcherPxRatio.group(2));
 				
 				sizeBean = new Size(SizeEnum.pixel, new SizePixel(pixelW, pixelH), null, allowUpscaling, keepRatio);
 			}

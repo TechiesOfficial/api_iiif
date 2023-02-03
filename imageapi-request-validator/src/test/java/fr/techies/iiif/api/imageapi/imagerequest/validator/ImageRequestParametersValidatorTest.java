@@ -1,6 +1,7 @@
 package fr.techies.iiif.api.imageapi.imagerequest.validator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.InvocationTargetException;
@@ -115,23 +116,94 @@ public class ImageRequestParametersValidatorTest {
 		assertEquals(sizeBean.isKeepRatio(), false);
 		
 		// !w,h
+		sizeRequest = "!500,300";
+		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
+		assertTrue(sizeBean != null);
+		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
+		assertEquals(sizeBean.getSizePixel().getPixelW(), 500);
+		assertEquals(sizeBean.getSizePixel().getPixelH(), 300);
+		assertEquals(sizeBean.getSizePCT(), null);
+		assertEquals(sizeBean.isAllowUpscaling(), false);
+		assertEquals(sizeBean.isKeepRatio(), true);
 		
 		// ^!w,h
+		sizeRequest = "^!500,300";
+		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
+		assertTrue(sizeBean != null);
+		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
+		assertEquals(sizeBean.getSizePixel().getPixelW(), 500);
+		assertEquals(sizeBean.getSizePixel().getPixelH(), 300);
+		assertEquals(sizeBean.getSizePCT(), null);
+		assertEquals(sizeBean.isAllowUpscaling(), true);
+		assertEquals(sizeBean.isKeepRatio(), true);
 		
 		// w,
+		sizeRequest = "500,";
+		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
+		assertTrue(sizeBean != null);
+		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
+		assertEquals(sizeBean.getSizePixel().getPixelW(), 500);
+		assertEquals(sizeBean.getSizePixel().getPixelH(), -1);
+		assertEquals(sizeBean.getSizePCT(), null);
+		assertEquals(sizeBean.isAllowUpscaling(), false);
+		assertEquals(sizeBean.isKeepRatio(), false);
 		
 		// ^w,
+		sizeRequest = "^500,";
+		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
+		assertTrue(sizeBean != null);
+		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
+		assertEquals(sizeBean.getSizePixel().getPixelW(), 500);
+		assertEquals(sizeBean.getSizePixel().getPixelH(), -1);
+		assertEquals(sizeBean.getSizePCT(), null);
+		assertEquals(sizeBean.isAllowUpscaling(), true);
+		assertEquals(sizeBean.isKeepRatio(), false);
 		
 		// ,h
+		sizeRequest = ",300";
+		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
+		assertTrue(sizeBean != null);
+		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
+		assertEquals(sizeBean.getSizePixel().getPixelW(), -1);
+		assertEquals(sizeBean.getSizePixel().getPixelH(), 300);
+		assertEquals(sizeBean.getSizePCT(), null);
+		assertEquals(sizeBean.isAllowUpscaling(), false);
+		assertEquals(sizeBean.isKeepRatio(), false);
 		
 		//  ^,h
+		sizeRequest = "^,300";
+		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
+		assertTrue(sizeBean != null);
+		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
+		assertEquals(sizeBean.getSizePixel().getPixelW(), -1);
+		assertEquals(sizeBean.getSizePixel().getPixelH(), 300);
+		assertEquals(sizeBean.getSizePCT(), null);
+		assertEquals(sizeBean.isAllowUpscaling(), true);
+		assertEquals(sizeBean.isKeepRatio(), false);
 		
 		// pct:n
+		sizeRequest = "pct:100";
+		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
+		assertTrue(sizeBean != null);
+		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pct);
+		assertEquals(sizeBean.getSizePixel(), null);
+		assertEquals(sizeBean.getSizePCT().getPct(), 100.0);
+		assertEquals(sizeBean.isAllowUpscaling(), false);
+		assertEquals(sizeBean.isKeepRatio(), false);
 		
 		//^pct:n
+		sizeRequest = "^pct:120";
+		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
+		assertTrue(sizeBean != null);
+		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pct);
+		assertEquals(sizeBean.getSizePixel(), null);
+		assertEquals(sizeBean.getSizePCT().getPct(), 120.0);
+		assertEquals(sizeBean.isAllowUpscaling(), true);
+		assertEquals(sizeBean.isKeepRatio(), false);
 	
 		/*
 		 * TEST DES CAS NON VALIDES
 		 */
+//		assertThrows(InvalidSizeException.class, method.invoke(validatorClass, "fulllllll"));
 	}
 }
