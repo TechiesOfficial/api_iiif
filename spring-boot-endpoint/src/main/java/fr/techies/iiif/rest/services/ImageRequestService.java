@@ -25,11 +25,14 @@ public class ImageRequestService {
 	@Autowired
 	private List<ImageRegister> imageRegisters;
 	
+	@Autowired
+	private AutoDiscoverOSService autoDiscoverOSService;
+	
 	private ImageRequestProcessor imageRequestProcessor;
 
 	@PostConstruct
 	private void postConstruct() {
-		this.imageRequestProcessor = new ImageRequestProcessor(this.outputFileNameStrategy.getOutputFileNameStrategy(), imageRegisters, unpackedTargetPath);
+		this.imageRequestProcessor = new ImageRequestProcessor(this.outputFileNameStrategy.getOutputFileNameStrategy(), imageRegisters, unpackedTargetPath, this.autoDiscoverOSService.getOS());
 	}
 	
 	public byte[] getResultingImage(ImageRequest imageRequest) throws ImageNotFoundException {

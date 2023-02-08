@@ -39,7 +39,7 @@ public class IdentifyCmdLineExecutor {
 		sb.append(" ");
 		sb.append(path.toString());
 		
-		output = this.commandLineExecutor.exec(sb.toString(), this.unpackedTargetPath, OSEnum.Linux);
+		output = this.commandLineExecutor.exec(sb.toString(), this.unpackedTargetPath, OSEnum.Windows);
 		
 		identifyCmdResult = output.split(",");
 		

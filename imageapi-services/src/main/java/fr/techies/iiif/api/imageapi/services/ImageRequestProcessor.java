@@ -10,6 +10,7 @@ import fr.techies.iiif.api.imageapi.services.contract.AOutputFileNameStrategy;
 import fr.techies.iiif.api.imageapi.services.image.register.ImageRegister;
 import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
 import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
+import fr.techies.iiif.services.os.OSEnum;
 
 public class ImageRequestProcessor {
 	
@@ -19,8 +20,8 @@ public class ImageRequestProcessor {
 
 	private List<ImageRegister> imageRegisters;
 
-	public ImageRequestProcessor(AOutputFileNameStrategy outputFileNameStrategy, List<ImageRegister> imageRegisters, String unpackedTargetPath) {
-		this.magickCmdLineExecutor = new MagickCmdLineExecutor(unpackedTargetPath);
+	public ImageRequestProcessor(AOutputFileNameStrategy outputFileNameStrategy, List<ImageRegister> imageRegisters, String unpackedTargetPath,OSEnum osEnum) {
+		this.magickCmdLineExecutor = new MagickCmdLineExecutor(unpackedTargetPath, osEnum);
 		this.outputFileNameStrategy = outputFileNameStrategy;
 		this.imageRegisters = imageRegisters;
 	}

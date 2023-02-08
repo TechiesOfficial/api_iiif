@@ -3,24 +3,25 @@ package fr.techies.iiif.services.os;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class OSDiscoveringService {
-	
-	private Logger logger = LogManager.getLogger(OSDiscoveringService.class);
+public class OSDiscoveringManager {
 
-	private boolean isWindows = true;
+	private Logger logger = LogManager.getLogger(OSDiscoveringManager.class);
 
-	public boolean isWindows() {
+	private OSEnum osEnum = null;
 
+	public OSDiscoveringManager() {
 		String osName = System.getProperty("os.name").toLowerCase();
 
 		logger.info("Le système d'exploitation retourné par le système est : " + osName);
 
 		if (osName.contains("windows".toLowerCase())) {
-			this.isWindows = true;
+			this.osEnum = OSEnum.Windows;
 		} else {
-			// TODO: implémenter linux ou autre.
+			this.osEnum = OSEnum.Linux;
 		}
-		
-		return this.isWindows;
+	}
+
+	public OSEnum getOsEnum() {
+		return osEnum;
 	}
 }

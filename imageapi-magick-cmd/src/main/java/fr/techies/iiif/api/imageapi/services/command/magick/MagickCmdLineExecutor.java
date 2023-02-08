@@ -21,9 +21,9 @@ public class MagickCmdLineExecutor {
 
 	private IMExecutableUnpacker imExecutableUnpacker;
 	
-	public MagickCmdLineExecutor(String unpackedTargetPath) {
+	public MagickCmdLineExecutor(String unpackedTargetPath, OSEnum osEnum) {
 		this.unpackedTargetPath = unpackedTargetPath;
-		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Linux, new File(this.unpackedTargetPath));
+		this.imExecutableUnpacker = new IMExecutableUnpacker(osEnum, new File(this.unpackedTargetPath));
 		this.commandLineExecutor = new GenericCommandLineExecutor();
 		this.identifyCmdLineExecutor = new IdentifyCmdLineExecutor(this.unpackedTargetPath);
 	}
