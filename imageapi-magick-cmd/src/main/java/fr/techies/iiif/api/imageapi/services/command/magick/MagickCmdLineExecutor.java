@@ -4,27 +4,26 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import fr.techies.iiif.CommandLineExecutor;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
-import fr.techies.iiif.lib.cmd.GenericCommandLineExecutor;
 import fr.techies.iiif.lib.utils.ImageFileUtil;
 import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
 import fr.techies.iiif.magick.IMExecutableUnpacker;
-import fr.techies.iiif.services.os.OSEnum;
 
 public class MagickCmdLineExecutor {
 
 	private String unpackedTargetPath;
 	
-	private GenericCommandLineExecutor commandLineExecutor;
+	private CommandLineExecutor commandLineExecutor;
 
 	private IdentifyCmdLineExecutor identifyCmdLineExecutor;
 
 	private IMExecutableUnpacker imExecutableUnpacker;
 	
-	public MagickCmdLineExecutor(String unpackedTargetPath, OSEnum osEnum) {
+	public MagickCmdLineExecutor(String unpackedTargetPath) {
 		this.unpackedTargetPath = unpackedTargetPath;
-		this.imExecutableUnpacker = new IMExecutableUnpacker(osEnum, new File(this.unpackedTargetPath));
-		this.commandLineExecutor = new GenericCommandLineExecutor();
+		this.imExecutableUnpacker = new IMExecutableUnpacker(new File(this.unpackedTargetPath));
+		this.commandLineExecutor = new CommandLineExecutor();
 		this.identifyCmdLineExecutor = new IdentifyCmdLineExecutor(this.unpackedTargetPath);
 	}
 	
@@ -53,7 +52,7 @@ public class MagickCmdLineExecutor {
 		sb.append(" ");
 		sb.append(outFileName);
 
-		this.commandLineExecutor.exec(sb.toString(), this.unpackedTargetPath, OSEnum.Linux);
+		this.commandLineExecutor.exec(sb.toString(), this.unpackedTargetPath);
 		
 		return ImageFileUtil.getImageAsBytes(outFileName.toString(),
 				extensionEnum);

@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.magick.IMExecutableUnpacker;
-import fr.techies.iiif.services.os.OSEnum;
 
 /*
  * TODO : voir pertinence !
@@ -30,7 +29,7 @@ public class ImageMagickExecutableFinder {
 	@PostConstruct
 	public void init() {
 
-		IMExecutableUnpacker imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Linux, new File(this.imExecutableTargetPath));
+		IMExecutableUnpacker imExecutableUnpacker = new IMExecutableUnpacker(new File(this.imExecutableTargetPath));
 
 		this.imExecutableUnpacker = imExecutableUnpacker;
 	}

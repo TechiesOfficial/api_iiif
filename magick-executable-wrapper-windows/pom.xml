@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.techies.iiif</groupId>
+		<artifactId>master</artifactId>
+		<version>${revision}</version>
+	</parent>
+
+	<artifactId>magick-executable-wrapper-windows</artifactId>
+	<packaging>jar</packaging>
+	<name>Magick wrapper</name>
+	<description>Wrapper for magick executables</description>
+
+	<dependencies>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>${project.build.outputDirectory}</targetPath>
+				<includes>
+					<include>magick/win/*</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+</project>

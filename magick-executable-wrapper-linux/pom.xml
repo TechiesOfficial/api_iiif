@@ -10,17 +10,12 @@
 		<version>${revision}</version>
 	</parent>
 
-	<artifactId>magick-executable-wrapper</artifactId>
+	<artifactId>magick-executable-wrapper-linux</artifactId>
 	<packaging>jar</packaging>
 	<name>Magick wrapper</name>
 	<description>Wrapper for magick executables</description>
 
 	<dependencies>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>common</artifactId>
-			<version>${revision}</version>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -29,24 +24,10 @@
 				<directory>src/main/resources</directory>
 				<targetPath>${project.build.outputDirectory}</targetPath>
 				<includes>
-					<include>application.properties</include>
-					<include>magick/win/*</include>
 					<include>magick/linux/*</include>
-					<include>templates/*</include>
 				</includes>
 			</resource>
 		</resources>
-
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 
 </project>

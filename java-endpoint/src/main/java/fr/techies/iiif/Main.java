@@ -28,7 +28,7 @@ public class Main {
 
 		imageRequest.setIdentifier(new Identifier("file_example_TIFF_1MB.tiff"));
 		imageRequest.setRegion(new Region(RegionEnum.full));
-		imageRequest.setSize(new Size());
+//		imageRequest.setSize(new Size());
 		imageRequest.setRotation(new Rotation(false, 0));
 		imageRequest.setQuality(new Quality(QualityEnum.native_default));
 		imageRequest.setFormat(new Format(FormatEnum.png));

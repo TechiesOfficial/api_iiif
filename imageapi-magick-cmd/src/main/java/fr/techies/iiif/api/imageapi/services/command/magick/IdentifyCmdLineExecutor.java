@@ -4,15 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import fr.techies.iiif.lib.cmd.GenericCommandLineExecutor;
+import fr.techies.iiif.CommandLineExecutor;
 import fr.techies.iiif.magick.IMExecutableUnpacker;
-import fr.techies.iiif.services.os.OSEnum;
 
 public class IdentifyCmdLineExecutor {
 
 	private String unpackedTargetPath;
 	
-	private GenericCommandLineExecutor commandLineExecutor;
+	private CommandLineExecutor commandLineExecutor;
 	
 	private IdentifyFormatParameterService identifyFormatParameterService;
 	
@@ -20,8 +19,8 @@ public class IdentifyCmdLineExecutor {
 	
 	public IdentifyCmdLineExecutor(String unpackedTargetPath) {
 		this.unpackedTargetPath = unpackedTargetPath;
-		this.imExecutableUnpacker = new IMExecutableUnpacker(OSEnum.Linux, new File(this.unpackedTargetPath));
-		this.commandLineExecutor = new GenericCommandLineExecutor();
+		this.imExecutableUnpacker = new IMExecutableUnpacker(new File(this.unpackedTargetPath));
+		this.commandLineExecutor = new CommandLineExecutor();
 		this.identifyFormatParameterService = new IdentifyFormatParameterService();
 	}
 	
@@ -39,7 +38,7 @@ public class IdentifyCmdLineExecutor {
 		sb.append(" ");
 		sb.append(path.toString());
 		
-		output = this.commandLineExecutor.exec(sb.toString(), this.unpackedTargetPath, OSEnum.Windows);
+		output = this.commandLineExecutor.exec(sb.toString(), this.unpackedTargetPath);
 		
 		identifyCmdResult = output.split(",");
 		

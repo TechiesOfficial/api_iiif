@@ -3,17 +3,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<!-- On ne peut pas passer en spring boot supérieur car on doit passer un 
 		jdk >8 -->
-
 	<groupId>fr.techies.iiif</groupId>
 	<artifactId>master</artifactId>
 	<version>${revision}</version>
 	<packaging>pom</packaging>
 	<name>iiif</name>
 	<description>API REST IIIF</description>
-
 	<properties>
 		<java.version>11</java.version>
 		<spring.version>6.0.2</spring.version>
@@ -21,7 +18,6 @@
 		<revision>1.0.0-SNAPSHOT</revision>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -33,7 +29,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<dependencies>
 		<!-- Logger is used in every module -->
 		<dependency>
@@ -41,7 +36,6 @@
 			<artifactId>log4j-api</artifactId>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -54,36 +48,32 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<profiles>
 		<profile>
-			<id>java-endpoint</id>
-			<modules>
-				<module>common</module>
-				<module>imageapi-exception</module>
-				<module>imageapi-image-register-strategie</module>
-				<module>imageapi-magick-cmd</module>
-				<module>imageapi-model</module>
-				<module>imageapi-request-validator</module>
-				<module>imageapi-services</module>
-				<module>magick-executable-wrapper</module>
-				<module>java-endpoint</module>
-			</modules>
+			<id>windows</id>
+			<properties>
+				<os>windows</os>
+			</properties>
 		</profile>
 		<profile>
-			<id>springboot-endpoint</id>
-			<modules>
-				<module>common</module>
-				<module>imageapi-exception</module>
-				<module>imageapi-image-register-strategie</module>
-				<module>imageapi-magick-cmd</module>
-				<module>imageapi-model</module>
-				<module>imageapi-request-validator</module>
-				<module>imageapi-services</module>
-				<module>imageapi-spring-services</module>
-				<module>magick-executable-wrapper</module>
-				<module>spring-boot-endpoint</module>
-			</modules>
+			<id>linux</id>
+			<properties>
+				<os>linux</os>
+			</properties>
 		</profile>
 	</profiles>
+	
+	<modules>
+		<module>cmd-line-executor-${os}</module>
+		<module>magick-executable-wrapper-${os}</module>
+		
+		<module>common</module>
+		<module>imageapi-exception</module>
+		<module>imageapi-image-register-strategie</module>
+		<module>imageapi-magick-cmd</module>
+		<module>imageapi-model</module>
+		<module>imageapi-request-validator</module>
+		<module>imageapi-services</module>
+		<module>spring-boot-endpoint</module>
+	</modules>
 </project>
