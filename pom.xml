@@ -51,21 +51,34 @@
 	<profiles>
 		<profile>
 			<id>windows</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
 			<properties>
-				<os>windows</os>
+				<my-os>windows</my-os>
 			</properties>
 		</profile>
+		
+		<!-- ATTENTION : unix = Linux et mac -->
+		<!-- A voir pour différencier les deux ? -->
 		<profile>
-			<id>linux</id>
+			<id>unix</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
 			<properties>
-				<os>linux</os>
+				<my-os>linux</my-os>
 			</properties>
 		</profile>
 	</profiles>
 	
 	<modules>
-		<module>cmd-line-executor-${os}</module>
-		<module>magick-executable-wrapper-${os}</module>
+		<module>cmd-line-executor-${my-os}</module>
+		<module>magick-executable-wrapper-${my-os}</module>
 		
 		<module>common</module>
 		<module>imageapi-exception</module>

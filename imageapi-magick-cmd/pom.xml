@@ -13,9 +13,6 @@
 	<artifactId>imageapi-magick-cmd</artifactId>
 	<packaging>jar</packaging>
 	<name>Image API magick command line runner</name>
-	<properties>
-		<magick-executable-wrapper-artifactid>magick-executable-wrapper-${os}</magick-executable-wrapper-artifactid>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -24,7 +21,12 @@
 		</dependency>
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
-			<artifactId>${magick-executable-wrapper-artifactid}</artifactId>
+			<artifactId>magick-executable-wrapper-${my-os}</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.techies.iiif</groupId>
+			<artifactId>cmd-line-executor-${my-os}</artifactId>
 			<version>${revision}</version>
 		</dependency>
 		<dependency>
@@ -35,11 +37,6 @@
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
 			<artifactId>imageapi-model</artifactId>
-			<version>${revision}</version>
-		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>cmd-line-executor-${os}</artifactId>
 			<version>${revision}</version>
 		</dependency>
 	</dependencies>

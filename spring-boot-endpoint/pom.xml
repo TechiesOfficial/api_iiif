@@ -41,10 +41,10 @@
         </dependency>
         
         <dependency>
-            <groupId>fr.techies.iiif</groupId>
-            <artifactId>magick-executable-wrapper-${os}</artifactId>
-            <version>${revision}</version>
-        </dependency>
+			<groupId>fr.techies.iiif</groupId>
+			<artifactId>magick-executable-wrapper-${my-os}</artifactId>
+			<version>${revision}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
