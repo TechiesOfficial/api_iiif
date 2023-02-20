@@ -32,7 +32,7 @@ public class ImageRequestParametersValidator {
 	
 	protected final static Pattern SIZE_PIXEL_RATIO_PATTERN = Pattern.compile("^\\^?!?(\\d+),(\\d+)$");
 
-	protected final static Pattern SIZE_PCT_PATTERN = Pattern.compile("^\\^?pct:(\\d*)$");
+	protected final static Pattern SIZE_PCT_PATTERN = Pattern.compile("^\\^?pct:(\\d+)$");
 
 	protected final static Pattern QUALITY_PATTERN = Pattern.compile("^(color|gray|bitonal|default)$");
 

@@ -5,12 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.techies.iiif.api.imageapi.imagerequest.model.Size;
+import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.SizeEnum;
 
 public class ImageRequestParametersValidatorTest {
@@ -23,24 +24,8 @@ public class ImageRequestParametersValidatorTest {
 	@BeforeEach
 	private void beforeAll() {
 		validatorClass = new ImageRequestParametersValidator();
-		
-		ImageRequestParametersValidator.class.getDeclaredMethods();
 	}
 	
-	/**
-	 * Permet de récupérer une méthode private par Réflection
-	 * 
-	 * @param methodeName
-	 * @param parameterTypes
-	 * @return
-	 * @throws NoSuchMethodException
-	 */
-	private Method getPrivateMethod(String methodeName, Class<?>... parameterTypes) throws NoSuchMethodException {
-	    Method method = ImageRequestParametersValidator.class.getDeclaredMethod(methodeName, parameterTypes);
-	    method.setAccessible(true);
-	    return method;
-	}
-
 	/**
 	 * Test du validate Size
 	 * 
@@ -54,156 +39,190 @@ public class ImageRequestParametersValidatorTest {
 	public void validateSizeTest() throws InvalidImageRequestException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		
 		// Récupération de la méthode private
-		Method method = this.getPrivateMethod("validateSize", String.class);
+		ImageRequest result = null;
 		
-		Size sizeBean = null;
-		String sizeRequest = null;
+		// Parametre à tester
+		String size = null;
+		
+		// Autres parametres (valeurs de base)
+		String identifier = "";
+		String region = "full";
+		String rotation = "0";
+		String quality = "default";
+		String format = "jpg";
 		
 		/*
 		 * TEST DES CAS VALIDES
 		 */
 		
 		// full
-		sizeRequest = "full";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.full);
-		assertEquals(sizeBean.getSizePixel(), null);
-		assertEquals(sizeBean.getSizePCT(), null);
-		assertEquals(sizeBean.isAllowUpscaling(), false);
-		assertEquals(sizeBean.isKeepRatio(), false);
+		size = "full";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result.getSize() != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.full);
+		assertEquals(result.getSize().getSizePixel(), null);
+		assertEquals(result.getSize().getSizePCT(), null);
+		assertEquals(result.getSize().isAllowUpscaling(), false);
+		assertEquals(result.getSize().isKeepRatio(), false);
 		
 		// max
-		sizeRequest = "max";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.max);
-		assertEquals(sizeBean.getSizePixel(), null);
-		assertEquals(sizeBean.getSizePCT(), null);
-		assertEquals(sizeBean.isAllowUpscaling(), false);
-		assertEquals(sizeBean.isKeepRatio(), false);
+		size = "max";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.max);
+		assertEquals(result.getSize().getSizePixel(), null);
+		assertEquals(result.getSize().getSizePCT(), null);
+		assertEquals(result.getSize().isAllowUpscaling(), false);
+		assertEquals(result.getSize().isKeepRatio(), false);
 		
 		// ^max
-		sizeRequest = "^max";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.max);
-		assertEquals(sizeBean.getSizePixel(), null);
-		assertEquals(sizeBean.getSizePCT(), null);
-		assertEquals(sizeBean.isAllowUpscaling(), true);
-		assertEquals(sizeBean.isKeepRatio(), false);
+		size = "^max";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.max);
+		assertEquals(result.getSize().getSizePixel(), null);
+		assertEquals(result.getSize().getSizePCT(), null);
+		assertEquals(result.getSize().isAllowUpscaling(), true);
+		assertEquals(result.getSize().isKeepRatio(), false);
 		
 		// w,h
-		sizeRequest = "500,300";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
-		assertEquals(sizeBean.getSizePixel().getPixelW(), 500);
-		assertEquals(sizeBean.getSizePixel().getPixelH(), 300);
-		assertEquals(sizeBean.getSizePCT(), null);
-		assertEquals(sizeBean.isAllowUpscaling(), false);
-		assertEquals(sizeBean.isKeepRatio(), false);
+		size = "500,300";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.pixel);
+		assertEquals(result.getSize().getSizePixel().getPixelW(), 500);
+		assertEquals(result.getSize().getSizePixel().getPixelH(), 300);
+		assertEquals(result.getSize().getSizePCT(), null);
+		assertEquals(result.getSize().isAllowUpscaling(), false);
+		assertEquals(result.getSize().isKeepRatio(), false);
 		
 		// ^w,h
-		sizeRequest = "^500,300";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
-		assertEquals(sizeBean.getSizePixel().getPixelW(), 500);
-		assertEquals(sizeBean.getSizePixel().getPixelH(), 300);
-		assertEquals(sizeBean.getSizePCT(), null);
-		assertEquals(sizeBean.isAllowUpscaling(), true);
-		assertEquals(sizeBean.isKeepRatio(), false);
+		size = "^500,300";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.pixel);
+		assertEquals(result.getSize().getSizePixel().getPixelW(), 500);
+		assertEquals(result.getSize().getSizePixel().getPixelH(), 300);
+		assertEquals(result.getSize().getSizePCT(), null);
+		assertEquals(result.getSize().isAllowUpscaling(), true);
+		assertEquals(result.getSize().isKeepRatio(), false);
 		
 		// !w,h
-		sizeRequest = "!500,300";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
-		assertEquals(sizeBean.getSizePixel().getPixelW(), 500);
-		assertEquals(sizeBean.getSizePixel().getPixelH(), 300);
-		assertEquals(sizeBean.getSizePCT(), null);
-		assertEquals(sizeBean.isAllowUpscaling(), false);
-		assertEquals(sizeBean.isKeepRatio(), true);
+		size = "!500,300";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.pixel);
+		assertEquals(result.getSize().getSizePixel().getPixelW(), 500);
+		assertEquals(result.getSize().getSizePixel().getPixelH(), 300);
+		assertEquals(result.getSize().getSizePCT(), null);
+		assertEquals(result.getSize().isAllowUpscaling(), false);
+		assertEquals(result.getSize().isKeepRatio(), true);
 		
 		// ^!w,h
-		sizeRequest = "^!500,300";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
-		assertEquals(sizeBean.getSizePixel().getPixelW(), 500);
-		assertEquals(sizeBean.getSizePixel().getPixelH(), 300);
-		assertEquals(sizeBean.getSizePCT(), null);
-		assertEquals(sizeBean.isAllowUpscaling(), true);
-		assertEquals(sizeBean.isKeepRatio(), true);
+		size = "^!500,300";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.pixel);
+		assertEquals(result.getSize().getSizePixel().getPixelW(), 500);
+		assertEquals(result.getSize().getSizePixel().getPixelH(), 300);
+		assertEquals(result.getSize().getSizePCT(), null);
+		assertEquals(result.getSize().isAllowUpscaling(), true);
+		assertEquals(result.getSize().isKeepRatio(), true);
 		
 		// w,
-		sizeRequest = "500,";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
-		assertEquals(sizeBean.getSizePixel().getPixelW(), 500);
-		assertEquals(sizeBean.getSizePixel().getPixelH(), -1);
-		assertEquals(sizeBean.getSizePCT(), null);
-		assertEquals(sizeBean.isAllowUpscaling(), false);
-		assertEquals(sizeBean.isKeepRatio(), false);
+		size = "500,";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.pixel);
+		assertEquals(result.getSize().getSizePixel().getPixelW(), 500);
+		assertEquals(result.getSize().getSizePixel().getPixelH(), -1);
+		assertEquals(result.getSize().getSizePCT(), null);
+		assertEquals(result.getSize().isAllowUpscaling(), false);
+		assertEquals(result.getSize().isKeepRatio(), false);
 		
 		// ^w,
-		sizeRequest = "^500,";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
-		assertEquals(sizeBean.getSizePixel().getPixelW(), 500);
-		assertEquals(sizeBean.getSizePixel().getPixelH(), -1);
-		assertEquals(sizeBean.getSizePCT(), null);
-		assertEquals(sizeBean.isAllowUpscaling(), true);
-		assertEquals(sizeBean.isKeepRatio(), false);
+		size = "^500,";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.pixel);
+		assertEquals(result.getSize().getSizePixel().getPixelW(), 500);
+		assertEquals(result.getSize().getSizePixel().getPixelH(), -1);
+		assertEquals(result.getSize().getSizePCT(), null);
+		assertEquals(result.getSize().isAllowUpscaling(), true);
+		assertEquals(result.getSize().isKeepRatio(), false);
 		
 		// ,h
-		sizeRequest = ",300";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
-		assertEquals(sizeBean.getSizePixel().getPixelW(), -1);
-		assertEquals(sizeBean.getSizePixel().getPixelH(), 300);
-		assertEquals(sizeBean.getSizePCT(), null);
-		assertEquals(sizeBean.isAllowUpscaling(), false);
-		assertEquals(sizeBean.isKeepRatio(), false);
+		size = ",300";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.pixel);
+		assertEquals(result.getSize().getSizePixel().getPixelW(), -1);
+		assertEquals(result.getSize().getSizePixel().getPixelH(), 300);
+		assertEquals(result.getSize().getSizePCT(), null);
+		assertEquals(result.getSize().isAllowUpscaling(), false);
+		assertEquals(result.getSize().isKeepRatio(), false);
 		
 		//  ^,h
-		sizeRequest = "^,300";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pixel);
-		assertEquals(sizeBean.getSizePixel().getPixelW(), -1);
-		assertEquals(sizeBean.getSizePixel().getPixelH(), 300);
-		assertEquals(sizeBean.getSizePCT(), null);
-		assertEquals(sizeBean.isAllowUpscaling(), true);
-		assertEquals(sizeBean.isKeepRatio(), false);
+		size = "^,300";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.pixel);
+		assertEquals(result.getSize().getSizePixel().getPixelW(), -1);
+		assertEquals(result.getSize().getSizePixel().getPixelH(), 300);
+		assertEquals(result.getSize().getSizePCT(), null);
+		assertEquals(result.getSize().isAllowUpscaling(), true);
+		assertEquals(result.getSize().isKeepRatio(), false);
 		
 		// pct:n
-		sizeRequest = "pct:100";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pct);
-		assertEquals(sizeBean.getSizePixel(), null);
-		assertEquals(sizeBean.getSizePCT().getPct(), 100.0);
-		assertEquals(sizeBean.isAllowUpscaling(), false);
-		assertEquals(sizeBean.isKeepRatio(), false);
+		size = "pct:100";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.pct);
+		assertEquals(result.getSize().getSizePixel(), null);
+		assertEquals(result.getSize().getSizePCT().getPct(), 100.0);
+		assertEquals(result.getSize().isAllowUpscaling(), false);
+		assertEquals(result.getSize().isKeepRatio(), false);
 		
 		//^pct:n
-		sizeRequest = "^pct:120";
-		sizeBean = (Size) method.invoke(validatorClass, sizeRequest);
-		assertTrue(sizeBean != null);
-		assertEquals(sizeBean.getSizeEnum(), SizeEnum.pct);
-		assertEquals(sizeBean.getSizePixel(), null);
-		assertEquals(sizeBean.getSizePCT().getPct(), 120.0);
-		assertEquals(sizeBean.isAllowUpscaling(), true);
-		assertEquals(sizeBean.isKeepRatio(), false);
+		size = "^pct:120";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.pct);
+		assertEquals(result.getSize().getSizePixel(), null);
+		assertEquals(result.getSize().getSizePCT().getPct(), 120.0);
+		assertEquals(result.getSize().isAllowUpscaling(), true);
+		assertEquals(result.getSize().isKeepRatio(), false);
 	
 		/*
 		 * TEST DES CAS NON VALIDES
 		 */
-//		assertThrows(InvalidSizeException.class, method.invoke(validatorClass, "fulllllll"));
+		List<String> errorSizes = new ArrayList<>();
+		errorSizes.add("fulllll");
+		errorSizes.add("full^");
+		errorSizes.add("^full");
+		errorSizes.add("maxx");
+		errorSizes.add("max^");
+		errorSizes.add("a,b");
+		errorSizes.add("a,");
+		errorSizes.add(",b");
+		errorSizes.add("!200,");
+		errorSizes.add("!,400");
+		errorSizes.add("pct");
+		errorSizes.add("pct:");
+		errorSizes.add("!pct:100");
+		errorSizes.add("pct:^100");
+		errorSizes.add("!^200,400");
+		errorSizes.add("200,400!");
+		errorSizes.add("200,400^");
+		errorSizes.add("200,400^!");
+		
+		for(String errorSize : errorSizes) {
+			
+			Exception exception = assertThrows(InvalidSizeException.class, () -> {
+				validatorClass.validateParameters(identifier, region, errorSize, rotation, quality, format);
+			});
+			
+			assertTrue(exception instanceof InvalidSizeException);
+		}
 	}
 }
