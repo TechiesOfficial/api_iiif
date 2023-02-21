@@ -1,4 +1,4 @@
-package fr.techies.iiif.lib.utils;
+package fr.techies.iiif.common.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
-import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
+import fr.techies.iiif.common.enums.ExtensionEnum;
 
 /**
  * ImageIO est-il bien utilie?

@@ -7,9 +7,9 @@ import java.util.List;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.services.command.magick.MagickCmdLineExecutor;
 import fr.techies.iiif.api.imageapi.services.contract.AOutputFileNameStrategy;
-import fr.techies.iiif.api.imageapi.services.image.register.ImageRegister;
-import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
-import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
+import fr.techies.iiif.api.imageapi.services.register.ImageRegister;
+import fr.techies.iiif.common.enums.ExtensionEnum;
+import fr.techies.iiif.common.exception.ImageNotFoundException;
 
 public class ImageRequestProcessor {
 	

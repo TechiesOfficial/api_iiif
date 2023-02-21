@@ -2,7 +2,7 @@ package fr.techies.iiif.api.imageapi.services.contract;
 
 import java.nio.file.Path;
 
-import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
+import fr.techies.iiif.common.enums.ExtensionEnum;
 
 public abstract class AOutputFileNameStrategy {
 

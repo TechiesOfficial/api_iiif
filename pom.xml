@@ -57,7 +57,7 @@
 				</os>
 			</activation>
 			<properties>
-				<my-os>windows</my-os>
+				<platform>windows</platform>
 			</properties>
 		</profile>
 		
@@ -71,22 +71,25 @@
 				</os>
 			</activation>
 			<properties>
-				<my-os>linux</my-os>
+				<platform>linux</platform>
 			</properties>
 		</profile>
 	</profiles>
 	
+	<!-- To help maintenance, modules are sorted by dependencies (bottom need the most dependencies -->
 	<modules>
-		<module>cmd-line-executor-${my-os}</module>
-		<module>magick-executable-wrapper-${my-os}</module>
-		
+		<!-- Stand alone modules (no dependancies apart parent dependencies)-->
 		<module>common</module>
-		<module>imageapi-exception</module>
-		<module>imageapi-image-register-strategie</module>
-		<module>imageapi-magick-cmd</module>
 		<module>imageapi-model</module>
+		<module>magick-executable-wrapper-${platform}</module>
+
+		<module>cmd-line-executor-${platform}</module>
+		<module>imageapi-magick-cmd</module>
+
 		<module>imageapi-request-validator</module>
+		
 		<module>imageapi-services</module>
+		
 		<module>spring-boot-endpoint</module>
 	</modules>
 </project>

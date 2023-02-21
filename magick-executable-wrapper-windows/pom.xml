@@ -18,16 +18,4 @@
 	<dependencies>
 	</dependencies>
 
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<targetPath>${project.build.outputDirectory}</targetPath>
-				<includes>
-					<include>magick/win/*</include>
-				</includes>
-			</resource>
-		</resources>
-	</build>
-
 </project>

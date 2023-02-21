@@ -1,4 +1,4 @@
-package fr.techies.iiif.lib.utils.enums;
+package fr.techies.iiif.common.enums;
 
 public enum ExtensionEnum {
 

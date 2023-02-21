@@ -1,4 +1,4 @@
-package fr.techies.iiif.api.imageapi.services.image.register;
+package fr.techies.iiif.api.imageapi.services.register;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -12,7 +12,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
+import fr.techies.iiif.common.exception.ImageNotFoundException;
 
 /**
  * Implémentation basique d'un scanner de fichier pour les images.

@@ -1,8 +1,8 @@
-package fr.techies.iiif.api.imageapi.services.image.register;
+package fr.techies.iiif.api.imageapi.services.register;
 
 import java.nio.file.Path;
 
-import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
+import fr.techies.iiif.common.exception.ImageNotFoundException;
 
 public interface ImageRegister {
 

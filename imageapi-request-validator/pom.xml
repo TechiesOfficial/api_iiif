@@ -21,11 +21,6 @@
 			<artifactId>imageapi-model</artifactId>
 			<version>${revision}</version>
 		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-exception</artifactId>
-			<version>${revision}</version>
-		</dependency>
 		
 		<dependency>
             <groupId>org.junit.jupiter</groupId>

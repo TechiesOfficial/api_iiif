@@ -6,8 +6,8 @@ import java.nio.file.Path;
 
 import fr.techies.iiif.CommandLineExecutor;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
-import fr.techies.iiif.lib.utils.ImageFileUtil;
-import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
+import fr.techies.iiif.common.enums.ExtensionEnum;
+import fr.techies.iiif.common.utils.ImageFileUtil;
 import fr.techies.iiif.magick.IMExecutableUnpacker;
 
 public class MagickCmdLineExecutor {

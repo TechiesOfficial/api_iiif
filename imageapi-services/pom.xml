@@ -3,19 +3,21 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<groupId>fr.techies.iiif</groupId>
 		<artifactId>master</artifactId>
 		<version>${revision}</version>
 	</parent>
-
 	<artifactId>imageapi-services</artifactId>
 	<packaging>jar</packaging>
 	<name>Image API services</name>
 	<description>Allow to perform image request and information request without web part and spring free</description>
-
 	<dependencies>
+		<dependency>
+			<groupId>fr.techies.iiif</groupId>
+			<artifactId>common</artifactId>
+			<version>${revision}</version>
+		</dependency>
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
 			<artifactId>imageapi-model</artifactId>
@@ -23,37 +25,8 @@
 		</dependency>
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-exception</artifactId>
-			<version>${revision}</version>
-		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>imageapi-image-register-strategie</artifactId>
-			<version>${revision}</version>
-		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
 			<artifactId>imageapi-magick-cmd</artifactId>
 			<version>${revision}</version>
 		</dependency>
-		<dependency>
-			<groupId>fr.techies.iiif</groupId>
-			<artifactId>common</artifactId>
-			<version>${revision}</version>
-		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>

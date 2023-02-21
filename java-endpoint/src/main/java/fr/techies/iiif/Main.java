@@ -10,15 +10,14 @@ import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Quality;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Region;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Rotation;
-import fr.techies.iiif.api.imageapi.imagerequest.model.Size;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.FormatEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.QualityEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.RegionEnum;
 import fr.techies.iiif.api.imageapi.services.ImageRequestProcessor;
 import fr.techies.iiif.api.imageapi.services.contract.SimpleOutputFileNameStrategyImpl;
-import fr.techies.iiif.api.imageapi.services.image.register.AutoDiscoverImagesFromPath;
-import fr.techies.iiif.api.imageapi.services.image.register.ImageRegister;
-import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
+import fr.techies.iiif.api.imageapi.services.register.AutoDiscoverImagesFromPath;
+import fr.techies.iiif.api.imageapi.services.register.ImageRegister;
+import fr.techies.iiif.common.exception.ImageNotFoundException;
 
 public class Main {
 

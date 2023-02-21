@@ -1,4 +1,4 @@
-package fr.techies.iiif.imageapi.exception;
+package fr.techies.iiif.common.exception;
 
 public class ImageNotFoundException extends Exception {
 

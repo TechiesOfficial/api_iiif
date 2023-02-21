@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.services.ImageRequestProcessor;
-import fr.techies.iiif.api.imageapi.services.image.register.ImageRegister;
-import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
+import fr.techies.iiif.api.imageapi.services.register.ImageRegister;
+import fr.techies.iiif.common.exception.ImageNotFoundException;
 
 @Service
 public class ImageRequestService {

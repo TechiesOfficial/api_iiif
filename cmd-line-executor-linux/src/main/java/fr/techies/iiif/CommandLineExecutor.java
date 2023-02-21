@@ -27,12 +27,7 @@ public class CommandLineExecutor {
 		byte[] buffer = new byte[1024];
 
 		try {
-			builder.command("cmd.exe", "/c", cmd);
-
-//			default:
-//				builder.command("sh", "-c", cmd);
-//				break;
-//			}
+			builder.command("sh", "-c", cmd);
 
 			this.logger.info(builder.command().toString());
 

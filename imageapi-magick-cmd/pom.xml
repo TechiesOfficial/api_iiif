@@ -21,12 +21,12 @@
 		</dependency>
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
-			<artifactId>magick-executable-wrapper-${my-os}</artifactId>
+			<artifactId>magick-executable-wrapper-${platform}</artifactId>
 			<version>${revision}</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.techies.iiif</groupId>
-			<artifactId>cmd-line-executor-${my-os}</artifactId>
+			<artifactId>cmd-line-executor-${platform}</artifactId>
 			<version>${revision}</version>
 		</dependency>
 		<dependency>

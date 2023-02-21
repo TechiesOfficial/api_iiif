@@ -3,7 +3,7 @@ package fr.techies.iiif.api.imageapi.services.contract;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import fr.techies.iiif.lib.utils.enums.ExtensionEnum;
+import fr.techies.iiif.common.enums.ExtensionEnum;
 
 public class SimpleOutputFileNameStrategyImpl extends AOutputFileNameStrategy {
 	

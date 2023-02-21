@@ -13,7 +13,7 @@ import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.FormatEnum;
 import fr.techies.iiif.api.imageapi.imagerequest.validator.ImageRequestParametersValidator;
 import fr.techies.iiif.api.imageapi.imagerequest.validator.InvalidImageRequestException;
-import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
+import fr.techies.iiif.common.exception.ImageNotFoundException;
 import fr.techies.iiif.rest.mappers.MediaTypeMapper;
 import fr.techies.iiif.rest.services.ImageRequestService;
 

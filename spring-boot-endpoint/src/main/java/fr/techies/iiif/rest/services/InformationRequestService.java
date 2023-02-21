@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import fr.techies.iiif.api.imageapi.services.command.magick.IdentifyCmdLineExecutor;
 import fr.techies.iiif.api.imageapi.services.command.magick.IdentifyResultBean;
-import fr.techies.iiif.imageapi.exception.ImageNotFoundException;
+import fr.techies.iiif.common.exception.ImageNotFoundException;
 import fr.techies.iiif.rest.controller.ImageRequestController;
 import fr.techies.iiif.rest.facades.imageapi.AutoDiscoverImagesFromPathRepo;
 
