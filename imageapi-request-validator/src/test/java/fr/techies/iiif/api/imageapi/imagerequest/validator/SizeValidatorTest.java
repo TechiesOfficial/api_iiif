@@ -8,23 +8,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.SizeEnum;
 
-public class ImageRequestParametersValidatorTest {
-	
-	/**
-	 *  Class à tester
-	 */
-	private ImageRequestParametersValidator validatorClass;
-	
-	@BeforeEach
-	private void beforeAll() {
-		validatorClass = new ImageRequestParametersValidator();
-	}
+public class SizeValidatorTest extends AbstractImageRequestValidatorTest {
 	
 	/**
 	 * Test du validate Size
@@ -192,11 +181,22 @@ public class ImageRequestParametersValidatorTest {
 		assertEquals(result.getSize().getSizePCT().getPct(), 120.0);
 		assertEquals(result.getSize().isAllowUpscaling(), true);
 		assertEquals(result.getSize().isKeepRatio(), false);
+		
+		//^pct:n.a
+		size = "^pct:120.123";
+		result = validatorClass.validateParameters(identifier, region, size, rotation, quality, format);
+		assertTrue(result != null);
+		assertEquals(result.getSize().getSizeEnum(), SizeEnum.pct);
+		assertEquals(result.getSize().getSizePixel(), null);
+		assertEquals(result.getSize().getSizePCT().getPct(), 120.123);
+		assertEquals(result.getSize().isAllowUpscaling(), true);
+		assertEquals(result.getSize().isKeepRatio(), false);
 	
 		/*
 		 * TEST DES CAS NON VALIDES
 		 */
 		List<String> errorSizes = new ArrayList<>();
+		errorSizes.add("");
 		errorSizes.add("fulllll");
 		errorSizes.add("full^");
 		errorSizes.add("^full");
@@ -222,6 +222,7 @@ public class ImageRequestParametersValidatorTest {
 				validatorClass.validateParameters(identifier, region, errorSize, rotation, quality, format);
 			});
 			
+			assertTrue(exception instanceof InvalidImageRequestException);
 			assertTrue(exception instanceof InvalidSizeException);
 		}
 	}
