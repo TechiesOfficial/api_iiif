@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Component;
 
-import fr.techies.iiif.api.imageapi.services.contract.AOutputFileNameStrategy;
+import fr.techies.iiif.api.imageapi.engine.contract.AOutputFileNameStrategy;
 
 @Component
 @ConditionalOnProperty(value = "imageapi.outputfilename.strategy", matchIfMissing = true)

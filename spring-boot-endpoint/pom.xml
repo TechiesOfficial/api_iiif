@@ -42,7 +42,7 @@
         
         <dependency>
             <groupId>fr.techies.iiif</groupId>
-            <artifactId>imageapi-services</artifactId>
+            <artifactId>imageapi-engine</artifactId>
             <version>${revision}</version>
         </dependency>
         

@@ -86,9 +86,9 @@
 		<module>cmd-line-executor-${platform}</module>
 		<module>imageapi-magick-cmd</module>
 
-		<module>imageapi-request-validator</module>
+		<module>imageapi-engine</module>
 		
-		<module>imageapi-services</module>
+		<module>imageapi-request-validator</module>
 		
 		<module>spring-boot-endpoint</module>
 	</modules>

@@ -23,7 +23,7 @@ import fr.techies.iiif.rest.facades.imageapi.AutoDiscoverImagesFromPathRepo;
 @Service
 public class InformationRequestService {
 	
-	@Value("${imageapi.unpackedTargetPath}")
+	@Value("${imageapi.imagemagick.unpackedTargetPath}")
 	private String unpackedTargetPath;
 
 	private IdentifyCmdLineExecutor identifyCmdLineExecutor;
