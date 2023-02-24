@@ -132,45 +132,57 @@ public class MagickCmdLineExecutor {
 	private StringBuilder manageRegion(ImageRequest imageRequest, IdentifyResultBean identifyResultBean) {
 
 		StringBuilder sb = new StringBuilder();
-
+		
+		int width = 0;
+		int height = 0;
+		int x = 0;
+		int y = 0;
+		
+		int identifyWidth = Integer.parseInt(identifyResultBean.getWidth());
+		int identifyHeight = Integer.parseInt(identifyResultBean.getHeight());
+		
 		switch (imageRequest.getRegion().getRegionEnum()) {
 		case full:
 			// Rien à faire
 			break;
 		case square:
 			// On récupère les dimensions de l'image via identify.exe et on applique
-			int initWidth = Integer.parseInt(identifyResultBean.getWidth());
-			int initHeight = Integer.parseInt(identifyResultBean.getHeight());
-			int side = 0;
-			int x = 0;
-			int y = 0;
-			
-			if(initWidth < initHeight) {
-				side = initWidth;
-				y = (initHeight - side)/2;
+			if(identifyWidth < identifyHeight) {
+				width = identifyWidth;
+				height = identifyWidth;
+				
+				y = (identifyHeight - identifyWidth)/2;
 			}
 			else {
-				side = initHeight;
+				width = identifyHeight;
+				height = identifyHeight;
 				
-				x = (initWidth - side)/2;
+				x = (identifyWidth - identifyHeight)/2;
 			}
-			
-			sb.append("-extract " + side + "x" + side + "+" + x + "+" + y);
 			
 			break;
 		case pixel:
-			sb.append("-extract " + imageRequest.getRegion().getRegionPixel().getPixelW() + "x"
-					+ imageRequest.getRegion().getRegionPixel().getPixelH() + "+"
-					+ imageRequest.getRegion().getRegionPixel().getPixelX() + "+"
-					+ imageRequest.getRegion().getRegionPixel().getPixelY());
+			width = imageRequest.getRegion().getRegionPixel().getPixelW();
+			height = imageRequest.getRegion().getRegionPixel().getPixelH();
+			x = imageRequest.getRegion().getRegionPixel().getPixelX();
+			y = imageRequest.getRegion().getRegionPixel().getPixelY();
+			
 			break;
 		case pct:
-			sb.append("-extract " + imageRequest.getRegion().getRegionPCT().getPctW() + "x"
-					+ imageRequest.getRegion().getRegionPCT().getPctH() + "+"
-					+ imageRequest.getRegion().getRegionPCT().getPctX() + "+"
-					+ imageRequest.getRegion().getRegionPCT().getPctY());
+			double pctWidth = imageRequest.getRegion().getRegionPCT().getPctW();
+			double pctHeight = imageRequest.getRegion().getRegionPCT().getPctH();
+			double pctX = imageRequest.getRegion().getRegionPCT().getPctX();
+			double pctY = imageRequest.getRegion().getRegionPCT().getPctY();
+			
+			width = (int) Math.floor((identifyWidth * pctWidth) / 100);
+			height = (int) Math.floor((identifyHeight * pctHeight) / 100);
+			x = (int) Math.floor((identifyWidth * pctX) / 100);
+			y = (int) Math.floor((identifyHeight * pctY) / 100);
+			
 			break;
 		}
+		
+		sb.append("-extract " + width + "x" + height + "+" + x + "+" + y);
 
 		return sb;
 	}
