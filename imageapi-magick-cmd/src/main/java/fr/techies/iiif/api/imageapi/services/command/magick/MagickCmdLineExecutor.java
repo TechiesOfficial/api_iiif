@@ -138,7 +138,25 @@ public class MagickCmdLineExecutor {
 			// Rien à faire
 			break;
 		case square:
-			// On récupére les dimensions de l'image via identify.exe et on applique
+			// On récupère les dimensions de l'image via identify.exe et on applique
+			int initWidth = Integer.parseInt(identifyResultBean.getWidth());
+			int initHeight = Integer.parseInt(identifyResultBean.getHeight());
+			int side = 0;
+			int x = 0;
+			int y = 0;
+			
+			if(initWidth < initHeight) {
+				side = initWidth;
+				y = (initHeight - side)/2;
+			}
+			else {
+				side = initHeight;
+				
+				x = (initWidth - side)/2;
+			}
+			
+			sb.append("-extract " + side + "x" + side + "+" + x + "+" + y);
+			
 			break;
 		case pixel:
 			sb.append("-extract " + imageRequest.getRegion().getRegionPixel().getPixelW() + "x"

@@ -21,7 +21,7 @@ public class ImageMagickExecutableUnpackerService {
 
 	private Logger logger = LogManager.getLogger(ImageMagickExecutableUnpackerService.class);
 
-	@Value("${imageMagickExecutableFinder.path}")
+	@Value("${imageapi.imagemagick.unpackedTargetPath}")
 	private String imExecutableTargetPath;
 
 	private IMExecutableUnpacker imExecutableUnpacker;

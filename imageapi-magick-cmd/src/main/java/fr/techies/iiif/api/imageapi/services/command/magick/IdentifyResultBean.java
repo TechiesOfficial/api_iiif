@@ -4,7 +4,7 @@ public class IdentifyResultBean {
 	private String filesize;
 	private String filenameExtension;
 	private String fileName;
-	private String witdth;
+	private String width;
 	private String height;
 	private String xRes;
 	private String yRes;
@@ -33,12 +33,12 @@ public class IdentifyResultBean {
 		this.fileName = fileName;
 	}
 
-	public String getWitdth() {
-		return witdth;
+	public String getWidth() {
+		return width;
 	}
 
-	public void setWitdth(String witdth) {
-		this.witdth = witdth;
+	public void setWidth(String width) {
+		this.width = width;
 	}
 
 	public String getHeight() {

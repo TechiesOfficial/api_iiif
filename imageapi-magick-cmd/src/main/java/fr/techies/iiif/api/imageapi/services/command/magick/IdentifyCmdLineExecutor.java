@@ -51,7 +51,7 @@ public class IdentifyCmdLineExecutor {
 		identifyResultBean.setFilesize(identifyCmdResult[0]);
 		identifyResultBean.setFilenameExtension(identifyCmdResult[1]);
 		identifyResultBean.setFileName(identifyCmdResult[2]);
-		identifyResultBean.setWitdth(identifyCmdResult[3]);
+		identifyResultBean.setWidth(identifyCmdResult[3]);
 		identifyResultBean.setHeight(identifyCmdResult[4]);
 		identifyResultBean.setxRes(identifyCmdResult[5]);
 		identifyResultBean.setyRes(identifyCmdResult[6]);

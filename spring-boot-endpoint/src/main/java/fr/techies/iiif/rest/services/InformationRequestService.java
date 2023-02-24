@@ -47,7 +47,7 @@ public class InformationRequestService {
 
 			image = this.identifyCmdLineExecutor.identify(inFileName);
 
-			informationResponseBean.setWidth(image.getWitdth());
+			informationResponseBean.setWidth(image.getWidth());
 			informationResponseBean.setHeight(image.getHeight());
 			
 		} catch (ImageNotFoundException e) {
