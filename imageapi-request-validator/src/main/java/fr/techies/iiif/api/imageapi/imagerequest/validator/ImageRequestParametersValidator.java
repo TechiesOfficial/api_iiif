@@ -3,6 +3,12 @@ package fr.techies.iiif.api.imageapi.imagerequest.validator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import fr.techies.iiif.api.imageapi.imagerequest.exception.InvalidFormatException;
+import fr.techies.iiif.api.imageapi.imagerequest.exception.InvalidImageRequestException;
+import fr.techies.iiif.api.imageapi.imagerequest.exception.InvalidQualityException;
+import fr.techies.iiif.api.imageapi.imagerequest.exception.InvalidRegionException;
+import fr.techies.iiif.api.imageapi.imagerequest.exception.InvalidRotationException;
+import fr.techies.iiif.api.imageapi.imagerequest.exception.InvalidSizeException;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Format;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Identifier;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;

@@ -1,4 +1,4 @@
-package fr.techies.iiif.api.imageapi.imagerequest.validator;
+package fr.techies.iiif.api.imageapi.imagerequest.exception;
 
 public class InvalidRotationException extends InvalidImageRequestException {
 

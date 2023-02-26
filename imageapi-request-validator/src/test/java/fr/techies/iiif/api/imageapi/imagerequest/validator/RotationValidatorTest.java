@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import fr.techies.iiif.api.imageapi.imagerequest.exception.InvalidImageRequestException;
+import fr.techies.iiif.api.imageapi.imagerequest.exception.InvalidRotationException;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 
 public class RotationValidatorTest extends AbstractImageRequestValidatorTest {

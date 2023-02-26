@@ -41,7 +41,7 @@ public class MagickCmdLineExecutor {
 		sb.append(" ");
 		sb.append(inFileName);
 		sb.append(" ");
-		sb.append(this.manageSize(imageRequest));
+		sb.append(this.manageSize(imageRequest,identifyResultBean));
 		sb.append(" ");
 		sb.append(this.manageRotation(imageRequest));
 		sb.append(" ");
@@ -57,78 +57,7 @@ public class MagickCmdLineExecutor {
 		return ImageFileUtil.getImageAsBytes(outFileName.toString(),
 				extensionEnum);
 	}
-
-	private ExtensionEnum manageFormat(ImageRequest imageRequest) {
-
-		ExtensionEnum extensionEnum = null;
-		
-		switch (imageRequest.getFormat().getFormat()) {
-		case gif:
-			extensionEnum = ExtensionEnum.gif;
-			break;
-		case jp2:
-			extensionEnum=ExtensionEnum.jp2;
-		case jpg:
-			extensionEnum = ExtensionEnum.jpg;
-		case pdf:
-			extensionEnum= ExtensionEnum.pdf;
-		case png:
-			extensionEnum=ExtensionEnum.png;
-		case tif:
-			extensionEnum=ExtensionEnum.tif;
-		default:
-			break;
-		}
-
-		return extensionEnum;
-	}
-
-	private StringBuilder manageQuality(ImageRequest imageRequest) {
-
-		StringBuilder sb = new StringBuilder();
-
-		switch (imageRequest.getQuality().getQualityEnum()) {
-		case bitonal:
-			sb.append("-monochrome ");
-			break;
-		case gray:
-			sb.append("-colorspace ").append("Gray ");
-			break;
-		case color:
-		case native_default:
-		default:
-			break;
-		}
-
-		return sb;
-	}
-
-	private StringBuilder manageRotation(ImageRequest imageRequest) {
-
-		StringBuilder sb = new StringBuilder();
-		boolean mirroring = imageRequest.getRotation().isMirroring();
-		int degree = imageRequest.getRotation().getDegree();
-
-		if (mirroring) {
-			sb.append("-flop ");
-		}
-
-		// A priori c'est comme cela que l'on fait de la transparence mais ca met un
-		// fond noir!
-		// Testé sur chrome et ie
-		if (degree != 0)
-			sb.append("-background 'rgba(0,0,0,0)' -rotate " + degree + " +repage");
-
-		return sb;
-	}
-
-	private StringBuilder manageSize(ImageRequest imageRequest) {
-
-		StringBuilder sb = new StringBuilder();
-
-		return sb;
-	}
-
+	
 	private StringBuilder manageRegion(ImageRequest imageRequest, IdentifyResultBean identifyResultBean) {
 
 		StringBuilder sb = new StringBuilder();
@@ -174,10 +103,10 @@ public class MagickCmdLineExecutor {
 			double pctX = imageRequest.getRegion().getRegionPCT().getPctX();
 			double pctY = imageRequest.getRegion().getRegionPCT().getPctY();
 			
-			width = (int) Math.floor((identifyWidth * pctWidth) / 100);
-			height = (int) Math.floor((identifyHeight * pctHeight) / 100);
-			x = (int) Math.floor((identifyWidth * pctX) / 100);
-			y = (int) Math.floor((identifyHeight * pctY) / 100);
+			width = this.percentOf(identifyWidth, pctWidth);
+			height = this.percentOf(identifyHeight, pctHeight);
+			x = this.percentOf(identifyWidth, pctX);
+			y = this.percentOf(identifyHeight, pctY);
 			
 			break;
 		}
@@ -185,6 +114,128 @@ public class MagickCmdLineExecutor {
 		sb.append("-extract " + width + "x" + height + "+" + x + "+" + y);
 
 		return sb;
+	}
+	
+	private StringBuilder manageSize(ImageRequest imageRequest, IdentifyResultBean identifyResultBean) {
+
+		StringBuilder sb = new StringBuilder();
+		int identifyWidth = Integer.parseInt(identifyResultBean.getWidth());
+		int identifyHeight = Integer.parseInt(identifyResultBean.getHeight());
+		
+		boolean allowUpscaling = imageRequest.getSize().isAllowUpscaling();
+		boolean keepRatio = imageRequest.getSize().isKeepRatio();
+		int width = 0;
+		int height = 0;
+		
+		
+		switch (imageRequest.getSize().getSizeEnum()) {
+		case full:
+			// Rien à faire
+			break;
+			
+		case max:
+			// TODO : récupérer maxWidth, maxHeight etc ... du identify
+			break;
+			
+		case pixel:
+			// TODO : gérer tous les cas
+			width = imageRequest.getSize().getSizePixel().getPixelW();
+			height = imageRequest.getSize().getSizePixel().getPixelH();
+			
+			break;
+			
+		case pct:
+			double percentage = imageRequest.getSize().getSizePCT().getPct();
+			
+			// TODO : pour l'instant, si on n'a pas le ^ (upscaling), tout ce qui est > 100 sera = 100
+			if(percentage > 100 && !allowUpscaling) {
+				percentage = 100;
+			}
+			
+			width = this.percentOf(identifyWidth, percentage);
+			height = this.percentOf(identifyHeight, percentage);
+			
+			break;
+		}
+		
+		// exemple : -size 640x512 ou -size 640x512+256
+		
+		sb.append("-size " + width + "x" + height);
+
+		return sb;
+	}
+	
+	private StringBuilder manageRotation(ImageRequest imageRequest) {
+
+		StringBuilder sb = new StringBuilder();
+		boolean mirroring = imageRequest.getRotation().isMirroring();
+		int degree = imageRequest.getRotation().getDegree();
+
+		if (mirroring) {
+			sb.append("-flop ");
+		}
+
+		// A priori c'est comme cela que l'on fait de la transparence mais ca met un
+		// fond noir!
+		// Testé sur chrome et ie
+		if (degree != 0)
+			sb.append("-background 'rgba(0,0,0,0)' -rotate " + degree + " +repage");
+
+		return sb;
+	}
+	
+	private StringBuilder manageQuality(ImageRequest imageRequest) {
+
+		StringBuilder sb = new StringBuilder();
+
+		switch (imageRequest.getQuality().getQualityEnum()) {
+		case bitonal:
+			sb.append("-monochrome ");
+			break;
+		case gray:
+			sb.append("-colorspace ").append("Gray ");
+			break;
+		case color:
+		case native_default:
+		default:
+			break;
+		}
+
+		return sb;
+	}
+
+	private ExtensionEnum manageFormat(ImageRequest imageRequest) {
+
+		ExtensionEnum extensionEnum = null;
+		
+		switch (imageRequest.getFormat().getFormat()) {
+		case gif:
+			extensionEnum = ExtensionEnum.gif;
+			break;
+		case jp2:
+			extensionEnum=ExtensionEnum.jp2;
+			break;
+		case jpg:
+			extensionEnum = ExtensionEnum.jpg;
+			break;
+		case pdf:
+			extensionEnum= ExtensionEnum.pdf;
+			break;
+		case png:
+			extensionEnum=ExtensionEnum.png;
+			break;
+		case tif:
+			extensionEnum=ExtensionEnum.tif;
+			break;
+		default:
+			break;
+		}
+
+		return extensionEnum;
+	}
+	
+	private int percentOf(int digit, double percentage) {
+		return (int) Math.floor((digit * percentage) / 100);
 	}
 
 }

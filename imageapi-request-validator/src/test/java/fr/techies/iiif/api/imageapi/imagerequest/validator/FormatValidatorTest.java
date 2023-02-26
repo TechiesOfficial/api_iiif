@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import fr.techies.iiif.api.imageapi.imagerequest.exception.InvalidFormatException;
+import fr.techies.iiif.api.imageapi.imagerequest.exception.InvalidImageRequestException;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.FormatEnum;
 
