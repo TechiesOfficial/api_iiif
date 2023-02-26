@@ -6,6 +6,7 @@ import java.nio.file.Path;
 
 import fr.techies.iiif.CommandLineExecutor;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
+import fr.techies.iiif.api.imageapi.imagerequest.model.Region;
 import fr.techies.iiif.common.enums.ExtensionEnum;
 import fr.techies.iiif.common.utils.ImageFileUtil;
 import fr.techies.iiif.magick.IMExecutableUnpacker;
@@ -37,7 +38,7 @@ public class MagickCmdLineExecutor {
 		sb.append(this.imExecutableUnpacker.getMagickExecutable());
 		sb.append(" ");
 		// A priori extract doit se trouver avant le fichier en entrée
-		sb.append(this.manageRegion(imageRequest, identifyResultBean));
+		sb.append(this.manageRegion(imageRequest.getRegion(), identifyResultBean));
 		sb.append(" ");
 		sb.append(inFileName);
 		sb.append(" ");
@@ -58,7 +59,7 @@ public class MagickCmdLineExecutor {
 				extensionEnum);
 	}
 	
-	private StringBuilder manageRegion(ImageRequest imageRequest, IdentifyResultBean identifyResultBean) {
+	private StringBuilder manageRegion(Region regionBean, IdentifyResultBean identifyResultBean) {
 
 		StringBuilder sb = new StringBuilder();
 		
@@ -70,7 +71,7 @@ public class MagickCmdLineExecutor {
 		int identifyWidth = Integer.parseInt(identifyResultBean.getWidth());
 		int identifyHeight = Integer.parseInt(identifyResultBean.getHeight());
 		
-		switch (imageRequest.getRegion().getRegionEnum()) {
+		switch (regionBean.getRegionEnum()) {
 		case full:
 			// Rien à faire
 			break;
@@ -89,30 +90,34 @@ public class MagickCmdLineExecutor {
 				x = (identifyWidth - identifyHeight)/2;
 			}
 			
+			sb.append("-extract " + width + "x" + height + "+" + x + "+" + y);
+			
 			break;
 		case pixel:
-			width = imageRequest.getRegion().getRegionPixel().getPixelW();
-			height = imageRequest.getRegion().getRegionPixel().getPixelH();
-			x = imageRequest.getRegion().getRegionPixel().getPixelX();
-			y = imageRequest.getRegion().getRegionPixel().getPixelY();
+			width = regionBean.getRegionPixel().getPixelW();
+			height = regionBean.getRegionPixel().getPixelH();
+			x = regionBean.getRegionPixel().getPixelX();
+			y = regionBean.getRegionPixel().getPixelY();
+			
+			sb.append("-extract " + width + "x" + height + "+" + x + "+" + y);
 			
 			break;
 		case pct:
-			double pctWidth = imageRequest.getRegion().getRegionPCT().getPctW();
-			double pctHeight = imageRequest.getRegion().getRegionPCT().getPctH();
-			double pctX = imageRequest.getRegion().getRegionPCT().getPctX();
-			double pctY = imageRequest.getRegion().getRegionPCT().getPctY();
+			double pctWidth = regionBean.getRegionPCT().getPctW();
+			double pctHeight = regionBean.getRegionPCT().getPctH();
+			double pctX = regionBean.getRegionPCT().getPctX();
+			double pctY = regionBean.getRegionPCT().getPctY();
 			
 			width = this.percentOf(identifyWidth, pctWidth);
 			height = this.percentOf(identifyHeight, pctHeight);
 			x = this.percentOf(identifyWidth, pctX);
 			y = this.percentOf(identifyHeight, pctY);
 			
+			sb.append("-extract " + width + "x" + height + "+" + x + "+" + y);
+			
 			break;
 		}
 		
-		sb.append("-extract " + width + "x" + height + "+" + x + "+" + y);
-
 		return sb;
 	}
 	
@@ -142,6 +147,9 @@ public class MagickCmdLineExecutor {
 			width = imageRequest.getSize().getSizePixel().getPixelW();
 			height = imageRequest.getSize().getSizePixel().getPixelH();
 			
+			// exemple : -size 640x512 ou -size 640x512+256
+			sb.append("-resize " + width + "x" + height);
+			
 			break;
 			
 		case pct:
@@ -155,13 +163,12 @@ public class MagickCmdLineExecutor {
 			width = this.percentOf(identifyWidth, percentage);
 			height = this.percentOf(identifyHeight, percentage);
 			
+			// exemple : -size 640x512 ou -size 640x512+256
+			sb.append("-resize " + width + "x" + height);
+			
 			break;
 		}
 		
-		// exemple : -size 640x512 ou -size 640x512+256
-		
-		sb.append("-size " + width + "x" + height);
-
 		return sb;
 	}
 	
