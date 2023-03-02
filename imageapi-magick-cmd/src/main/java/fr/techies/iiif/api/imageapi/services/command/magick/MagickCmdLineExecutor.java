@@ -124,6 +124,7 @@ public class MagickCmdLineExecutor {
 	private StringBuilder manageSize(ImageRequest imageRequest, IdentifyResultBean identifyResultBean) {
 
 		StringBuilder sb = new StringBuilder();
+		// TODO : attention, on doit prendre en compte l'extracted region, et non l'image full !!!!
 		int identifyWidth = Integer.parseInt(identifyResultBean.getWidth());
 		int identifyHeight = Integer.parseInt(identifyResultBean.getHeight());
 		
@@ -155,7 +156,8 @@ public class MagickCmdLineExecutor {
 		case pct:
 			double percentage = imageRequest.getSize().getSizePCT().getPct();
 			
-			// TODO : pour l'instant, si on n'a pas le ^ (upscaling), tout ce qui est > 100 sera = 100
+			// TODO : ce cas devrait retourner un 400 à la validation
+			// Mais on n'a pas le identify à la validation
 			if(percentage > 100 && !allowUpscaling) {
 				percentage = 100;
 			}
@@ -169,7 +171,7 @@ public class MagickCmdLineExecutor {
 			break;
 		}
 		
-		return sb;
+		return sb;	
 	}
 	
 	private StringBuilder manageRotation(ImageRequest imageRequest) {
