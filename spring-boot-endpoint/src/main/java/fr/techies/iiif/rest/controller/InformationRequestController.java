@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import fr.techies.iiif.api.imageapi.informationrequest.model.InformationRequest;
 import fr.techies.iiif.api.imageapi.informationrequest.validator.InformationRequestParametersValidator;
 import fr.techies.iiif.common.exception.ImageNotFoundException;
 import fr.techies.iiif.rest.services.InformationRequestService;
@@ -30,15 +31,16 @@ public class InformationRequestController {
 	public ResponseEntity<?> info(@PathVariable String identifier) {
 
 		InformationResponseBean informationResponseBean = null;
+		InformationRequest informationRequest = null;
 		HttpHeaders httpHeaders = new HttpHeaders();
 		ResponseEntity<?> responseEntity = null;
 		
 		try {
-			this.informationRequestParametersValidator.validateParameters(identifier);
+			informationRequest = this.informationRequestParametersValidator.validateParameters(identifier);
 
 			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-			informationResponseBean = this.informationRequestService.getInformation(identifier);
+			informationResponseBean = this.informationRequestService.getInformation(informationRequest);
 			
 			responseEntity = new ResponseEntity<InformationResponseBean>(informationResponseBean, httpHeaders, HttpStatus.OK);
 		} catch (ImageNotFoundException e) {

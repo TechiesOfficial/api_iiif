@@ -1,6 +1,6 @@
 package fr.techies.iiif.api.imageapi.informationrequest.model;
 
-import fr.techies.iiif.api.imageapi.imagerequest.model.Identifier;
+import fr.techies.iiif.api.imageapi.common.model.Identifier;
 
 public class InformationRequest {
 
@@ -8,6 +8,14 @@ public class InformationRequest {
 
 	public InformationRequest(Identifier identifier) {
 
+		this.identifier = identifier;
+	}
+
+	public Identifier getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(Identifier identifier) {
 		this.identifier = identifier;
 	}
 }

@@ -1,7 +1,6 @@
 package fr.techies.iiif.rest.services;
 
-import java.io.IOException;
-import java.nio.file.Path;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -9,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import fr.techies.iiif.api.imageapi.services.command.magick.IdentifyCmdLineExecutor;
+import fr.techies.iiif.api.imageapi.engine.InformationRequestProcessor;
+import fr.techies.iiif.api.imageapi.engine.register.ImageRegister;
+import fr.techies.iiif.api.imageapi.informationrequest.model.InformationRequest;
 import fr.techies.iiif.api.imageapi.services.command.magick.IdentifyResultBean;
 import fr.techies.iiif.common.exception.ImageNotFoundException;
 import fr.techies.iiif.rest.controller.ImageRequestController;
-import fr.techies.iiif.rest.facades.imageapi.AutoDiscoverImagesFromPathRepo;
 
 /**
  * On separe le controller {@link ImageRequestController} de l'implémentation
@@ -22,41 +22,29 @@ import fr.techies.iiif.rest.facades.imageapi.AutoDiscoverImagesFromPathRepo;
  */
 @Service
 public class InformationRequestService {
-	
+
 	@Value("${imageapi.imagemagick.unpackedTargetPath}")
 	private String unpackedTargetPath;
 
-	private IdentifyCmdLineExecutor identifyCmdLineExecutor;
-
 	@Autowired
-	private AutoDiscoverImagesFromPathRepo autoDiscoverImagesFromPathRepo;
-	
+	private List<ImageRegister> imageRegisters;
+
+	private InformationRequestProcessor informationRequestProcessor;
+
 	@PostConstruct
 	public void postConstruct() {
-		this.identifyCmdLineExecutor = new IdentifyCmdLineExecutor(this.unpackedTargetPath);
+		this.informationRequestProcessor = new InformationRequestProcessor(imageRegisters, unpackedTargetPath);
 	}
 
-	public InformationResponseBean getInformation(String identifier) throws ImageNotFoundException {
+	public InformationResponseBean getInformation(InformationRequest informationRequest) throws ImageNotFoundException {
 
 		InformationResponseBean informationResponseBean = new InformationResponseBean();
-		IdentifyResultBean image = null;
-		Path inFileName = null;
+		IdentifyResultBean identifyResultBean = null;
 
-		try {
-			inFileName = this.autoDiscoverImagesFromPathRepo.getPath(identifier);
+		identifyResultBean = this.informationRequestProcessor.identify(informationRequest);
 
-			image = this.identifyCmdLineExecutor.identify(inFileName);
-
-			informationResponseBean.setWidth(image.getWidth());
-			informationResponseBean.setHeight(image.getHeight());
-			
-		} catch (ImageNotFoundException e) {
-			throw e;
-		}
-		catch (IOException e) {
-			// TODO: améliorer même si cela ne devrait jamais se produire
-			e.printStackTrace();
-		}
+		informationResponseBean.setWidth(identifyResultBean.getWidth());
+		informationResponseBean.setHeight(identifyResultBean.getHeight());
 
 		return informationResponseBean;
 	}

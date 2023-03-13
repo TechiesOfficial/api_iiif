@@ -4,8 +4,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.techies.iiif.api.imageapi.common.model.Identifier;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Format;
-import fr.techies.iiif.api.imageapi.imagerequest.model.Identifier;
 import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Quality;
 import fr.techies.iiif.api.imageapi.imagerequest.model.Region;

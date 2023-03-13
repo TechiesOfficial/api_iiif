@@ -1,4 +1,4 @@
-package fr.techies.iiif.api.imageapi.imagerequest.model;
+package fr.techies.iiif.api.imageapi.common.model;
 
 public class Identifier {
 

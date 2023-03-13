@@ -1,5 +1,7 @@
 package fr.techies.iiif.api.imageapi.imagerequest.model;
 
+import fr.techies.iiif.api.imageapi.common.model.Identifier;
+
 public class ImageRequest {
 
 	private Identifier identifier;
