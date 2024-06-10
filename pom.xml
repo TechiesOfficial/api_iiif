@@ -78,7 +78,7 @@
 	
 	<!-- To help maintenance, modules are sorted by dependencies (bottom need the most dependencies -->
 	<modules>
-		<!-- Stand alone modules (no dependancies apart parent dependencies)-->
+		<!-- Stand alone modules (no dependencies apart parent dependencies)-->
 		<module>common</module>
 		<module>imageapi-model</module>
 		<module>magick-executable-wrapper-${platform}</module>
