@@ -3,21 +3,21 @@ package fr.techies.iiif.api.imageapi.imagerequest.model;
 import fr.techies.iiif.api.imageapi.imagerequest.model.enums.SizeEnum;
 
 public class Size {
-	
+
 	private SizeEnum sizeEnum;
-	
+
 	private SizePixel sizePixel;
-	
+
 	private SizePCT sizePCT;
-	
+
 	boolean allowUpscaling;
-	
+
 	boolean keepRatio;
-	
+
 	public Size(SizeEnum sizeEnum, boolean allowUpscaling, boolean keepRatio) {
 		this(sizeEnum, null, null, allowUpscaling, keepRatio);
 	}
-	
+
 	public Size(SizeEnum sizeEnum, SizePixel sizePixel, SizePCT sizePCT, boolean allowUpscaling, boolean keepRatio) {
 
 		this.sizeEnum = sizeEnum;
@@ -51,7 +51,7 @@ public class Size {
 	public boolean isAllowUpscaling() {
 		return allowUpscaling;
 	}
-	
+
 	public boolean isKeepRatio() {
 		return keepRatio;
 	}

@@ -3,13 +3,13 @@ package fr.techies.iiif.api.imageapi.imagerequest.model.enums;
 public enum FormatEnum {
 
 	jpg(".jpg"),
-	tif(".tif"), 
+	tif(".tif"),
 	png(".png"),
-	gif(".gif"), 
+	gif(".gif"),
 	jp2(".jp2"),
 	pdf(".pdf"),
 	webp(".webp");
-	
+
 	private String extension;
 
 	private FormatEnum(String extension) {

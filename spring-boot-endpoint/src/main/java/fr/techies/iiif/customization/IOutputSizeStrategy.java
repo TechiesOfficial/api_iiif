@@ -7,8 +7,8 @@ package fr.techies.iiif.customization;
 public interface IOutputSizeStrategy {
 
 	public String getMaxWidth();
-	
+
 	public String getMaxHeight();
-	
+
 	public String getMaxArea();
 }

@@ -6,7 +6,7 @@ public class RegionPCT {
 	private double pctY;
 	private double pctW;
 	private double pctH;
-	
+
 	public RegionPCT(double pctX,double pctY,double pctW,double pctH) {
 
 		this.pctX = pctX;

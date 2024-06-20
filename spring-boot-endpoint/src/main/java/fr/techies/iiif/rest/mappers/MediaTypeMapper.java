@@ -32,7 +32,7 @@ public class MediaTypeMapper {
 		case jp2:
 			mediaType = MediaType.APPLICATION_OCTET_STREAM;
 			break;
-			
+
 		case webp:
 			mediaType = new MediaType(new MimeType("image" , "webp"));
 			break;

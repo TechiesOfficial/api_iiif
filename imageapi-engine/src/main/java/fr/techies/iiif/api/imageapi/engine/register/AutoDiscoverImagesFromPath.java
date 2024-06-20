@@ -16,9 +16,9 @@ import fr.techies.iiif.common.exception.ImageNotFoundException;
 
 /**
  * Implémentation basique d'un scanner de fichier pour les images.
- * 
+ *
  * Mets en cache dans une hashmap tous les fichiers.
- * 
+ *
  * TODO: ajouter la possibilité de spécifier plusieurs racines. TODO: une fois
  * la liste dOes types d'images officiellement gérée définie, ne prendre en
  * compte que ces fichiers.
@@ -28,7 +28,7 @@ public class AutoDiscoverImagesFromPath implements ImageRegister {
 
 	private Logger logger = LogManager.getLogger(AutoDiscoverImagesFromPath.class);
 
-	private Map<String, Path> fileFromId = new HashMap<String, Path>();
+	private Map<String, Path> fileFromId = new HashMap<>();
 
 	public AutoDiscoverImagesFromPath(Path path) {
 		try {
@@ -45,8 +45,9 @@ public class AutoDiscoverImagesFromPath implements ImageRegister {
 	@Override
 	public Path getPath(String identifier) throws ImageNotFoundException {
 
-		if (this.fileFromId.get(identifier) != null)
+		if (this.fileFromId.get(identifier) != null) {
 			return this.fileFromId.get(identifier);
+		}
 
 		throw new ImageNotFoundException("L'image " + identifier + " n'a pas été trouvée");
 	}

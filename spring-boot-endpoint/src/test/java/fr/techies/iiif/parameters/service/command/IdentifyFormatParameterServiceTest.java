@@ -11,7 +11,7 @@ public class IdentifyFormatParameterServiceTest {
 
 	@Autowired
 	private IdentifyFormatParameterService identifyFormatParameterService;
-	
+
 	@Test
 	public void testFormat() {
 		System.out.println(this.identifyFormatParameterService.build());

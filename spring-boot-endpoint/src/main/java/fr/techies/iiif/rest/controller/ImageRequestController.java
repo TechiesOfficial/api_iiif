@@ -28,9 +28,9 @@ public class ImageRequestController {
 
 	@Autowired
 	private ImageRequestService imageRequestService;
-	
+
 	private ImageRequestParametersValidator imageRequestParametersValidator;
-	
+
 	public ImageRequestController() {
 		this.imageRequestParametersValidator = new ImageRequestParametersValidator();
 	}
@@ -38,7 +38,7 @@ public class ImageRequestController {
 	/**
 	 * Point d'entrée des requêtes IIIF. Ce point d'entrée comporte une gestion de
 	 * vue.
-	 * 
+	 *
 	 * <p>
 	 * NRO: Ne pas changer les types dans leur type définitif (long, double).
 	 * </p>
@@ -47,7 +47,7 @@ public class ImageRequestController {
 	 * de garder des types {@link String} et de faire le contrôle manuellement de
 	 * chaque champ de la requête.
 	 * </p>
-	 * 
+	 *
 	 * @return {@link ResponseEntity} de type byte (données brut image).
 	 */
 	@GetMapping("/{identifier}/{view}/{region}/{size}/{rotation}/{quality}.{format}")
@@ -65,18 +65,18 @@ public class ImageRequestController {
 			imageRequest = this.imageRequestParametersValidator.validateParameters(identifier, region, size, rotation, quality, format);
 
 			image = this.getResultingImage(imageRequest);
-			
+
 			// Construction du header et don son mediaType
 			mediaType = MediaTypeMapper.mediaTypeMapper(FormatEnum.valueOf(format));
 			httpHeaders.setContentType(mediaType);
 
 			// Réponse à retourner
-			responseEntity = new ResponseEntity<byte[]>(image, httpHeaders, HttpStatus.OK);
+			responseEntity = new ResponseEntity<>(image, httpHeaders, HttpStatus.OK);
 
 		} catch (ImageNotFoundException e) {
-			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+			responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		} catch (InvalidImageRequestException e) {
-			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 		return responseEntity;
@@ -85,7 +85,7 @@ public class ImageRequestController {
 	/**
 	 * Point d'entrée des requêtes IIIF. Ce point d'entrée ne comporte pas de
 	 * gestion de vue.
-	 * 
+	 *
 	 * <p>
 	 * NRO: Ne pas changer les types dans leur type définitif (long, double).
 	 * </p>
@@ -94,7 +94,7 @@ public class ImageRequestController {
 	 * de garder des types {@link String} et de faire le contrôle manuellement de
 	 * chaque champ de la requête.
 	 * </p>
-	 * 
+	 *
 	 * @return {@link ResponseEntity} de type byte (données brut image).
 	 */
 	@GetMapping("/{identifier}/{region}/{size}/{rotation}/{quality}.{format}")
@@ -117,12 +117,12 @@ public class ImageRequestController {
 			httpHeaders.setContentType(mediaType);
 
 			// Réponse à retourner
-			responseEntity = new ResponseEntity<byte[]>(image, httpHeaders, HttpStatus.OK);
+			responseEntity = new ResponseEntity<>(image, httpHeaders, HttpStatus.OK);
 
 		} catch (ImageNotFoundException e) {
-			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+			responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		} catch (InvalidImageRequestException e) {
-			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 		return responseEntity;

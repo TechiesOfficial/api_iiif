@@ -11,14 +11,15 @@ public enum QualityEnum {
 	private QualityEnum(String iiifRequestQuality) {
 		this.iiifRequestQuality = iiifRequestQuality;
 	}
-	
+
 	public static QualityEnum valueOfQuality(String quality) {
 		for (QualityEnum qualityEnum : values()) {
 
-			if (qualityEnum.iiifRequestQuality.equals(quality))
+			if (qualityEnum.iiifRequestQuality.equals(quality)) {
 				return qualityEnum;
+			}
 		}
-		
+
 		return null;
 	}
 

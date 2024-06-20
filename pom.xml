@@ -3,27 +3,26 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<!-- On ne peut pas passer en spring boot supérieur car on doit passer un 
-		jdk >8 -->
+
 	<groupId>fr.techies.iiif</groupId>
 	<artifactId>master</artifactId>
 	<version>${revision}</version>
 	<packaging>pom</packaging>
 	<name>iiif</name>
 	<description>API REST IIIF</description>
+
 	<properties>
 		<java.version>21</java.version>
-		<spring.version>6.0.2</spring.version>
-		<spring-boot.version>2.7.4</spring-boot.version>
 		<revision>1.0.0-SNAPSHOT</revision>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>2.4.0</version>
+				<version>3.3.0</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -42,7 +41,13 @@
 
 			<dependency>
 				<groupId>fr.techies.iiif</groupId>
-				<artifactId>imageapi-request-validator</artifactId>
+				<artifactId>magick-executable-wrapper-${platform}</artifactId>
+				<version>${revision}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>fr.techies.iiif</groupId>
+				<artifactId>cmd-line-executor-${platform}</artifactId>
 				<version>${revision}</version>
 			</dependency>
 
@@ -60,13 +65,7 @@
 
 			<dependency>
 				<groupId>fr.techies.iiif</groupId>
-				<artifactId>magick-executable-wrapper-${platform}</artifactId>
-				<version>${revision}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>fr.techies.iiif</groupId>
-				<artifactId>imageapi-services</artifactId>
+				<artifactId>imageapi-request-validator</artifactId>
 				<version>${revision}</version>
 			</dependency>
 
@@ -86,7 +85,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.13.0</version>
 				<configuration>
-					<source>1.8</source>
+					<source>${java.version}</source>
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>

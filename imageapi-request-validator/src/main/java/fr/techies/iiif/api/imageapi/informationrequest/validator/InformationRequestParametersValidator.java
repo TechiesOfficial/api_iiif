@@ -10,8 +10,8 @@ public class InformationRequestParametersValidator {
 
 	public InformationRequest validateParameters(String identifier) {
 
-		List<String> errors = new ArrayList<String>();
-		
+		List<String> errors = new ArrayList<>();
+
 		return new InformationRequest(new Identifier(identifier));
 	}
 }

@@ -20,13 +20,13 @@ public class InformationRequestController {
 
 	@Autowired
 	private InformationRequestService informationRequestService;
-	
+
 	private InformationRequestParametersValidator informationRequestParametersValidator;
-	
+
 	public InformationRequestController() {
 		this.informationRequestParametersValidator = new InformationRequestParametersValidator();
 	}
-	
+
 	@GetMapping("/{identifier}/info.json")
 	public ResponseEntity<?> info(@PathVariable String identifier) {
 
@@ -34,19 +34,19 @@ public class InformationRequestController {
 		InformationRequest informationRequest = null;
 		HttpHeaders httpHeaders = new HttpHeaders();
 		ResponseEntity<?> responseEntity = null;
-		
+
 		try {
 			informationRequest = this.informationRequestParametersValidator.validateParameters(identifier);
 
 			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
 			informationResponseBean = this.informationRequestService.getInformation(informationRequest);
-			
-			responseEntity = new ResponseEntity<InformationResponseBean>(informationResponseBean, httpHeaders, HttpStatus.OK);
+
+			responseEntity = new ResponseEntity<>(informationResponseBean, httpHeaders, HttpStatus.OK);
 		} catch (ImageNotFoundException e) {
-			responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+			responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
-		
+
 		return responseEntity;
 	}
 }

@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.List;
 
 import fr.techies.iiif.api.imageapi.engine.register.ImageRegister;
-import fr.techies.iiif.api.imageapi.imagerequest.model.ImageRequest;
 import fr.techies.iiif.api.imageapi.informationrequest.model.InformationRequest;
 import fr.techies.iiif.api.imageapi.services.command.magick.IdentifyCmdLineExecutor;
 import fr.techies.iiif.api.imageapi.services.command.magick.IdentifyResultBean;

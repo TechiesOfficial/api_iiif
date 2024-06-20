@@ -2,8 +2,6 @@ package fr.techies.iiif.rest.services;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,6 +12,7 @@ import fr.techies.iiif.api.imageapi.informationrequest.model.InformationRequest;
 import fr.techies.iiif.api.imageapi.services.command.magick.IdentifyResultBean;
 import fr.techies.iiif.common.exception.ImageNotFoundException;
 import fr.techies.iiif.rest.controller.ImageRequestController;
+import jakarta.annotation.PostConstruct;
 
 /**
  * On separe le controller {@link ImageRequestController} de l'implémentation

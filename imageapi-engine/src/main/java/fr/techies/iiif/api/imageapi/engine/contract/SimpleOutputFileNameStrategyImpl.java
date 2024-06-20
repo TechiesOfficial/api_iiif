@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import fr.techies.iiif.common.enums.ExtensionEnum;
 
 public class SimpleOutputFileNameStrategyImpl extends AOutputFileNameStrategy {
-	
+
 	public SimpleOutputFileNameStrategyImpl(String outputDirectory) {
 		super(outputDirectory);
 	}

@@ -22,7 +22,7 @@ public class ImageFileUtil {
 
 	/**
 	 * Récupère une image et la retourne en byte[]
-	 * 
+	 *
 	 * @param pathImg   - path total de l'image
 	 * @param extensionEnum - extension demandée
 	 * @return
@@ -52,12 +52,12 @@ public class ImageFileUtil {
 
 				//Image io ne peut pas lire le reste
 			default:
-				
+
 				output.write(Files.readAllBytes(Path.of(pathImg)));
 				image = output.toByteArray();
 				break;
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -67,7 +67,7 @@ public class ImageFileUtil {
 
 	/**
 	 * Permet de créer un dossier temporaire /tmp
-	 * 
+	 *
 	 * @param dirPath - dossier dans lequel se trouvera le dossier /tmp
 	 * @throws IOException
 	 */
@@ -77,8 +77,9 @@ public class ImageFileUtil {
 
 		try {
 			Path path = Paths.get(dirTmpPath);
-			if (!path.toFile().exists())
+			if (!path.toFile().exists()) {
 				Files.createDirectory(path);
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();

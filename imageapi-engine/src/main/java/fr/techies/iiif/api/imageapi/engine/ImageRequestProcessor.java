@@ -12,7 +12,7 @@ import fr.techies.iiif.common.enums.ExtensionEnum;
 import fr.techies.iiif.common.exception.ImageNotFoundException;
 
 public class ImageRequestProcessor {
-	
+
 	private MagickCmdLineExecutor magickCmdLineExecutor;
 
 	private AOutputFileNameStrategy outputFileNameStrategy;

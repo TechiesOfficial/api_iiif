@@ -19,7 +19,7 @@ public class InformationResponseBean {
 	private String protocol = "http://iiif.io/api/image";
 
 	private String profile = "level2";
-	
+
 	private String width;
 
 	private String height;

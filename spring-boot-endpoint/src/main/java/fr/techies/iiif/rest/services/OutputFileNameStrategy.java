@@ -2,14 +2,13 @@ package fr.techies.iiif.rest.services;
 
 import java.lang.reflect.InvocationTargetException;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Component;
 
 import fr.techies.iiif.api.imageapi.engine.contract.AOutputFileNameStrategy;
+import jakarta.annotation.PostConstruct;
 
 @Component
 @ConditionalOnProperty(value = "imageapi.outputfilename.strategy", matchIfMissing = true)
@@ -26,9 +25,10 @@ public class OutputFileNameStrategy {
 	@PostConstruct
 	private void postConstructValidation() {
 
-		if (this.outputTargetPath == null)
+		if (this.outputTargetPath == null) {
 			throw new InvalidConfigurationPropertyValueException("dirpath", outputTargetPath,
 					"The use of SImpleOutputFileNameStrategy need the key dir.path in configuration");
+		}
 
 		try {
 			Class<?> strategyClass = Class.forName(this.strategy);

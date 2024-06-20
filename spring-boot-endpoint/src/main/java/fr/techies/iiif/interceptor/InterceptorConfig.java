@@ -9,7 +9,7 @@ public class InterceptorConfig implements WebMvcConfigurer{
 
 	@Autowired
 	private LocaleChangeInterceptor localeChangeInterceptor;
-	
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 	    registry.addInterceptor(this.localeChangeInterceptor);

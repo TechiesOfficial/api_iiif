@@ -13,7 +13,7 @@ public class Region {
 	public Region(RegionEnum regionEnum) {
 		this(regionEnum, null, null);
 	}
-	
+
 	public Region(RegionEnum regionEnum, RegionPixel regionPixel, RegionPCT regionPCT) {
 
 		this.regionEnum = regionEnum;

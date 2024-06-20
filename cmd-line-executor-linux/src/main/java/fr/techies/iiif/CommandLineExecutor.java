@@ -14,7 +14,7 @@ public class CommandLineExecutor {
 
 	/**
 	 * Exécute la commande ImageMagick.
-	 * 
+	 *
 	 * @param cmd - commande à lancer
 	 */
 	// TODO: rethrow exception
