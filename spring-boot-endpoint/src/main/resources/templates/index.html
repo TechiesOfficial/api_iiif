@@ -1,13 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>#{iiif.help} test</title>
 
 <title th:text="#{test}"></title>
 
 </head>
 <body>
-	<h1>Version actuelle : 1.0</h1>
+	<h1  th:text="#{test.test}">Version actuelle : 1.0</h1>
 	<h2>
 		Version suportée de <a href="https://iiif.io/api/image/3.0/">
 			l'image API IIIF </a>: 3.0.0
