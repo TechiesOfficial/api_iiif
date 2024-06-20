@@ -12,7 +12,7 @@
 	<name>iiif</name>
 	<description>API REST IIIF</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>21</java.version>
 		<spring.version>6.0.2</spring.version>
 		<spring-boot.version>2.7.4</spring-boot.version>
 		<revision>1.0.0-SNAPSHOT</revision>
@@ -27,6 +27,49 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+			<dependency>
+				<groupId>fr.techies.iiif</groupId>
+				<artifactId>common</artifactId>
+				<version>${revision}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>fr.techies.iiif</groupId>
+				<artifactId>imageapi-model</artifactId>
+				<version>${revision}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>fr.techies.iiif</groupId>
+				<artifactId>imageapi-request-validator</artifactId>
+				<version>${revision}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>fr.techies.iiif</groupId>
+				<artifactId>imageapi-magick-cmd</artifactId>
+				<version>${revision}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>fr.techies.iiif</groupId>
+				<artifactId>imageapi-engine</artifactId>
+				<version>${revision}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>fr.techies.iiif</groupId>
+				<artifactId>magick-executable-wrapper-${platform}</artifactId>
+				<version>${revision}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>fr.techies.iiif</groupId>
+				<artifactId>imageapi-services</artifactId>
+				<version>${revision}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
@@ -41,8 +84,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version>
 				<configuration>
-					<source>${java.version}</source>
+					<source>1.8</source>
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
@@ -60,7 +104,7 @@
 				<platform>windows</platform>
 			</properties>
 		</profile>
-		
+
 		<!-- ATTENTION : unix = Linux et mac -->
 		<!-- A voir pour différencier les deux ? -->
 		<profile>
@@ -75,8 +119,9 @@
 			</properties>
 		</profile>
 	</profiles>
-	
-	<!-- To help maintenance, modules are sorted by dependencies (bottom need the most dependencies -->
+
+	<!-- To help maintenance, modules are sorted by dependencies (bottom need
+	the most dependencies -->
 	<modules>
 		<!-- Stand alone modules (no dependencies apart parent dependencies)-->
 		<module>common</module>
@@ -87,9 +132,9 @@
 		<module>imageapi-magick-cmd</module>
 
 		<module>imageapi-engine</module>
-		
+
 		<module>imageapi-request-validator</module>
-		
+
 		<module>spring-boot-endpoint</module>
 	</modules>
 </project>
