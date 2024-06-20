@@ -14,16 +14,16 @@ public class IMExecutableUnpacker {
 
 	private File IMMagickExecutablePath;
 
-	public IMExecutableUnpacker(File unpackedTargertPath) {
+	public IMExecutableUnpacker(File unpackedTargetPath) {
 
 		FileOutputStream fileOutputStream = null;
 
 		try {
-			fileOutputStream = new FileOutputStream(new File(unpackedTargertPath, "magick.exe"));
+			fileOutputStream = new FileOutputStream(new File(unpackedTargetPath, "magick.exe"));
 			this.getClass().getClassLoader().getResourceAsStream("magick/win/magick.exe").transferTo(fileOutputStream);
 
 			fileOutputStream.flush();
-			this.IMMagickExecutablePath = new File(unpackedTargertPath, "magick.exe").getAbsoluteFile();
+			this.IMMagickExecutablePath = new File(unpackedTargetPath, "magick.exe").getAbsoluteFile();
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -38,5 +38,4 @@ public class IMExecutableUnpacker {
 	public File getMagickExecutable() throws IOException {
 		return this.IMMagickExecutablePath;
 	}
-
 }
