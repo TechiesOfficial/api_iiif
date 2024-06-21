@@ -18,11 +18,22 @@ import fr.techies.iiif.rest.mappers.MediaTypeMapper;
 import fr.techies.iiif.rest.services.ImageRequestService;
 
 /**
+ * <p>
+ * As now, image view management (view refer to a sort of page number, for
+ * example, a multipage TIFF) is managed in the current controller.
+ * </p>
+ * <p>
+ * It may be best to create another controller to manage view (a controller that
+ * extends this one?) that can be maybe deactivated by a spring profile (or
+ * maybe at compilation?) for people wanting or not a view number.
+ * </p>
+ * <p>
+ * <b>IMPORTANT</b>: There is no information about view or page in the IIIF
+ * image API documentation about view, so assuming that view management is an
+ * extra features, we make the arbitrary choice that a <i>normal</i> image
+ * request (without view number) retrieve the view number 0.
+ * </p>
  * 
- * On met ici la gestion de vue aussi mais il faudra créér un autre contoller
- * (sous-controller de celui-ci?) activable éventuellement via un profil spring
- * (ou à la compil?) pour les clients voulant un numéro de vue et d'autres non.
- * Appel au point d'entrée sans vue = vue 0?
  */
 @Controller
 public class ImageRequestController {
@@ -37,24 +48,25 @@ public class ImageRequestController {
 	}
 
 	/**
-	 * Point d'entrée des requêtes IIIF. Ce point d'entrée comporte une gestion de
-	 * vue.
-	 *
 	 * <p>
-	 * NRO: Ne pas changer les types dans leur type définitif (long, double).
-	 * </p>
-	 * <p>
-	 * Afin d'afficher le maximum d'informations à l'utilisateur, il est préférable
-	 * de garder des types {@link String} et de faire le contrôle manuellement de
-	 * chaque champ de la requête.
+	 * Entry point for IIIF requests. Allow view management.
 	 * </p>
 	 *
-	 * @return {@link ResponseEntity} de type byte (données brut image).
+	 * <p>
+	 * NEVER change string types in primitive type (long, double). Ne pas changer
+	 * les types dans leur type définitif (long, double). It is far better to keep
+	 * {@link String} types and control manually (without Spring framework
+	 * involved).
+	 * </p>
+	 *
+	 * @return {@link ResponseEntity} of bytes (primivite) (raw image). To simplify,
+	 *         Spring framework will return an HTTP 200 response and there will be
+	 *         the image as byte in the HTTP response body.
 	 */
 	@GetMapping("/{identifier}/{view}/{region}/{size}/{rotation}/{quality}.{format}")
-	public ResponseEntity<?> imageAPI(@PathVariable String identifier, @PathVariable String view, @PathVariable String region,
-			@PathVariable String size, @PathVariable String rotation, @PathVariable String quality,
-			@PathVariable String format) {
+	public ResponseEntity<?> imageAPI(@PathVariable String identifier, @PathVariable String view,
+			@PathVariable String region, @PathVariable String size, @PathVariable String rotation,
+			@PathVariable String quality, @PathVariable String format) {
 
 		HttpHeaders httpHeaders = new HttpHeaders();
 		ResponseEntity<?> responseEntity = null;
@@ -63,7 +75,8 @@ public class ImageRequestController {
 		byte[] image = null;
 
 		try {
-			imageRequest = this.imageRequestParametersValidator.validateParameters(identifier, region, size, rotation, quality, format);
+			imageRequest = this.imageRequestParametersValidator.validateParameters(identifier, region, size, rotation,
+					quality, format);
 
 			image = this.getResultingImage(imageRequest);
 
@@ -84,23 +97,26 @@ public class ImageRequestController {
 	}
 
 	/**
-	 * Point d'entrée des requêtes IIIF. Ce point d'entrée ne comporte pas de
-	 * gestion de vue.
-	 *
 	 * <p>
-	 * NRO: Ne pas changer les types dans leur type définitif (long, double).
-	 * </p>
-	 * <p>
-	 * Afin d'afficher le maximum d'informations à l'utilisateur, il est préférable
-	 * de garder des types {@link String} et de faire le contrôle manuellement de
-	 * chaque champ de la requête.
+	 * Entry point for IIIF requests. Disallow view management (view 0 is
+	 * retrieved).
 	 * </p>
 	 *
-	 * @return {@link ResponseEntity} de type byte (données brut image).
+	 * <p>
+	 * NEVER change string types in primitive type (long, double). Ne pas changer
+	 * les types dans leur type définitif (long, double). It is far better to keep
+	 * {@link String} types and control manually (without Spring framework
+	 * involved).
+	 * </p>
+	 *
+	 * @return {@link ResponseEntity} of bytes (primivite) (raw image). To simplify,
+	 *         Spring framework will return an HTTP 200 response and there will be
+	 *         the image as byte in the HTTP response body.
 	 */
 	@GetMapping("/{identifier}/{region}/{size}/{rotation}/{quality}.{format}")
-	public ResponseEntity<?> imageAPI(@PathVariable String identifier, @PathVariable String region, @PathVariable String size,
-			@PathVariable String rotation, @PathVariable String quality, @PathVariable String format) {
+	public ResponseEntity<?> imageAPI(@PathVariable String identifier, @PathVariable String region,
+			@PathVariable String size, @PathVariable String rotation, @PathVariable String quality,
+			@PathVariable String format) {
 
 		HttpHeaders httpHeaders = new HttpHeaders();
 		ResponseEntity<?> responseEntity = null;
@@ -109,7 +125,8 @@ public class ImageRequestController {
 		byte[] image = null;
 
 		try {
-			imageRequest = this.imageRequestParametersValidator.validateParameters(identifier, region, size, rotation, quality, format);
+			imageRequest = this.imageRequestParametersValidator.validateParameters(identifier, region, size, rotation,
+					quality, format);
 
 			image = this.getResultingImage(imageRequest);
 
@@ -129,7 +146,7 @@ public class ImageRequestController {
 		return responseEntity;
 	}
 
-	private byte[] getResultingImage(ImageRequest imageRequest) throws ImageNotFoundException  {
+	private byte[] getResultingImage(ImageRequest imageRequest) throws ImageNotFoundException {
 		return this.imageRequestService.getResultingImage(imageRequest);
 	}
 }
