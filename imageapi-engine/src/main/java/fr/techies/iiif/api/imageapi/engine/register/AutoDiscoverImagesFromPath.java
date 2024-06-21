@@ -15,15 +15,13 @@ import org.apache.logging.log4j.Logger;
 import fr.techies.iiif.common.exception.ImageNotFoundException;
 
 /**
- * Implémentation basique d'un scanner de fichier pour les images.
- *
- * Mets en cache dans une hashmap tous les fichiers.
- *
- * TODO: ajouter la possibilité de spécifier plusieurs racines. TODO: une fois
- * la liste dOes types d'images officiellement gérée définie, ne prendre en
- * compte que ces fichiers.
+ * Simple implementation of an image file scanner. 
+ * 
+ * Caches in a {@link Map} all the files.
  *
  */
+//TODO: Add the possibility to add multiple root directory. 
+//TODO: Only take into account image format type supported.
 public class AutoDiscoverImagesFromPath implements ImageRegister {
 
 	private Logger logger = LogManager.getLogger(AutoDiscoverImagesFromPath.class);
@@ -71,6 +69,7 @@ public class AutoDiscoverImagesFromPath implements ImageRegister {
 			logger.debug("visitFile " + file);
 
 			this.fileFromId.put(file.getFileName().toString(), file);
+			
 			return FileVisitResult.CONTINUE;
 		}
 

@@ -1,5 +1,10 @@
 package fr.techies.iiif.common.enums;
 
+/**
+ * {@link Enum} representing supported image format.
+ * 
+ *  @see <a>https://iiif.io/api/image/3.0/#45-format</a>
+ */
 public enum ExtensionEnum {
 
 	jpg(".jpg"),

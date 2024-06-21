@@ -50,6 +50,6 @@ public class InformationRequestProcessor {
 			}
 		}
 
-		throw new ImageNotFoundException("Aucune image trouvée dans les repository d'images");
+		throw new ImageNotFoundException("No image found in any repository");
 	}
 }

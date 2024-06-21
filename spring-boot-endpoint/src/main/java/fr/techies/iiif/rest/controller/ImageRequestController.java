@@ -18,6 +18,7 @@ import fr.techies.iiif.rest.mappers.MediaTypeMapper;
 import fr.techies.iiif.rest.services.ImageRequestService;
 
 /**
+ * 
  * On met ici la gestion de vue aussi mais il faudra créér un autre contoller
  * (sous-controller de celui-ci?) activable éventuellement via un profil spring
  * (ou à la compil?) pour les clients voulant un numéro de vue et d'autres non.

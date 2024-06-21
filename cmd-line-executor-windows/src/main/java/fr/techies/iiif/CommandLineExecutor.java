@@ -13,9 +13,9 @@ public class CommandLineExecutor {
 	private Logger logger = LogManager.getLogger(CommandLineExecutor.class);
 
 	/**
-	 * Exécute la commande ImageMagick.
+	 * Run ImageMagick command.
 	 *
-	 * @param cmd - commande à lancer
+	 * @param cmd - command to launch
 	 */
 	// TODO: rethrow exception
 	// TODO: manage syserr

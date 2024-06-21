@@ -12,8 +12,8 @@ public class SimpleOutputFileNameStrategyImpl extends AOutputFileNameStrategy {
 	}
 
 	@Override
-	public Path getOutputFileName(Path originalFileName, ExtensionEnum extensionEnum) {
+	public Path getOutputFileName(Path originalFileName, ExtensionEnum originalExtensionEnum) {
 
-		return Paths.get(this.outputDirectory + "/" + originalFileName.getFileName() + "." + extensionEnum);
+		return Paths.get(this.outputDirectory + "/" + originalFileName.getFileName() + "." + originalExtensionEnum);
 	}
 }

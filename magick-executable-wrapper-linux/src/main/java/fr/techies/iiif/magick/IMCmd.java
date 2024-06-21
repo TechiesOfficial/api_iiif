@@ -19,7 +19,7 @@ import java.util.List;
  * composite, montage, compare, import, conjure).
  * </p>
  *
- * @see https://imagemagick.org/script/command-line-processing.php
+ * @see <a> https://imagemagick.org/script/command-line-processing.php </a>
  */
 public class IMCmd {
 

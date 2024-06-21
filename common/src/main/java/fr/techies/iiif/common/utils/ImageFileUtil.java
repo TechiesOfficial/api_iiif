@@ -12,10 +12,7 @@ import javax.imageio.ImageIO;
 
 import fr.techies.iiif.common.enums.ExtensionEnum;
 
-/**
- * ImageIO est-il bien utilie?
- * Pourquoi ne pas ramener directement le fichier?
- */
+//TODO: is ImageIO usefull? Why not retrieve and provide the file?
 public class ImageFileUtil {
 
 	private static final String TMP_DIR = "/tmp";
@@ -71,6 +68,7 @@ public class ImageFileUtil {
 	 * @param dirPath - dossier dans lequel se trouvera le dossier /tmp
 	 * @throws IOException
 	 */
+	//TODO: check why not used
 	public static void createTmpDir(String dirPath) throws IOException {
 
 		String dirTmpPath = dirPath + TMP_DIR;
